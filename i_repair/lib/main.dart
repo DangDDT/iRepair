@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:i_repair/Screens/Welcome/welcome_screen.dart';
+// import 'package:i_repair/Screens/Welcome/welcome_screen.dart';
 // import 'package:i_repair/Screens/Welcome/welcome_screen.dart';
 import 'package:i_repair/constaints.dart';
+import 'app.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,8 +16,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'iRepair',
       theme: ThemeData(
-          primaryColor: kPrimaryColor, scaffoldBackgroundColor: Colors.white),
-      home: WelcomeScreen(),
+          primaryColor: kPrimaryColor,
+          scaffoldBackgroundColor: kPrimaryLightColor,
+          fontFamily: 'SpaceMono'),
+      home: App(),
     );
   }
 }

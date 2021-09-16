@@ -9,7 +9,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     final background = Stack(children: [
       Positioned(
           top: -20,
@@ -26,8 +25,8 @@ class _LoginPageState extends State<LoginPage> {
       tag: 'hero',
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
-        radius: 50,
-        child: Image.asset('assets/images/logo.png'),
+        radius: 60,
+        child: Image.asset('assets/images/worker-picture.png'),
       ),
     );
 
@@ -38,12 +37,9 @@ class _LoginPageState extends State<LoginPage> {
       body: Stack(children: [
         background,
         Center(
-            child: Image.asset("assets/images/worker-picture.png",
-                width: size.width)),
-        Center(
           child: ListView(
             shrinkWrap: true,
-            padding: EdgeInsets.only(left: 50.0, right: 50.0, bottom: 150.0),
+            padding: EdgeInsets.only(left: 50.0, right: 50.0),
             children: <Widget>[logo, SizedBox(height: 45.0), loginForm],
           ),
         ),
