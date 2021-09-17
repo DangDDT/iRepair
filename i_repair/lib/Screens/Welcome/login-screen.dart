@@ -10,10 +10,12 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final background = Stack(children: [
-      Positioned(
-          top: -20,
-          left: 0,
-          child: Image.asset('assets/images/bubble-decor.png')),
+      // Positioned(
+      //     top: 0,
+      //     left: 0,
+      //     child: Image.asset(
+      //       'assets/images/bubble-decor.png',
+      //     )),
       // Align(
       //     alignment: Alignment(-0.2, 0.15),
       //     child: Image.asset('assets/images/rectangle-light.png')),

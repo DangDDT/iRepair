@@ -14,8 +14,8 @@ class PlaceholderWidget extends StatelessWidget {
       color: color,
       child: Column(
         children: [
-          ElevatedButton(
-              onPressed: () => onPress(context), child: Icon(Icons.backspace)),
+          // ElevatedButton(
+          //     onPressed: () => onPress(context), child: Icon(Icons.backspace)),
           Text(major),
         ],
       ),

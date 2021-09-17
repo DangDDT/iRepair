@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:i_repair/Screens/Welcome/welcome_screen.dart';
 // import 'package:i_repair/Screens/Welcome/welcome_screen.dart';
 // import 'package:i_repair/Screens/Welcome/welcome_screen.dart';
 import 'package:i_repair/constaints.dart';
-import 'app.dart';
+// import 'app.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
           primaryColor: kPrimaryColor,
           scaffoldBackgroundColor: kPrimaryLightColor,
           fontFamily: 'SpaceMono'),
-      home: App(),
+      home: WelcomeScreen(),
     );
   }
 }

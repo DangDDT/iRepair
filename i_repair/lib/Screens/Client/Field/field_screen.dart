@@ -26,6 +26,7 @@ class _FieldScreenState extends State<FieldScreen> {
             key: null,
             appBar: AppBar(),
             title: widget.major,
+            haveBackSpace: true,
           ),
           body: Container(
             child: Row(
