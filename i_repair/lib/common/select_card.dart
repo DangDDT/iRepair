@@ -1,0 +1,88 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:i_repair/Models/Major/major.dart';
+
+class SelectCard extends StatelessWidget {
+  const SelectCard({Key? key, required this.choice}) : super(key: key);
+  final Major choice;
+  // onPress(context) {
+  //   Navigator.push(
+  //       context,
+  //       PageTransition(
+  //           duration: Duration(milliseconds: 200),
+  //           reverseDuration: Duration(milliseconds: 200),
+  //           child: FieldScreen(choice.title),
+  //           type: PageTransitionType.fade));
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    // final TextStyle? textStyle = Theme.of(context).textTheme.bodyText1;
+    return Column(
+      children: [
+        Container(
+          height: 100,
+          margin: EdgeInsets.only(top: 5, left: 10),
+          padding: EdgeInsets.all(2),
+          child: Card(
+            color: CupertinoColors.activeOrange.withOpacity(0.7),
+            elevation: 10,
+            semanticContainer: true,
+            borderOnForeground: false,
+            shape: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(25)),
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: InkWell(
+                  onTap: () => {}, // onPress(context),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                            height: 50,
+                            constraints: BoxConstraints(minWidth: 200),
+                            child: Card(
+                              shadowColor: Colors.grey,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: BorderSide.none,
+                              ),
+                              elevation: 5,
+                              color: CupertinoColors.white,
+                            ),
+                          ),
+                          Positioned(
+                            top: 0,
+                            left: 15,
+                            child: SvgPicture.asset(
+                              (choice.imageLink),
+                              height: 50,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        alignment: Alignment.bottomCenter,
+                        child: Text(
+                          choice.title,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
