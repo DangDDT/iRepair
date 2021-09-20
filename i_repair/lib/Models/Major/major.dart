@@ -5,12 +5,11 @@ class Major {
 }
 
 const List<Major> choices = const <Major>[
-  const Major(title: 'Ống nước', imageLink: "assets/images/laptop-man.png"),
-  const Major(title: 'Khóa', imageLink: "assets/images/locksmith.png"),
-  const Major(title: 'Máy tính', imageLink: "assets/images/laptop-man.png"),
-  const Major(title: 'Xe 2 bánh', imageLink: "assets/images/motorbike.png"),
-  const Major(title: 'Xe 4 bánh', imageLink: "assets/images/motorbike.png"),
+  const Major(title: 'Ống nước', imageLink: "assets/images/plumber.svg"),
+  const Major(title: 'Khóa', imageLink: "assets/images/locksmith.svg"),
+  const Major(title: 'Máy tính', imageLink: "assets/images/laptop.svg"),
+  const Major(title: 'Xe 2 bánh', imageLink: "assets/images/bike.svg"),
+  const Major(title: 'Xe 4 bánh', imageLink: "assets/images/car.svg"),
   const Major(
-      title: 'Điện lạnh', imageLink: "assets/images/air-conditioner.png"),
-  const Major(title: 'Điện tử', imageLink: "assets/images/appliances.png"),
+      title: 'Gia dụng', imageLink: "assets/images/electric-appliance.svg"),
 ];

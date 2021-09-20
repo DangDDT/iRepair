@@ -18,7 +18,7 @@ class MajorCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         width: double.infinity,
-        height: 120,
+        height: 110,
         child: GridView.count(
             scrollDirection: Axis.horizontal,
             crossAxisCount: 1,

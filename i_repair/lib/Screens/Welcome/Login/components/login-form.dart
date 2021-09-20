@@ -3,8 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:i_repair/app.dart';
 import 'package:page_transition/page_transition.dart';
 
-void main() => runApp(const MyApp());
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 

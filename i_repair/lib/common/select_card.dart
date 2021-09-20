@@ -1,8 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:i_repair/Models/Major/major.dart';
-import 'package:i_repair/Screens/Client/Field/field_screen.dart';
-import 'package:i_repair/constaints.dart';
-import 'package:page_transition/page_transition.dart';
 
 class SelectCard extends StatelessWidget {
   const SelectCard({Key? key, required this.choice}) : super(key: key);
@@ -27,7 +26,7 @@ class SelectCard extends StatelessWidget {
           margin: EdgeInsets.only(top: 5, left: 10),
           padding: EdgeInsets.all(2),
           child: Card(
-            color: kPrimaryColor,
+            color: CupertinoColors.activeOrange.withOpacity(0.7),
             elevation: 10,
             semanticContainer: true,
             borderOnForeground: false,
@@ -54,16 +53,15 @@ class SelectCard extends StatelessWidget {
                                 side: BorderSide.none,
                               ),
                               elevation: 5,
-                              color: Colors.amber,
+                              color: CupertinoColors.white,
                             ),
                           ),
                           Positioned(
-                            top: -25,
-                            left: -5,
-                            child: Image.asset(
+                            top: 0,
+                            left: 15,
+                            child: SvgPicture.asset(
                               (choice.imageLink),
-                              width: 100,
-                              height: 100,
+                              height: 50,
                             ),
                           ),
                         ],
@@ -73,10 +71,10 @@ class SelectCard extends StatelessWidget {
                         child: Text(
                           choice.title,
                           style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              fontFamily: 'SpaceMono'),
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
                         ),
                       ),
                     ],

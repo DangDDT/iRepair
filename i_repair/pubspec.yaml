@@ -29,10 +29,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_image_slideshow: ^0.1.1
   http: ^0.13.3
-  font_awesome_flutter: ^9.1.0
   searchfield: ^0.5.5
   page_transition: ^2.0.2
-  persistent_bottom_nav_bar: ^4.0.2
+  google_nav_bar: ^5.0.5
+  flutter_svg: ^0.22.0
+  grouped_list: ^4.1.0
 
 dev_dependencies:
   flutter_test:
@@ -64,16 +65,14 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: SpaceMono
+    - family: Oswald
       fonts:
-        - asset: assets/fonts/SpaceMono-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/SpaceMono-BoldItalic.ttf
-          weight: 700
-          style: italic
-        - asset: assets/fonts/SpaceMono-Italic.ttf
-          style: italic
-        - asset: assets/fonts/SpaceMono-Regular.ttf
+        - asset: assets/fonts/Oswald-Bold.ttf
+        - asset: assets/fonts/Oswald-ExtraLight.ttf
+        - asset: assets/fonts/Oswald-Light.ttf
+        - asset: assets/fonts/Oswald-Medium.ttf
+        - asset: assets/fonts/Oswald-Regular.ttf
+        - asset: assets/fonts/Oswald-SemiBold.ttf
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

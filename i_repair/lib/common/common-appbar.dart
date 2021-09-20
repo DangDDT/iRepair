@@ -25,15 +25,26 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: haveBackSpace,
       backgroundColor: CupertinoColors.activeOrange.withOpacity(0.7),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.menu),
+          tooltip: 'Show Snackbar',
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('This is a snackbar')));
+          },
+        ),
+      ],
       title: Row(
         children: [
           Container(
-              width: 50,
-              // margin: EdgeInsets.only(top: 10),
-              child: Image.asset(
-                ("assets/images/personal-icon.png"),
-                height: 50,
-              )),
+            width: 50,
+            // margin: EdgeInsets.only(top: 10),
+            child: Icon(
+              CupertinoIcons.profile_circled,
+              size: 35,
+            ),
+          ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,16 +62,6 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
           )
         ],
       ),
-      actions: <Widget>[
-        IconButton(
-          icon: const Icon(Icons.notifications),
-          tooltip: 'Show Snackbar',
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('This is a snackbar')));
-          },
-        ),
-      ],
     );
   }
 

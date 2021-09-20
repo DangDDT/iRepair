@@ -1,5 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:i_repair/Screens/Client/Field/field_screen.dart';
+import 'package:i_repair/common/placeholder-widget.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:searchfield/searchfield.dart';
 
@@ -19,24 +20,26 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 800,
+      height: 100,
       child: Row(
         children: [
           Container(
-            width: 400,
-            padding: EdgeInsets.only(top: 20, right: 10),
+            width: 300,
+            padding: EdgeInsets.only(top: 25, right: 10),
             margin: EdgeInsets.only(left: 10),
             child: SearchField(
               onTap: (value) => {
                 Navigator.push(
-                    context,
-                    PageTransition(
-                        child: FieldScreen(widget._searchController.text),
-                        type: PageTransitionType.rightToLeft))
+                  context,
+                  PageTransition(
+                      child: PlaceholderWidget(
+                          Colors.white, widget._searchController.text),
+                      type: PageTransitionType.rightToLeft),
+                )
               },
               hasOverlay: true,
               controller: widget._searchController,
-              suggestionState: SuggestionState.enabled,
+              suggestionState: SuggestionState.hidden,
               hint: 'Chào Đăng, có chuyện gì sao ?',
               suggestions: [
                 'Hư ống nước',
@@ -47,9 +50,9 @@ class _SearchBarState extends State<SearchBar> {
                 'SSD laptop bị hỏng'
               ],
               maxSuggestionsInViewPort: 4,
-              marginColor: Colors.black45,
+              marginColor: Colors.white,
               suggestionStyle: TextStyle(
-                  fontSize: 20,
+                  fontSize: 16,
                   color: Colors.black87,
                   fontWeight: FontWeight.bold),
               searchStyle: TextStyle(
@@ -83,24 +86,28 @@ class _SearchBarState extends State<SearchBar> {
               ),
             ),
           ),
-          // Container(
-          //     width: 50,
-          //     margin: EdgeInsets.only(top: 10),
-          //     child: ElevatedButton(
-          //         onPressed: () => {},
-          //         style: ButtonStyle(
-          //             shape: MaterialStateProperty.all<OutlinedBorder>(
-          //                 RoundedRectangleBorder(
-          //               borderRadius: BorderRadius.all(
-          //                 Radius.circular(34.0),
-          //               ),
-          //             )),
-          //             backgroundColor: MaterialStateProperty.all(
-          //                 Color(0xffC4C4C4).withOpacity(0.82))),
-          //         child: Image.asset(
-          //           ("assets/images/personal-icon.png"),
-          //           height: 50,
-          //         ))),
+          Container(
+            margin: EdgeInsets.only(left: 10, top: 0),
+            height: 55,
+            child: InkWell(
+              onTap: () => {},
+              child: Center(
+                child: Column(
+                  children: [
+                    Icon(
+                      CupertinoIcons.add_circled_solid,
+                      size: 30,
+                      color: CupertinoColors.activeOrange,
+                    ),
+                    Text(
+                      "Tạo yêu cầu",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
