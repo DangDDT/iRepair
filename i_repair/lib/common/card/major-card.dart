@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:i_repair/Models/Major/major.dart';
-import 'package:i_repair/common/select_card.dart';
+import 'package:i_repair/common/card/select_card.dart';
 import 'package:i_repair/constaints.dart';
 
 class MajorCard extends StatelessWidget {
