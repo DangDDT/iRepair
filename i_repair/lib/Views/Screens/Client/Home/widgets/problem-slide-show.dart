@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
-import 'package:i_repair/Screens/Client/Home/components/problem-slide-item.dart';
+import 'package:i_repair/views/Screens/Client/Home/widgets/problem-slide-item.dart';
 
 class ProblemSlideShow extends StatelessWidget {
   const ProblemSlideShow({
