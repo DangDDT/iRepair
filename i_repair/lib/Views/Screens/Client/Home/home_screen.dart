@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:i_repair/views/Screens/Client/Home/widgets/problem-slide-show.dart';
-import 'package:i_repair/views/common/card/major-card.dart';
-import 'package:i_repair/views/common/searchbar/search-bar.dart';
+import 'package:i_repair/Views/Screens/Client/Home/widgets/problem-slide-show.dart';
+import 'package:i_repair/Views/Screens/Client/Home/widgets/recommended-card.dart';
+import 'package:i_repair/Views/common/card/major-card.dart';
+import 'package:i_repair/Views/common/searchbar/search-bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -88,148 +89,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ],
                         ),
-                        Container(
-                          height: 200,
-                          margin: EdgeInsets.all(10),
-                          width: 400,
-                          decoration: BoxDecoration(
-                              color: CupertinoColors.systemYellow,
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.all(10),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(25),
-                                  child: Image.asset(
-                                    'assets/images/plumber-banner.png',
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.topLeft,
-                                margin: EdgeInsets.only(left: 10),
-                                height: 25,
-                                child: Text("Kiểm tra và thay gas máy lạnh",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                              Container(
-                                alignment: Alignment.topLeft,
-                                margin: EdgeInsets.only(left: 10),
-                                height: 25,
-                                child: Text("Công ty điện lạnh Thành Phát",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                    )),
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                      alignment: Alignment.topLeft,
-                                      margin: EdgeInsets.only(left: 10),
-                                      height: 20,
-                                      child: Icon(
-                                        CupertinoIcons.star_circle,
-                                        color: CupertinoColors.activeOrange,
-                                      )),
-                                  Container(
-                                    alignment: Alignment.topLeft,
-                                    margin: EdgeInsets.only(left: 10),
-                                    height: 20,
-                                    child: Text("5/5 stars",
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                        )),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.topRight,
-                                      margin: EdgeInsets.only(right: 10),
-                                      height: 20,
-                                      child: Text("Cách 3.0km",
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                          )),
-                                    ),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 200,
-                          margin: EdgeInsets.all(10),
-                          width: 400,
-                          decoration: BoxDecoration(
-                              color: CupertinoColors.systemYellow,
-                              borderRadius: BorderRadius.circular(25)),
-                          child: Column(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.all(10),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(25),
-                                  child: Image.asset(
-                                    'assets/images/gas-banner.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.topLeft,
-                                margin: EdgeInsets.only(left: 10),
-                                height: 25,
-                                child: Text("Thay ống dẫn gas",
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold)),
-                              ),
-                              Container(
-                                alignment: Alignment.topLeft,
-                                margin: EdgeInsets.only(left: 10),
-                                height: 25,
-                                child: Text("Công ty gas Long Châu",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                    )),
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                      alignment: Alignment.topLeft,
-                                      margin: EdgeInsets.only(left: 10),
-                                      height: 20,
-                                      child: Icon(
-                                        CupertinoIcons.star_circle,
-                                        color: CupertinoColors.activeOrange,
-                                      )),
-                                  Container(
-                                    alignment: Alignment.topLeft,
-                                    margin: EdgeInsets.only(left: 10),
-                                    height: 20,
-                                    child: Text("4.8/5 stars",
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                        )),
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.topRight,
-                                      margin: EdgeInsets.only(right: 10),
-                                      height: 20,
-                                      child: Text("Cách 0.7km",
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                          )),
-                                    ),
-                                  )
-                                ],
-                              )
-                            ],
-                          ),
+                        Column(
+                          children: [
+                            RecommendedCard(
+                              image: "assets/images/plumber-banner.png",
+                              service: "Lắp đặt đường ống nước trong nhà",
+                              company: "Công ty ống nước Châu Thành",
+                              stars: 5.0,
+                              distance: 3.0,
+                            ),
+                            RecommendedCard(
+                              image: "assets/images/gas-banner.png",
+                              service: "Thay ống dẫn gas",
+                              company: "Công ty gas Long Châu",
+                              stars: 4.8,
+                              distance: 0.7,
+                            ),
+                          ],
                         ),
                       ],
                     ),
