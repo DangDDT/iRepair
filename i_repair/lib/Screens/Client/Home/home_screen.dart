@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:i_repair/common/major-card.dart';
-import 'package:i_repair/Screens/Client/Home/components/problem-slide-show.dart';
-import 'package:i_repair/common/search-bar.dart';
+import 'package:i_repair/common/card/major-card.dart';
+import 'package:i_repair/Screens/Client/Home/widgets/problem-slide-show.dart';
+import 'package:i_repair/common/searchbar/search-bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({

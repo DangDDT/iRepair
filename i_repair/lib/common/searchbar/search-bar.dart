@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:i_repair/common/placeholder-widget.dart';
+import 'package:i_repair/common/placeholder/placeholder-widget.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:searchfield/searchfield.dart';
 
