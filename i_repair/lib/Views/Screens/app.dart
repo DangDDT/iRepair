@@ -37,7 +37,7 @@ class _AppState extends State<App> {
       appBar: BaseAppBar(
           key: null,
           appBar: AppBar(),
-          title: 'Current Loction',
+          title: 'Vị trí hiện tại',
           content: 'Sky 9, Liên Phường, Phú Hữu, Thủ Đức, TPHCM',
           haveBackSpace: false),
       body: PageView(
@@ -46,11 +46,11 @@ class _AppState extends State<App> {
           HomeScreen(),
           HistoryBookingScreen(),
           Text(
-            'Services',
+            'Khám phá',
             style: optionStyle,
           ),
           Text(
-            'Profile',
+            'Thông tin',
             style: optionStyle,
           ),
         ],
@@ -86,19 +86,19 @@ class _AppState extends State<App> {
               tabs: [
                 GButton(
                   icon: CupertinoIcons.home,
-                  text: 'Home',
+                  text: 'Trang chủ',
                 ),
                 GButton(
                   icon: CupertinoIcons.bookmark,
-                  text: 'My Booking',
+                  text: 'Đơn Hàng',
                 ),
                 GButton(
                   icon: Icons.explore,
-                  text: 'Services',
+                  text: 'Khám phá',
                 ),
                 GButton(
                   icon: CupertinoIcons.profile_circled,
-                  text: 'Profile',
+                  text: 'Thông tin',
                 ),
               ],
               selectedIndex: _selectedIndex,

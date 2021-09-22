@@ -1,7 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
-
+List _elements = [
+    {'id': 'BK00001', 'name': 'John', 'group': 'Lịch sử đơn hàng'},
+    {'id': 'BK00002', 'name': 'Will', 'group': 'Lịch sử đơn hàng'},
+    {'id': 'BK00003', 'name': 'Beth', 'group': 'Lịch sử đơn hàng'},
+    {'id': 'BK00004', 'name': 'Miranda', 'group': 'Lịch sử đơn hàng'},
+    {'id': 'BK00005', 'name': 'Mike', 'group': 'Lịch sử đơn hàng'},
+    {'id': 'BK00006', 'name': 'Danny', 'group': 'Đang xử lý'},
+  ];
 class HistoryBookingScreen extends StatefulWidget {
   const HistoryBookingScreen({
     Key? key,
@@ -13,14 +20,7 @@ class HistoryBookingScreen extends StatefulWidget {
 
 class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  List _elements = [
-    {'id': 'BK00001', 'name': 'John', 'group': 'Lịch sử đơn hàng'},
-    {'id': 'BK00002', 'name': 'Will', 'group': 'Lịch sử đơn hàng'},
-    {'id': 'BK00003', 'name': 'Beth', 'group': 'Lịch sử đơn hàng'},
-    {'id': 'BK00004', 'name': 'Miranda', 'group': 'Lịch sử đơn hàng'},
-    {'id': 'BK00005', 'name': 'Mike', 'group': 'Lịch sử đơn hàng'},
-    {'id': 'BK00006', 'name': 'Danny', 'group': 'Đang xử lý'},
-  ];
+  
   @override
   void initState() {
     refreshList();
