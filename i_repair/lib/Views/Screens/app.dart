@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:i_repair/Screens/Client/HistoryBooking/history-booking.dart';
-import 'package:i_repair/Screens/Client/Home/home_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/cupertino.dart.';
-import 'common/appbar/common-appbar.dart';
+import 'package:i_repair/views/Screens/Client/HistoryBooking/history-booking.dart';
+import 'package:i_repair/views/Screens/Client/Home/home_screen.dart';
+import 'package:i_repair/views/common/appbar/common-appbar.dart';
 // import 'common/placeholder-widget.dart';
 
 class App extends StatefulWidget {

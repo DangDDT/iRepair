@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:i_repair/app.dart';
+import 'package:i_repair/Views/Screens/app.dart';
 import 'package:page_transition/page_transition.dart';
 
 class MyApp extends StatelessWidget {
