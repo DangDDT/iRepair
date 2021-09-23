@@ -1,0 +1,37 @@
+[{
+        "id": "M0001",
+        "name": "Điện lạnh",
+        "description": "",
+        "imageUrl": "assets/images/electric-appliance.svg"
+    },
+    {
+        "id": "M0002",
+        "name": "Điện tử",
+        "description": "",
+        "imageUrl": "assets/images/laptop.svg"
+    },
+    {
+        "id": "M0003",
+        "name": "Khóa",
+        "description": "",
+        "imageUrl": "assets/images/locksmith.svg"
+    },
+    {
+        "id": "M0004",
+        "name": "Xe máy",
+        "description": "",
+        "imageUrl": "assets/images/bike.svg"
+    },
+    {
+        "id": "M0005",
+        "name": "Ống nước",
+        "description": "",
+        "imageUrl": "assets/images/plumber.svg"
+    },
+    {
+        "id": "M0006",
+        "name": "Xe hơi",
+        "description": "",
+        "imageUrl": "assets/images/car.svg"
+    }
+]

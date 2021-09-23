@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i_repair/Models/Constants/constants.dart';
 import 'widgets/login-form.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,40 +11,59 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    final background = Stack(children: [
-      // Positioned(
-      //     top: 0,
-      //     left: 0,
-      //     child: Image.asset(
-      //       'assets/images/bubble-decor.png',
-      //     )),
-      // Align(
-      //     alignment: Alignment(-0.2, 0.15),
-      //     child: Image.asset('assets/images/rectangle-light.png')),
-      // Align(
-      //     alignment: Alignment.center,
-      //     child: Image.asset('assets/images/rectangle-bold.png'))
-    ]);
     final logo = Hero(
       tag: 'hero',
       child: CircleAvatar(
-        backgroundColor: Colors.transparent,
-        radius: 60,
-        child: Image.asset('assets/images/worker-picture.png'),
+        backgroundColor: kPrimaryColor,
+        radius: 50,
+        child: Image.asset(
+          'assets/images/worker-picture.png',
+        ),
       ),
     );
 
     final loginForm = LoginForm();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kPrimaryLightColor,
       body: Stack(children: [
-        background,
+        Positioned(
+          top: -20,
+          left: -60,
+          child: Container(
+            width: 200,
+            height: 200,
+            decoration: BoxDecoration(
+              color: CupertinoColors.systemYellow.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(100),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: -20,
+          right: -80,
+          child: Container(
+            width: 200,
+            height: 200,
+            decoration: BoxDecoration(
+              color: CupertinoColors.systemYellow.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(100),
+            ),
+          ),
+        ),
         Center(
           child: ListView(
             shrinkWrap: true,
             padding: EdgeInsets.only(left: 50.0, right: 50.0),
-            children: <Widget>[logo, SizedBox(height: 45.0), loginForm],
+            children: <Widget>[
+              logo,
+              Image.asset(
+                'assets/images/logo_letter.png',
+                height: 100,
+              ),
+              SizedBox(height: 45.0),
+              loginForm
+            ],
           ),
         ),
       ]),

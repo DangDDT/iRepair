@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,10 +10,9 @@ class APIServices {
     );
   }
 
-  // static Future<List<Major>> fetchMajor() async {
-  //   final String response =
-  //       await rootBundle.loadString('/lib/Models/Major/mock_major.json');
-  //   final data = await json.decode(response);
-  //   return majorsFromJson(data);
-  // }
+  static Future<List<Major>> fetchMajors() async {
+    final String response =
+        await rootBundle.loadString('lib/Models/Major/mock_major.json');
+    return majorFromJson(response);
+  }
 }
