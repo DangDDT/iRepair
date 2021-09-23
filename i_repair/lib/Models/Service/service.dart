@@ -1,4 +1,0 @@
-class Service
-{
-  const S
-}
