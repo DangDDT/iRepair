@@ -1,15 +1,45 @@
-class Major {
-  const Major({required this.title, required this.imageLink});
-  final String title;
-  final String imageLink;
+class Major{
+  String id;
+  String name;
+  String? description;
+  String imageUrl;
+
+  Major(
+    {
+      required this.id,
+      required this.name,
+      this.description,
+      required this.imageUrl
+    });
+  factory Major.fromJson(Map<String, dynamic> json)
+  {
+    return Major(
+    id: json["Id"] as String,
+    name: json["Name"] as String,
+    description: json["Description"] as String,
+    imageUrl: json["Picture"] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['Id'] = this.id;
+    data['Name'] = this.name;
+    data['Description'] = this.description;
+    data['Picture'] = this.imageUrl;
+    return data;
+  }
+
+  @override
+  String toString(){
+    return "{Id: $id, Name: $name , Description: $description, Picture: $imageUrl}";
+  }
 }
 
 const List<Major> choices = const <Major>[
-  const Major(title: 'Ống nước', imageLink: "assets/images/plumber.svg"),
-  const Major(title: 'Khóa', imageLink: "assets/images/locksmith.svg"),
-  const Major(title: 'Máy tính', imageLink: "assets/images/laptop.svg"),
-  const Major(title: 'Xe 2 bánh', imageLink: "assets/images/bike.svg"),
-  const Major(title: 'Xe 4 bánh', imageLink: "assets/images/car.svg"),
-  const Major(
-      title: 'Gia dụng', imageLink: "assets/images/electric-appliance.svg"),
+  const Major(id: 'M0001', name: 'Điện lạnh', description: '', imageUrl: "assets/images/refrigerator.png"),
+  const Major(id: 'M0002', name: 'Điện tử', description: '', imageUrl: "assets/images/laptop-banner.png"),
+  const Major(id: 'M0003', name: 'Khóa', description: '', imageUrl: "assets/images/security-system.png"),
+  const Major(id: 'M0004', name: 'Xe máy', description: 'Đường ta đi của bố mẹ ta', imageUrl: "assets/images/motobike_1.png"),
+  const Major(id: 'M0005', name: 'Hệ thống nước', description: '', imageUrl: "assets/images/plumber-banner.png"),
 ];
