@@ -1,40 +1,22 @@
-// To parse this JSON data, do
-//
-//     final majors = majorsFromJson(jsonString);
-
 import 'dart:convert';
 
-Majors majorsFromJson(String str) => Majors.fromJson(json.decode(str));
+List<Major> majorFromJson(String str) =>
+    List<Major>.from(json.decode(str).map((x) => Major.fromJson(x)));
 
-String majorsToJson(Majors data) => json.encode(data.toJson());
-
-class Majors {
-  Majors({
-    required this.majors,
-  });
-
-  List<Major> majors;
-
-  factory Majors.fromJson(Map<String, dynamic> json) => Majors(
-        majors: List<Major>.from(json["majors"].map((x) => Major.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "majors": List<dynamic>.from(majors.map((x) => x.toJson())),
-      };
-}
+String majorToJson(List<Major> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Major {
   Major({
     required this.id,
     required this.name,
-    required this.description,
+    this.description,
     required this.imageUrl,
   });
 
   String id;
   String name;
-  String description;
+  String? description;
   String imageUrl;
 
   factory Major.fromJson(Map<String, dynamic> json) => Major(

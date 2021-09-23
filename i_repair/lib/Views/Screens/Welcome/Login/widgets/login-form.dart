@@ -2,25 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:i_repair/route_constant.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    const appTitle = 'Login Form';
-
-    return MaterialApp(
-      title: appTitle,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(appTitle),
-        ),
-        body: const LoginForm(),
-      ),
-    );
-  }
-}
-
 // Create a Form widget.
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -73,7 +54,7 @@ class LoginFormState extends State<LoginForm> {
             //   return null;
             // },
             decoration: InputDecoration(
-              hintText: 'Enter your email...',
+              hintText: 'Email',
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey, width: 1.5),
@@ -98,7 +79,7 @@ class LoginFormState extends State<LoginForm> {
             //   return null;
             // },
             decoration: InputDecoration(
-              hintText: 'Enter your password...',
+              hintText: 'Mật khẩu',
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey, width: 1.5),
@@ -119,13 +100,13 @@ class LoginFormState extends State<LoginForm> {
                     if (_formKey.currentState!.validate()) {
                       // if (loginAction(
                       //     _emailController.text, _passwordController.text)) {
-                      Navigator.pushNamed(
+                      Navigator.pushReplacementNamed(
                         context,
                         ClientAppViewRoute,
                       );
                     }
                   },
-                  child: Text('Sign in'),
+                  child: Text('Đăng nhập', style: TextStyle(fontSize: 16)),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.orange),
                   )),
@@ -134,12 +115,23 @@ class LoginFormState extends State<LoginForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FlatButton(
-                child: Text(
-                  'Forgot password?',
-                  style: TextStyle(color: Colors.black54),
+              Center(
+                child: TextButton(
+                  child: Text(
+                    'Bạn chưa có tài khoản ?',
+                    style: TextStyle(color: Colors.black54),
+                  ),
+                  onPressed: () => {},
                 ),
-                onPressed: () {},
+              ),
+              Center(
+                child: TextButton(
+                  child: Text(
+                    'Quên mật khẩu ?',
+                    style: TextStyle(color: Colors.black54),
+                  ),
+                  onPressed: () => {},
+                ),
               ),
             ],
           ),

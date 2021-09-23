@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
-import 'package:i_repair/Models/Major/major.dart';
+import 'package:i_repair/Models/Major/majorController.dart';
 import 'package:i_repair/Views/Screens/Client/Explore/widgets/select_card.dart';
 
-class MajorCard extends StatefulWidget {
-  const MajorCard({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _MajorCardState createState() => _MajorCardState();
-}
-
-class _MajorCardState extends State<MajorCard> {
-  List<Major> choices = Major.getMajorList;
-
+class MajorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    MajorController majorController = Get.put(MajorController());
     return Stack(children: [
       Container(
         // alignment: Alignment.topCenter,
@@ -30,9 +21,9 @@ class _MajorCardState extends State<MajorCard> {
             scrollDirection: Axis.horizontal,
             crossAxisCount: 1,
             mainAxisSpacing: 5,
-            children: List.generate(choices.length, (index) {
+            children: List.generate(majorController.majorList.length, (index) {
               // return Center(
-              return SelectCard(choice: choices[index]);
+              return SelectCard(choice: majorController.majorList[index]);
               // );
             })),
       ),
