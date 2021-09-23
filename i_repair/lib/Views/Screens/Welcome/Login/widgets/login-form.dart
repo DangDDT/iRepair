@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:i_repair/Views/Screens/app.dart';
-import 'package:page_transition/page_transition.dart';
+import 'package:i_repair/route_constant.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -117,34 +116,13 @@ class LoginFormState extends State<LoginForm> {
             children: [
               ElevatedButton(
                   onPressed: () {
-                    // debugPrint(_emailController.text);
-                    // debugPrint(_passwordController.text);
                     if (_formKey.currentState!.validate()) {
                       // if (loginAction(
                       //     _emailController.text, _passwordController.text)) {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              duration: Duration(milliseconds: 200),
-                              reverseDuration: Duration(milliseconds: 200),
-                              child: App(),
-                              type: PageTransitionType.fade));
-                      // ScaffoldMessenger.of(context).showSnackBar(
-                      //   const SnackBar(
-                      //     backgroundColor: Colors.green,
-                      //     content: Text('Login Successed. Processing Data',
-                      //         style: TextStyle(color: Colors.white)),
-                      //   ),
-                      // );
-                      // } else {
-                      //   ScaffoldMessenger.of(context).showSnackBar(
-                      //     const SnackBar(
-                      //         backgroundColor: Colors.red,
-                      //         content: Text(
-                      //             'Login failed. Email or password invalid',
-                      //             style: TextStyle(color: Colors.white))),
-                      //   );
-                      // }
+                      Navigator.pushNamed(
+                        context,
+                        ClientAppViewRoute,
+                      );
                     }
                   },
                   child: Text('Sign in'),

@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/problem-slide-show.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/recommended-card.dart';
-import 'package:i_repair/Views/common/card/major-card.dart';
+import 'package:i_repair/Views/common/card/icon-card.dart';
 import 'package:i_repair/Views/common/searchbar/search-bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -33,28 +34,28 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 500,
               child: ListView(
                 children: [
-                  MajorCard(),
                   // BannerSlideShow(),
+                  SizedBox(height: 10),
                   ProblemSlideShow(),
-                  // Container(
-                  //     alignment: Alignment.center,
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       children: [
-                  //         IconCard(
-                  //           number: 500,
-                  //           icon: 'assets/images/money.png',
-                  //           unit: 'USD',
-                  //           color: kPrimaryColor.withOpacity(0.8),
-                  //         ),
-                  //         IconCard(
-                  //           number: 200,
-                  //           icon: 'assets/images/hand-gesture.png',
-                  //           unit: 'RP',
-                  //           color: kPrimaryColor.withOpacity(0.8),
-                  //         ),
-                  //       ],
-                  //     )),
+                  Container(
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconCard(
+                            number: 500,
+                            icon: 'assets/images/money.png',
+                            unit: 'USD',
+                            color: kPrimaryColor.withOpacity(0.8),
+                          ),
+                          IconCard(
+                            number: 200,
+                            icon: 'assets/images/hand-gesture.png',
+                            unit: 'RP',
+                            color: kPrimaryColor.withOpacity(0.8),
+                          ),
+                        ],
+                      )),
                   SearchBar(searchController: _searchController),
                   Container(
                     height: 500,

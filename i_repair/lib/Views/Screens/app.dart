@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/cupertino.dart.';
+import 'package:i_repair/Views/Screens/Client/Explore/explore.dart';
+import 'package:i_repair/Views/Screens/Client/Profile/profile.dart';
 import 'package:i_repair/views/Screens/Client/HistoryBooking/history-booking.dart';
 import 'package:i_repair/views/Screens/Client/Home/home_screen.dart';
 import 'package:i_repair/views/common/appbar/common-appbar.dart';
@@ -29,8 +31,6 @@ class _AppState extends State<App> {
     });
   }
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,14 +45,8 @@ class _AppState extends State<App> {
         children: [
           HomeScreen(),
           HistoryBookingScreen(),
-          Text(
-            'Khám phá',
-            style: optionStyle,
-          ),
-          Text(
-            'Thông tin',
-            style: optionStyle,
-          ),
+          ExploreScreen(),
+          ProfileScreen()
         ],
         onPageChanged: (page) {
           setState(() {
