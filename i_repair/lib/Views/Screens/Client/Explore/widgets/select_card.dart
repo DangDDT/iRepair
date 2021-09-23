@@ -6,16 +6,6 @@ import 'package:i_repair/Models/Major/major.dart';
 class SelectCard extends StatelessWidget {
   const SelectCard({Key? key, required this.choice}) : super(key: key);
   final Major choice;
-  // onPress(context) {
-  //   Navigator.push(
-  //       context,
-  //       PageTransition(
-  //           duration: Duration(milliseconds: 200),
-  //           reverseDuration: Duration(milliseconds: 200),
-  //           child: FieldScreen(choice.title),
-  //           type: PageTransitionType.fade));
-  // }
-
   @override
   Widget build(BuildContext context) {
     // final TextStyle? textStyle = Theme.of(context).textTheme.bodyText1;
@@ -60,7 +50,7 @@ class SelectCard extends StatelessWidget {
                             top: 0,
                             left: 15,
                             child: SvgPicture.asset(
-                              (choice.imageLink),
+                              (choice.imageUrl),
                               height: 50,
                             ),
                           ),
@@ -69,7 +59,7 @@ class SelectCard extends StatelessWidget {
                       Container(
                         alignment: Alignment.bottomCenter,
                         child: Text(
-                          choice.title,
+                          choice.name,
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,

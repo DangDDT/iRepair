@@ -1,45 +1,85 @@
-class Major{
-  String id;
-  String name;
-  String? description;
-  String imageUrl;
+// To parse this JSON data, do
+//
+//     final majors = majorsFromJson(jsonString);
 
-  Major(
-    {
-      required this.id,
-      required this.name,
-      this.description,
-      required this.imageUrl
-    });
-  factory Major.fromJson(Map<String, dynamic> json)
-  {
-    return Major(
-    id: json["Id"] as String,
-    name: json["Name"] as String,
-    description: json["Description"] as String,
-    imageUrl: json["Picture"] as String,
-    );
-  }
+import 'dart:convert';
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['Id'] = this.id;
-    data['Name'] = this.name;
-    data['Description'] = this.description;
-    data['Picture'] = this.imageUrl;
-    return data;
-  }
+Majors majorsFromJson(String str) => Majors.fromJson(json.decode(str));
 
-  @override
-  String toString(){
-    return "{Id: $id, Name: $name , Description: $description, Picture: $imageUrl}";
-  }
+String majorsToJson(Majors data) => json.encode(data.toJson());
+
+class Majors {
+  Majors({
+    required this.majors,
+  });
+
+  List<Major> majors;
+
+  factory Majors.fromJson(Map<String, dynamic> json) => Majors(
+        majors: List<Major>.from(json["majors"].map((x) => Major.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "majors": List<dynamic>.from(majors.map((x) => x.toJson())),
+      };
 }
 
-const List<Major> choices = const <Major>[
-  const Major(id: 'M0001', name: 'Điện lạnh', description: '', imageUrl: "assets/images/refrigerator.png"),
-  const Major(id: 'M0002', name: 'Điện tử', description: '', imageUrl: "assets/images/laptop-banner.png"),
-  const Major(id: 'M0003', name: 'Khóa', description: '', imageUrl: "assets/images/security-system.png"),
-  const Major(id: 'M0004', name: 'Xe máy', description: 'Đường ta đi của bố mẹ ta', imageUrl: "assets/images/motobike_1.png"),
-  const Major(id: 'M0005', name: 'Hệ thống nước', description: '', imageUrl: "assets/images/plumber-banner.png"),
-];
+class Major {
+  Major({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.imageUrl,
+  });
+
+  String id;
+  String name;
+  String description;
+  String imageUrl;
+
+  factory Major.fromJson(Map<String, dynamic> json) => Major(
+        id: json["id"],
+        name: json["name"],
+        description: json["description"],
+        imageUrl: json["imageUrl"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "description": description,
+        "imageUrl": imageUrl,
+      };
+  static List<Major> getMajorList = [
+    Major(
+        id: 'M0001',
+        name: 'Điện lạnh',
+        description: '',
+        imageUrl: "assets/images/electric-appliance.svg"),
+    Major(
+        id: 'M0002',
+        name: 'Điện tử',
+        description: '',
+        imageUrl: "assets/images/laptop.svg"),
+    Major(
+        id: 'M0003',
+        name: 'Khóa',
+        description: '',
+        imageUrl: "assets/images/locksmith.svg"),
+    Major(
+        id: 'M0004',
+        name: 'Xe máy',
+        description: '',
+        imageUrl: "assets/images/bike.svg"),
+    Major(
+        id: 'M0005',
+        name: 'Ống nước',
+        description: '',
+        imageUrl: "assets/images/plumber.svg"),
+    Major(
+        id: 'M0006',
+        name: 'Xe hơi',
+        description: '',
+        imageUrl: "assets/images/car.svg"),
+  ];
+}

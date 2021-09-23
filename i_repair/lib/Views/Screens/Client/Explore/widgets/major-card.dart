@@ -3,10 +3,17 @@ import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Major/major.dart';
 import 'package:i_repair/Views/Screens/Client/Explore/widgets/select_card.dart';
 
-class MajorCard extends StatelessWidget {
+class MajorCard extends StatefulWidget {
   const MajorCard({
     Key? key,
   }) : super(key: key);
+
+  @override
+  _MajorCardState createState() => _MajorCardState();
+}
+
+class _MajorCardState extends State<MajorCard> {
+  List<Major> choices = Major.getMajorList;
 
   @override
   Widget build(BuildContext context) {
