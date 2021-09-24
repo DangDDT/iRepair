@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     final loginForm = LoginForm();
 
     return Scaffold(
-      backgroundColor: kPrimaryLightColor,
+      backgroundColor: kBackgroundColor,
       body: Stack(children: [
         Positioned(
           top: -20,

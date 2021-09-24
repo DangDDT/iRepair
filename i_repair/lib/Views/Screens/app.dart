@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/cupertino.dart.';
+import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Views/Screens/Client/Explore/explore.dart';
 import 'package:i_repair/Views/Screens/Client/Profile/profile.dart';
 import 'package:i_repair/views/Screens/Client/HistoryBooking/history-booking.dart';
@@ -75,7 +76,7 @@ class _AppState extends State<App> {
               iconSize: 24,
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               duration: Duration(milliseconds: 400),
-              tabBackgroundColor: CupertinoColors.activeOrange.withOpacity(0.8),
+              tabBackgroundColor: kPrimaryColor,
               color: Colors.black,
               tabs: [
                 GButton(

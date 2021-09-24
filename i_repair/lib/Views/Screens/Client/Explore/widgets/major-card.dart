@@ -12,7 +12,7 @@ class MajorCard extends StatelessWidget {
       Container(
         // alignment: Alignment.topCenter,
         decoration: BoxDecoration(
-          color: kPrimaryLightColor,
+          color: kBackgroundColor,
           borderRadius: BorderRadius.circular(10),
         ),
         width: double.infinity,

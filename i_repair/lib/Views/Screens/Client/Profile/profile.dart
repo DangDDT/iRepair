@@ -20,8 +20,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             //Logo
             child: Icon(CupertinoIcons.profile_circled, size: 120)),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(width: 50),
             ElevatedButton.icon(
                 style: ButtonStyle(
                   backgroundColor:
