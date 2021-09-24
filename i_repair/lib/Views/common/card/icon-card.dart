@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:i_repair/Models/Constants/constants.dart';
 
 class IconCard extends StatelessWidget {
   final int number;
@@ -15,24 +16,27 @@ class IconCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Stack(children: [
       Container(
-        width: 200,
+        width: size.width * 0.45,
+        margin: EdgeInsets.all(5),
         height: 50,
         child: Card(
           semanticContainer: true,
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: color,
+          color: kPrimaryLightColor,
           elevation: 7,
           shadowColor: Colors.grey,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0), side: BorderSide.none),
+              borderRadius: BorderRadius.circular(10.0),
+              side: BorderSide(color: kTextColor, width: 2)),
           child: Container(
               alignment: Alignment.centerRight,
               margin: EdgeInsets.only(right: 10),
               child: Text(
                 '$number ' + '$unit',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               )),
         ),
       ),

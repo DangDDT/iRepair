@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'iRepair',
       theme: ThemeData(
           primaryColor: kPrimaryColor,
-          scaffoldBackgroundColor: kPrimaryLightColor,
+          scaffoldBackgroundColor: kBackgroundColor,
           fontFamily: 'Oswald'),
       onGenerateRoute: router.generateRoute,
       initialRoute: LoginViewRoute,

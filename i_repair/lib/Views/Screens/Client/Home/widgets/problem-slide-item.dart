@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i_repair/Models/Constants/constants.dart';
 
 class ProblemSlideItem extends StatelessWidget {
   final String title;
@@ -12,16 +13,19 @@ class ProblemSlideItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       alignment: Alignment.center,
       child: InkWell(
         onTap: () => {},
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
+              width: size.width * 0.6,
               margin: EdgeInsets.only(left: 5),
               child: Card(
-                  color: Colors.amber,
+                  color: kSecondaryColor,
                   shape: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5),
                       borderSide: BorderSide.none),
@@ -57,7 +61,7 @@ class ProblemSlideItem extends StatelessWidget {
                 child: (image != null)
                     ? Image.asset(
                         image!,
-                        width: 130,
+                        width: size.width * 0.3,
                       )
                     : Image.network("https://picsum.photos/130/100"),
               ),

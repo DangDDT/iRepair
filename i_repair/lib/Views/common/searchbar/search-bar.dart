@@ -19,12 +19,15 @@ class SearchBar extends StatefulWidget {
 class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       height: 100,
+      width: size.width,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 300,
+            width: size.width * 0.95,
             padding: EdgeInsets.only(top: 25, right: 10),
             margin: EdgeInsets.only(left: 10),
             child: SearchField(
@@ -86,28 +89,6 @@ class _SearchBarState extends State<SearchBar> {
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(left: 10, top: 0),
-            height: 55,
-            child: InkWell(
-              onTap: () => {},
-              child: Center(
-                child: Column(
-                  children: [
-                    Icon(
-                      CupertinoIcons.add_circled_solid,
-                      size: 30,
-                      color: CupertinoColors.activeOrange,
-                    ),
-                    Text(
-                      "Tạo yêu cầu",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          )
         ],
       ),
     );

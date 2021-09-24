@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i_repair/Models/Constants/constants.dart';
 
 class RecommendedCard extends StatelessWidget {
   final String image;
@@ -18,19 +19,20 @@ class RecommendedCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       height: 200,
-      margin: EdgeInsets.all(10),
-      width: 400,
+      margin: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 30),
+      width: size.width * 0.9,
       decoration: BoxDecoration(
-          color: CupertinoColors.systemYellow,
-          borderRadius: BorderRadius.circular(25)),
+          color: kPrimaryLightColor, borderRadius: BorderRadius.circular(25)),
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.all(10),
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(top: 15),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(25),
+              borderRadius: BorderRadius.circular(15),
               child: Image.asset(
                 image,
               ),
@@ -38,14 +40,14 @@ class RecommendedCard extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.topLeft,
-            margin: EdgeInsets.only(left: 10),
+            margin: EdgeInsets.only(left: size.width * 0.05),
             height: 25,
             child: Text(service,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ),
           Container(
             alignment: Alignment.topLeft,
-            margin: EdgeInsets.only(left: 10),
+            margin: EdgeInsets.only(left: size.width * 0.05),
             height: 25,
             child: Text(company,
                 style: TextStyle(
@@ -56,17 +58,17 @@ class RecommendedCard extends StatelessWidget {
             children: [
               Container(
                   alignment: Alignment.topLeft,
-                  margin: EdgeInsets.only(left: 10),
+                  margin: EdgeInsets.only(left: size.width * 0.05),
                   height: 20,
                   child: Icon(
                     CupertinoIcons.star_circle,
-                    color: CupertinoColors.activeOrange,
+                    color: kErrorColor,
                   )),
               Container(
                 alignment: Alignment.topLeft,
-                margin: EdgeInsets.only(left: 10),
+                margin: EdgeInsets.only(left: size.width * 0.02),
                 height: 20,
-                child: Text("$stars stars",
+                child: Text("$stars / 5.0 stars",
                     style: TextStyle(
                       fontSize: 14,
                     )),
@@ -74,7 +76,7 @@ class RecommendedCard extends StatelessWidget {
               Expanded(
                 child: Container(
                   alignment: Alignment.topRight,
-                  margin: EdgeInsets.only(right: 10),
+                  margin: EdgeInsets.only(right: size.width * 0.05),
                   height: 20,
                   child: Text("Cách $distance km",
                       style: TextStyle(

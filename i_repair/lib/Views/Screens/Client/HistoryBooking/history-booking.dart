@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'package:intl/intl.dart';
 
 List _elements = [
   {
@@ -33,7 +34,7 @@ List _elements = [
     'repairman': 'Trần Văn Thái',
     'group': 'Lịch sử đơn hàng',
     'status': 'Đã từ chối',
-    'createdAt': '01-02-2021'
+    'createdAt': '13-02-2021'
   },
   {
     'id': 'BK00005',
@@ -107,7 +108,9 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
         elements: _elements,
         groupBy: (element) => element['group'],
         groupComparator: (value1, value2) => value2.compareTo(value1),
-        itemComparator: (item1, item2) => item1['id'].compareTo(item2['id']),
+        itemComparator: (item1, item2) => DateFormat('dd-MM-yyyy')
+            .parse(item2['createdAt'])
+            .compareTo(DateFormat('dd-MM-yyyy').parse(item1['createdAt'])),
         order: GroupedListOrder.ASC,
         // useStickyGroupSeparators: true,
         groupSeparatorBuilder: (String value) => Padding(
@@ -146,13 +149,14 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(element['service'],
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20)),
                     Row(
                       children: [
                         Text('Thợ: '),
                         Text(element['repairman'],
                             style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600)),
+                                fontSize: 20, fontWeight: FontWeight.w600)),
                       ],
                     ),
                     Row(
@@ -161,13 +165,13 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                         Text(
                           element['status'],
                           style: TextStyle(
-                            fontSize: 14,
-                            color: (element['group'] == 'Đang xử lý')
-                                ? CupertinoColors.activeOrange
-                                : (element['status'] == 'Đã hoàn thành')
-                                    ? CupertinoColors.activeGreen
-                                    : CupertinoColors.systemRed,
-                          ),
+                              fontSize: 16,
+                              color: (element['group'] == 'Đang xử lý')
+                                  ? CupertinoColors.activeOrange
+                                  : (element['status'] == 'Đã hoàn thành')
+                                      ? CupertinoColors.activeGreen
+                                      : CupertinoColors.systemRed,
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     )

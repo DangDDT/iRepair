@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Major/major.dart';
 
 class SelectCard extends StatelessWidget {
@@ -16,7 +17,7 @@ class SelectCard extends StatelessWidget {
           margin: EdgeInsets.only(top: 5, left: 10),
           padding: EdgeInsets.all(2),
           child: Card(
-            color: CupertinoColors.activeOrange.withOpacity(0.7),
+            color: kPrimaryLightColor,
             elevation: 10,
             semanticContainer: true,
             borderOnForeground: false,
@@ -43,7 +44,7 @@ class SelectCard extends StatelessWidget {
                                 side: BorderSide.none,
                               ),
                               elevation: 5,
-                              color: CupertinoColors.white,
+                              color: kBackgroundColor,
                             ),
                           ),
                           Positioned(

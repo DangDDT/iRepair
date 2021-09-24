@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i_repair/Models/Constants/constants.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
@@ -24,7 +25,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: haveBackSpace,
-      backgroundColor: CupertinoColors.activeOrange.withOpacity(0.7),
+      backgroundColor: kPrimaryColor,
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.menu),
