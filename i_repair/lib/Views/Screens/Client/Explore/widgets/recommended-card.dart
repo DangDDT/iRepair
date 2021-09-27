@@ -22,7 +22,7 @@ class RecommendedCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       height: 200,
-      margin: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 30),
+      margin: EdgeInsets.only(left: 10, right: 15, top: 20, bottom: 20),
       width: size.width * 0.9,
       decoration: BoxDecoration(
           color: kPrimaryLightColor, borderRadius: BorderRadius.circular(25)),
@@ -30,7 +30,7 @@ class RecommendedCard extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.center,
-            margin: EdgeInsets.only(top: 15),
+            margin: EdgeInsets.only(top: 15, left: 15, right: 15),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15),
               child: Image.asset(

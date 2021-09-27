@@ -23,9 +23,9 @@ class ProblemSlideItem extends StatelessWidget {
           children: [
             Container(
               width: size.width * 0.6,
-              margin: EdgeInsets.only(left: 5),
+              margin: EdgeInsets.only(left: 0),
               child: Card(
-                  color: kSecondaryColor,
+                  color: kBackgroundColor,
                   shape: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5),
                       borderSide: BorderSide.none),

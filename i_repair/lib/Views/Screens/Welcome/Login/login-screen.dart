@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
             width: 200,
             height: 200,
             decoration: BoxDecoration(
-              color: CupertinoColors.systemYellow.withOpacity(0.5),
+              color: kPrimaryLightColor.withOpacity(0.5),
               borderRadius: BorderRadius.circular(100),
             ),
           ),
@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
             width: 200,
             height: 200,
             decoration: BoxDecoration(
-              color: CupertinoColors.systemYellow.withOpacity(0.5),
+              color: kPrimaryLightColor.withOpacity(0.5),
               borderRadius: BorderRadius.circular(100),
             ),
           ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:i_repair/route_constant.dart';
+import 'package:get/get.dart';
 
 // Create a Form widget.
 class LoginForm extends StatefulWidget {
@@ -100,10 +100,7 @@ class LoginFormState extends State<LoginForm> {
                     if (_formKey.currentState!.validate()) {
                       // if (loginAction(
                       //     _emailController.text, _passwordController.text)) {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        ClientAppViewRoute,
-                      );
+                      Get.offNamed('/client_app');
                     }
                   },
                   child: Text('Đăng nhập', style: TextStyle(fontSize: 16)),
