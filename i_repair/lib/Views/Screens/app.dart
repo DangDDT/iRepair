@@ -5,10 +5,7 @@ import 'package:flutter/cupertino.dart.';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Views/Screens/Client/Explore/explore.dart';
 import 'package:i_repair/Views/Screens/Client/Profile/profile.dart';
-import 'package:i_repair/views/Screens/Client/HistoryBooking/history-booking.dart';
 import 'package:i_repair/views/Screens/Client/Home/home_screen.dart';
-import 'package:i_repair/views/common/appbar/common-appbar.dart';
-// import 'common/placeholder-widget.dart';
 
 class App extends StatefulWidget {
   @override
@@ -35,20 +32,15 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BaseAppBar(
-          key: null,
-          appBar: AppBar(),
-          title: 'Vị trí hiện tại',
-          content: 'Sky 9, Liên Phường, Phú Hữu, Thủ Đức, TPHCM',
-          haveBackSpace: false),
+      // appBar: BaseAppBar(
+      //     key: null,
+      //     appBar: AppBar(),
+      //     title: 'Xin chào, Đỗ Dương Tâm Đăng',
+      //     content: 'Sky 9, Liên Phường, Phú Hữu, Thủ Đức, TPHCM',
+      //     haveBackSpace: false),
       body: PageView(
         controller: _pageController,
-        children: [
-          HomeScreen(),
-          HistoryBookingScreen(),
-          ExploreScreen(),
-          ProfileScreen()
-        ],
+        children: [HomeScreen(), ExploreScreen(), ProfileScreen()],
         onPageChanged: (page) {
           setState(() {
             _selectedIndex = page;
@@ -57,11 +49,12 @@ class _AppState extends State<App> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: kBackgroundColor,
+          borderRadius: BorderRadius.circular(5),
           boxShadow: [
             BoxShadow(
               blurRadius: 20,
-              color: Colors.black.withOpacity(.1),
+              color: Colors.black.withOpacity(0.1),
             )
           ],
         ),
@@ -74,18 +67,14 @@ class _AppState extends State<App> {
               gap: 8,
               activeColor: Colors.black,
               iconSize: 24,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
               duration: Duration(milliseconds: 400),
-              tabBackgroundColor: kPrimaryColor,
+              tabBackgroundColor: kPrimaryLightColor,
               color: Colors.black,
               tabs: [
                 GButton(
                   icon: CupertinoIcons.home,
                   text: 'Trang chủ',
-                ),
-                GButton(
-                  icon: CupertinoIcons.bookmark,
-                  text: 'Đơn Hàng',
                 ),
                 GButton(
                   icon: Icons.explore,
@@ -101,9 +90,9 @@ class _AppState extends State<App> {
                 if (page != _selectedIndex) {
                   setState(() {
                     _selectedIndex = page;
-                    _pageController.animateToPage(page,
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.easeInOutCubic);
+                    _pageController.jumpToPage(
+                      page,
+                    );
                   });
                 }
               },

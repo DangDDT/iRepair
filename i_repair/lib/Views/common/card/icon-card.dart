@@ -29,8 +29,7 @@ class IconCard extends StatelessWidget {
           elevation: 7,
           shadowColor: Colors.grey,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              side: BorderSide(color: kTextColor, width: 2)),
+              borderRadius: BorderRadius.circular(10.0), side: BorderSide.none),
           child: Container(
               alignment: Alignment.centerRight,
               margin: EdgeInsets.only(right: 10),

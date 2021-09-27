@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:i_repair/Models/api.services.dart';
 
-import 'major.dart';
+import '../../Models/Major/major.dart';
 
 class MajorController extends GetxController {
   var isLoading = true.obs;

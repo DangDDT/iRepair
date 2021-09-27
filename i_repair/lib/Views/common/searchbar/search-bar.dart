@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_repair/views/common/placeholder/placeholder-widget.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:searchfield/searchfield.dart';
 
 class SearchBar extends StatefulWidget {
@@ -31,15 +30,7 @@ class _SearchBarState extends State<SearchBar> {
             padding: EdgeInsets.only(top: 25, right: 10),
             margin: EdgeInsets.only(left: 10),
             child: SearchField(
-              onTap: (value) => {
-                Navigator.push(
-                  context,
-                  PageTransition(
-                      child: PlaceholderWidget(
-                          Colors.white, widget._searchController.text),
-                      type: PageTransitionType.rightToLeft),
-                )
-              },
+              onTap: (value) => {},
               hasOverlay: true,
               controller: widget._searchController,
               suggestionState: SuggestionState.hidden,

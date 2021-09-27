@@ -26,39 +26,16 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: haveBackSpace,
       backgroundColor: kPrimaryColor,
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.menu),
-          tooltip: 'Show Snackbar',
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('This is a snackbar')));
-          },
-        ),
-      ],
       title: Row(
         children: [
-          Container(
-            width: 50,
-            // margin: EdgeInsets.only(top: 10),
-            child: Icon(
-              CupertinoIcons.profile_circled,
-              size: 35,
-            ),
-          ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                  margin: EdgeInsets.only(left: 10),
+                  margin: EdgeInsets.only(left: 0),
                   child: Text((title == null) ? '' : title!,
                       style: TextStyle(fontWeight: FontWeight.bold))),
-              Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: Text((content == null) ? '' : content!,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 10))),
             ],
           )
         ],

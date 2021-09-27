@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:i_repair/Controllers/majorController/majorController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
-import 'package:i_repair/Models/Major/majorController.dart';
 import 'package:i_repair/Views/Screens/Client/Explore/widgets/select_card.dart';
 
 class MajorCard extends StatelessWidget {
@@ -22,20 +22,9 @@ class MajorCard extends StatelessWidget {
             crossAxisCount: 1,
             mainAxisSpacing: 5,
             children: List.generate(majorController.majorList.length, (index) {
-              // return Center(
               return SelectCard(choice: majorController.majorList[index]);
-              // );
             })),
       ),
-      // Positioned(
-      //   top: 5,
-      //   left: 30,
-      //   child: Container(
-      //       height: 40,
-      //       color: Colors.transparent,
-      //       child: Text('MAJOR',
-      //           style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))),
-      // )
     ]);
   }
 }
