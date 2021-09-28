@@ -35,7 +35,8 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
               Container(
                   margin: EdgeInsets.only(left: 0),
                   child: Text((title == null) ? '' : title!,
-                      style: TextStyle(fontWeight: FontWeight.bold))),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: kTextColor))),
             ],
           )
         ],

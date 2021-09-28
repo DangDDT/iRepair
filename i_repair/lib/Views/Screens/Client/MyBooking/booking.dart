@@ -55,16 +55,16 @@ List _elements = [
   },
 ];
 
-class HistoryBookingScreen extends StatefulWidget {
-  const HistoryBookingScreen({
+class BookingScreen extends StatefulWidget {
+  const BookingScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  _HistoryBookingScreenState createState() => _HistoryBookingScreenState();
+  _BookingScreenState createState() => _BookingScreenState();
 }
 
-class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
+class _BookingScreenState extends State<BookingScreen> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

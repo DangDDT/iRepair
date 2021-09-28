@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Services/auth/auth.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
@@ -14,6 +18,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<AuthService>(context);
     Size size = MediaQuery.of(context).size;
     return ListView(
       children: [
@@ -66,8 +71,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         decoration: BoxDecoration(
                             color: kBackgroundColor,
                             borderRadius: BorderRadius.circular(35)),
-                        child:
-                            InkWell(onTap: () => {}, child: Icon(Icons.logout)))
+                        child: InkWell(
+                            onTap: () async {
+                              await loginProvider.logout();
+                              final user =
+                                  Provider.of<User?>(context, listen: false);
+                              print(user);
+                              Get.offAllNamed("/");
+                            },
+                            child: Icon(Icons.exit_to_app)))
                   ],
                 )),
           ),

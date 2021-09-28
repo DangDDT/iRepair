@@ -13,7 +13,7 @@ class GridViewButtons extends StatelessWidget {
       padding: EdgeInsets.only(top: 20, left: 15, right: 15),
       children: [
         GestureDetector(
-          onTap: () => {},
+          onTap: () => {Get.toNamed('/create_booking')},
           child: Card(
             shape: OutlineInputBorder(
                 borderSide: BorderSide.none,

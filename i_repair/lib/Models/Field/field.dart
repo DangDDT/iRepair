@@ -1,3 +1,13 @@
+import 'dart:convert';
+
+import 'package:i_repair/Models/Major/major.dart';
+
+List<Field> majorFromJson(String str) =>
+    List<Field>.from(json.decode(str).map((x) => Field.fromJson(x)));
+
+String majorToJson(List<Field> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class Field {
   String id;
   String name;
@@ -36,7 +46,18 @@ class Field {
     return "{Id: $id, Name: $name, Major_id: $majorId, Description: $description, Picture: $imageUrl}";
   }
 
-  List<Field> choices = [
+  static List<Field> getFieldByMajor(List<Major> majors) {
+    List<Field> list = [];
+    for (Field field in choices) {
+      for (Major major in majors)
+        if (field.majorId == major.id) {
+          list.add(field);
+        }
+    }
+    return list;
+  }
+
+  static List<Field> choices = [
     Field(
         id: 'F0001',
         name: 'Tủ lạnh',
@@ -63,8 +84,62 @@ class Field {
         imageUrl: "assets/images/motobike_1.png"),
     Field(
         id: 'F0005',
-        name: 'Xe số',
-        majorId: 'M0004',
+        name: 'Khóa chốt vặn',
+        majorId: 'M0003',
+        description: '',
+        imageUrl: "assets/images/motobike_2.png"),
+    Field(
+        id: 'F0006',
+        name: 'Khóa chữ L',
+        majorId: 'M0003',
+        description: '',
+        imageUrl: "assets/images/motobike_2.png"),
+    Field(
+        id: 'F0007',
+        name: 'Khóa chữ U',
+        majorId: 'M0003',
+        description: '',
+        imageUrl: "assets/images/motobike_2.png"),
+    Field(
+        id: 'F0008',
+        name: 'Ống nước nhà vệ sinh',
+        majorId: 'M0005',
+        description: '',
+        imageUrl: "assets/images/motobike_2.png"),
+    Field(
+        id: 'F0009',
+        name: 'Ống nước nhà bếp',
+        majorId: 'M0005',
+        description: '',
+        imageUrl: "assets/images/motobike_2.png"),
+    Field(
+        id: 'F0010',
+        name: 'Ống thoát nước',
+        majorId: 'M0005',
+        description: '',
+        imageUrl: "assets/images/motobike_2.png"),
+    Field(
+        id: 'F0011',
+        name: 'Ống dẫn gas',
+        majorId: 'M0007',
+        description: '',
+        imageUrl: "assets/images/motobike_2.png"),
+    Field(
+        id: 'F0012',
+        name: 'Điện thoại',
+        majorId: 'M0002',
+        description: '',
+        imageUrl: "assets/images/motobike_2.png"),
+    Field(
+        id: 'F0013',
+        name: 'Laptop',
+        majorId: 'M0002',
+        description: '',
+        imageUrl: "assets/images/motobike_2.png"),
+    Field(
+        id: 'F0014',
+        name: 'Xe tải',
+        majorId: 'M0006',
         description: '',
         imageUrl: "assets/images/motobike_2.png"),
   ];

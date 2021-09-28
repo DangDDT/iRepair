@@ -1,0 +1,201 @@
+[{
+        "id": "S00001",
+        "serviceName": "Thay gas máy lạnh siêu nhanh",
+        "description": "",
+        "price": 100000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0001",
+        "fieldId": "F0002"
+    },
+    {
+        "id": "S00002",
+        "serviceName": "Thay gas tủ lạnh 30 phút",
+        "description": "",
+        "price": 70000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0001",
+        "fieldId": "F0001"
+    },
+    {
+        "id": "S00003",
+        "serviceName": "Kiểm tra và bảo trì đường ống nước",
+        "description": "",
+        "price": 240000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0002",
+        "fieldId": "F0009"
+    },
+    {
+        "id": "S00004",
+        "serviceName": "Kiểm tra và bảo trì ống dẫn gas",
+        "description": "",
+        "price": 110000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0003",
+        "fieldId": "F0011"
+    },
+    {
+        "id": "S00005",
+        "serviceName": "Vá lốp bánh xe 2 bánh 3 bước",
+        "description": "",
+        "price": 20000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0004",
+        "fieldId": "F0004"
+    },
+    {
+        "id": "S00006",
+        "serviceName": "Thay ruột bánh xe 2 bánh siêu nhanh",
+        "description": "",
+        "price": 140000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0004",
+        "fieldId": "F0004"
+    },
+    {
+        "id": "S00007",
+        "serviceName": "Kiểm tra và sửa xe chết máy",
+        "description": "",
+        "price": 100000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0004",
+        "fieldId": "F0004"
+    },
+    {
+        "id": "S00008",
+        "serviceName": "Kiểm tra và sửa xe chết máy",
+        "description": "",
+        "price": 120000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0005",
+        "fieldId": "F0004"
+    },
+    {
+        "id": "S00009",
+        "serviceName": "Thay bánh xe 4 bánh",
+        "description": "",
+        "price": 500000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0006",
+        "fieldId": "F0014"
+    },
+    {
+        "id": "S00010",
+        "serviceName": "Sửa khóa vặn 2 bước",
+        "description": "",
+        "price": 140000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0007",
+        "fieldId": "F0005"
+    },
+    {
+        "id": "S00011",
+        "serviceName": "Sửa khóa vặn siêu nhanh",
+        "description": "",
+        "price": 210000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0008",
+        "fieldId": "F0005"
+    },
+    {
+        "id": "S00012",
+        "serviceName": "Gắn chốt khóa chữ L",
+        "description": "",
+        "price": 299000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0007",
+        "fieldId": "F0006"
+    },
+    {
+        "id": "S00013",
+        "serviceName": "Kiểm tra chốt khóa chữ L",
+        "description": "",
+        "price": 119000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0008",
+        "fieldId": "F0006"
+    },
+    {
+        "id": "S00014",
+        "serviceName": "Kiểm tra và sửa chốt khóa chữ U",
+        "description": "",
+        "price": 129000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0007",
+        "fieldId": "F0007"
+    },
+    {
+        "id": "S00015",
+        "serviceName": "Thay màn hình điện thoại Samsung Ultra",
+        "description": "",
+        "price": 1500000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0009",
+        "fieldId": "F0012"
+    },
+    {
+        "id": "S00016",
+        "serviceName": "Thay màn hình điện thoại Iphone 7",
+        "description": "",
+        "price": 2100000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0009",
+        "fieldId": "F0012"
+    },
+    {
+        "id": "S00017",
+        "serviceName": "Thay màn hình điện thoại Iphone 6",
+        "description": "",
+        "price": 2225000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0009",
+        "fieldId": "F0012"
+    },
+    {
+        "id": "S00018",
+        "serviceName": "Thay màn hình điện thoại Iphone X, 11, 12",
+        "description": "",
+        "price": 2500000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0009",
+        "fieldId": "F0012"
+    },
+    {
+        "id": "S00019",
+        "serviceName": "Sửa bàn phím laptop",
+        "description": "",
+        "price": 500000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0010",
+        "fieldId": "F0013"
+    },
+    {
+        "id": "S00020",
+        "serviceName": "Vệ sinh laptop",
+        "description": "",
+        "price": 100000,
+        "imageUrl": "",
+        "isDelete": false,
+        "companyId": "C0010",
+        "fieldId": "F0013"
+    }
+]

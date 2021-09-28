@@ -1,7 +1,8 @@
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:i_repair/Models/Service/service.dart';
 
-import 'Major/major.dart';
+import '../Models/Major/major.dart';
 
 class APIServices {
   static Future fetchWeatherForecast() async {
@@ -14,5 +15,11 @@ class APIServices {
     final String response =
         await rootBundle.loadString('lib/Models/Major/mock_major.json');
     return majorFromJson(response);
+  }
+
+  static Future<List<Service>> fetchServices() async {
+    final String response =
+        await rootBundle.loadString('lib/Models/Service/mock_service.json');
+    return serviceFromJson(response);
   }
 }

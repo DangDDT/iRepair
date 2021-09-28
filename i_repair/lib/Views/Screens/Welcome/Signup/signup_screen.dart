@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Services/auth/auth.dart';
+import 'package:i_repair/Views/Screens/Welcome/Signup/widgets/signup-form.dart';
 import 'package:provider/provider.dart';
-import 'widgets/login-form.dart';
 
-class LoginPage extends StatefulWidget {
+class SignUpPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => new _LoginPageState();
+  _SignUpPageState createState() => new _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     final logo = Hero(
@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    final loginForm = LoginForm();
+    final signUpForm = SignUpForm();
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: Stack(children: [
@@ -64,30 +64,21 @@ class _LoginPageState extends State<LoginPage> {
                 height: 100,
               ),
               SizedBox(height: 45.0),
-              loginForm,
+              signUpForm,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Center(
                     child: MaterialButton(
                       child: Text(
-                        'Bạn chưa có tài khoản ?',
+                        'Bạn đã có tài khoản ?',
                         style: TextStyle(color: Colors.black54),
                       ),
                       onPressed: () {
                         Provider.of<AuthService>(context, listen: false)
                             .setMessage('');
-                        Get.toNamed("/signup_screen");
+                        Get.back();
                       },
-                    ),
-                  ),
-                  Center(
-                    child: TextButton(
-                      child: Text(
-                        'Quên mật khẩu ?',
-                        style: TextStyle(color: Colors.black54),
-                      ),
-                      onPressed: () => {},
                     ),
                   ),
                 ],

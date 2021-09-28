@@ -18,7 +18,7 @@
     },
     {
         "id": "M0004",
-        "name": "Xe máy",
+        "name": "Xe 2 bánh",
         "description": "",
         "imageUrl": "assets/images/bike.svg"
     },
@@ -30,7 +30,12 @@
     },
     {
         "id": "M0006",
-        "name": "Xe hơi",
+        "name": "Xe 4 bánh",
+        "description": "",
+        "imageUrl": "assets/images/car.svg"
+    }, {
+        "id": "M0007",
+        "name": "Đồ gia dụng",
         "description": "",
         "imageUrl": "assets/images/car.svg"
     }

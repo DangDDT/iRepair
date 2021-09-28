@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -7,17 +8,17 @@ import 'package:i_repair/Services/auth/auth.dart';
 import 'package:provider/provider.dart';
 
 // Create a Form widget.
-class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({Key? key}) : super(key: key);
   @override
-  LoginFormState createState() {
-    return LoginFormState();
+  SignUpFormState createState() {
+    return SignUpFormState();
   }
 }
 
 // Create a corresponding State class.
 // This class holds data related to the form.
-class LoginFormState extends State<LoginForm> {
+class SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
@@ -38,7 +39,7 @@ class LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    final loginProvider = Provider.of<AuthService>(context);
+    final signupProvider = Provider.of<AuthService>(context);
     Size size = MediaQuery.of(context).size;
     // Build a Form widget using the _formKey created above.
     return Form(
@@ -99,17 +100,17 @@ class LoginFormState extends State<LoginForm> {
             ),
           ),
           SizedBox(height: 10.0),
-          (loginProvider.errorMessage != '')
+          (signupProvider.errorMessage != '')
               ? Container(
                   width: size.width,
                   height: 50,
                   margin: EdgeInsets.only(left: 10),
-                  child: Text(loginProvider.errorMessage,
+                  child: Text(signupProvider.errorMessage,
                       style: TextStyle(color: kErrorColor)))
               : SizedBox(height: 0),
           Container(
             alignment: Alignment.center,
-            child: loginProvider.isLoading
+            child: signupProvider.isLoading
                 ? CircularProgressIndicator(
                     color: kPrimaryColor,
                   )
@@ -118,13 +119,11 @@ class LoginFormState extends State<LoginForm> {
                       Provider.of<AuthService>(context, listen: false)
                           .setMessage('');
                       if (_formKey.currentState!.validate()) {
-                        await loginProvider.signIn(
+                        bool signUpSuccess = await signupProvider.signUp(
                             email: _emailController.text.trim(),
                             password: _passwordController.text.trim());
-                        final user = Provider.of<User?>(context, listen: false);
-                        if (user != null) {
-                          print(user);
-                          Get.offAndToNamed('/client_app');
+                        if (signUpSuccess) {
+                          Get.offAllNamed('/');
                         }
                       }
                     },
@@ -133,7 +132,7 @@ class LoginFormState extends State<LoginForm> {
                     shape: OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.circular(25)),
-                    child: Text('Đăng nhập', style: TextStyle(fontSize: 16)),
+                    child: Text('Đăng ký', style: TextStyle(fontSize: 16)),
                   ),
           ),
         ],

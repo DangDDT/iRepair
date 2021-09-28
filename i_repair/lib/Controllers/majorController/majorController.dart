@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:i_repair/Models/api.services.dart';
+import 'package:i_repair/Services/api.services.dart';
 
 import '../../Models/Major/major.dart';
 
@@ -18,9 +18,7 @@ class MajorController extends GetxController {
     try {
       isLoading(true);
       var majors = await APIServices.fetchMajors();
-      if (majors != null) {
-        majorList.assignAll(majors);
-      }
+      majorList.assignAll(majors);
     } finally {
       isLoading(false);
     }
