@@ -31,7 +31,7 @@ class ProblemSlideShow extends StatelessWidget {
 
         /// The color to paint behind th indicator.
         indicatorBackgroundColor: Colors.grey,
-
+        
         /// The widgets to display in the [ImageSlideshow].
         /// Add the sample image file into the images folder
         children: [

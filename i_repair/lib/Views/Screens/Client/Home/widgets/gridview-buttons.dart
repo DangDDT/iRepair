@@ -10,27 +10,45 @@ class GridViewButtons extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3, crossAxisSpacing: 16, mainAxisSpacing: 16),
-      padding: EdgeInsets.only(top: 20, left: 15, right: 15),
+      padding: EdgeInsets.only(top: 5, left: 15, right: 15),
       children: [
         GestureDetector(
-          onTap: () => {},
+          onTap: () => {Get.toNamed("/book_service")},
           child: Card(
             shape: OutlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.circular(25)),
             elevation: 10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  CupertinoIcons.add_circled,
-                  size: 50,
-                  color: kPrimaryColor,
-                ),
-                Text('Tạo Yêu Cầu',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
-              ],
+            child: Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment(
+                        5, 10), // 10% of the width, so there are ten blinds.
+                    colors: <Color>[
+                      kSecondaryColor,
+                      kBackgroundColor
+                    ], // red to yellow
+                    tileMode: TileMode
+                        .repeated, // repeats the gradient over the canvas
+                  ),
+                  borderRadius: BorderRadius.circular(25)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    CupertinoIcons.add_circled,
+                    size: 50,
+                    color: kBackgroundColor,
+                  ),
+                  Text('ĐẶT LỊCH SỬA',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: kBackgroundColor))
+                ],
+              ),
             ),
           ),
         ),
@@ -48,31 +66,9 @@ class GridViewButtons extends StatelessWidget {
                 Icon(
                   CupertinoIcons.bookmark,
                   size: 50,
-                  color: kPrimaryColor,
+                  color: kSecondaryColor,
                 ),
-                Text('Đơn hàng',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
-              ],
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () => {},
-          child: Card(
-            shape: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(25)),
-            elevation: 10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  CupertinoIcons.list_bullet,
-                  size: 50,
-                  color: kPrimaryColor,
-                ),
-                Text('Danh mục',
+                Text('ĐƠN HÀNG',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
               ],
             ),
@@ -92,31 +88,9 @@ class GridViewButtons extends StatelessWidget {
                 Icon(
                   CupertinoIcons.chat_bubble,
                   size: 50,
-                  color: kPrimaryColor,
+                  color: kSecondaryColor,
                 ),
-                Text('Phản hồi',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
-              ],
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () => {},
-          child: Card(
-            shape: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(25)),
-            elevation: 10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  CupertinoIcons.star_circle,
-                  size: 50,
-                  color: kPrimaryColor,
-                ),
-                Text('Mẹo vặt',
+                Text('PHẢN HỒI',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
               ],
             ),

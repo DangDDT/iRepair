@@ -17,13 +17,17 @@ class MajorCard extends StatelessWidget {
         ),
         width: double.infinity,
         height: 110,
-        child: GridView.count(
-            scrollDirection: Axis.horizontal,
-            crossAxisCount: 1,
-            mainAxisSpacing: 5,
-            children: List.generate(majorController.majorList.length, (index) {
-              return SelectCard(choice: majorController.majorList[index]);
-            })),
+        child: SizedBox(
+          height: 100,
+          child: GridView.count(
+              scrollDirection: Axis.horizontal,
+              crossAxisCount: 1,
+              mainAxisSpacing: 5,
+              children:
+                  List.generate(majorController.majorList.length, (index) {
+                return SelectCard(choice: majorController.majorList[index]);
+              })),
+        ),
       ),
     ]);
   }

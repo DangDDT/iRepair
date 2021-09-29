@@ -44,7 +44,8 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 child: Row(
                   children: [
                     Container(
-                      child: Icon(Icons.explore, size: 50),
+                      child: Icon(Icons.explore,
+                          size: 50, color: kBackgroundColor),
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 10),
@@ -54,7 +55,9 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         children: [
                           Text('Khám phá',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 24)),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24,
+                                  color: kBackgroundColor)),
                         ],
                       ),
                     )
@@ -153,35 +156,30 @@ class _ExploreScreenState extends State<ExploreScreen> {
                         RecommendedCard(
                           image: "assets/images/plumber-banner.png",
                           service: "Lắp đặt đường ống nước trong nhà",
-                          company: "Công ty ống nước Châu Thành",
                           stars: 5.0,
                           distance: 3.0,
                         ),
                         RecommendedCard(
                           image: "assets/images/gas-banner.png",
                           service: "Thay ống dẫn gas",
-                          company: "Công ty gas Long Châu",
                           stars: 4.8,
                           distance: 0.7,
                         ),
                         RecommendedCard(
                           image: "assets/images/plumber-banner.png",
                           service: "Lắp đặt đường ống nước trong nhà",
-                          company: "Công ty ống nước Châu Thành",
                           stars: 5.0,
                           distance: 3.0,
                         ),
                         RecommendedCard(
                           image: "assets/images/gas-banner.png",
                           service: "Thay ống dẫn gas",
-                          company: "Công ty gas Long Châu",
                           stars: 4.8,
                           distance: 0.7,
                         ),
                         RecommendedCard(
                           image: "assets/images/plumber-banner.png",
                           service: "Lắp đặt đường ống nước trong nhà",
-                          company: "Công ty ống nước Châu Thành",
                           stars: 5.0,
                           distance: 3.0,
                         ),

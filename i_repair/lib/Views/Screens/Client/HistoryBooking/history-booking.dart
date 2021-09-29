@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 
 List _elements = [
   {
-    'id': 'BK00001',
+    'id': 'A002',
     'service': 'Thay gas máy lạnh',
     'repairman': 'Trần Văn Thái',
     'group': 'Lịch sử đơn hàng',
@@ -14,15 +14,15 @@ List _elements = [
     'createdAt': '12-08-2020'
   },
   {
-    'id': 'BK00002',
+    'id': 'A007',
     'service': 'Thay đường ống nước',
     'repairman': 'Đỗ Thành Thái',
     'group': 'Lịch sử đơn hàng',
-    'status': 'Đã từ chối',
+    'status': 'Đã hủy',
     'createdAt': '19-08-2020'
   },
   {
-    'id': 'BK00003',
+    'id': 'A040',
     'service': 'Thay gas máy lạnh',
     'repairman': 'Trần Văn Thái',
     'group': 'Lịch sử đơn hàng',
@@ -30,15 +30,15 @@ List _elements = [
     'createdAt': '30-10-2020'
   },
   {
-    'id': 'BK00004',
+    'id': 'A078',
     'service': 'Thay gas máy lạnh',
     'repairman': 'Trần Văn Thái',
     'group': 'Lịch sử đơn hàng',
-    'status': 'Đã từ chối',
+    'status': 'Đã hủy',
     'createdAt': '13-02-2021'
   },
   {
-    'id': 'BK00005',
+    'id': 'A084',
     'service': 'Thay đường ống nước',
     'repairman': 'Đỗ Thành Thái',
     'group': 'Lịch sử đơn hàng',
@@ -46,12 +46,20 @@ List _elements = [
     'createdAt': '12-04-2021'
   },
   {
-    'id': 'BK00006',
-    'service': 'Thay gas máy lạnh',
+    'id': 'A122',
+    'service': 'Lắp đặt máy lạnh',
     'repairman': 'Trần Văn Thái',
     'group': 'Đang xử lý',
-    'status': 'Đã nhận chờ trả lời',
-    'createdAt': '21-09-2021'
+    'status': 'Thợ đang đến',
+    'createdAt': '30-09-2021'
+  },
+  {
+    'id': 'A123',
+    'service': 'Sửa nồi cơm',
+    'repairman': 'Đang chờ có thợ',
+    'group': 'Đang xử lý',
+    'status': 'Đang chờ có thợ',
+    'createdAt': '30-09-2021'
   },
 ];
 
@@ -163,7 +171,7 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                           Text('Thợ: '),
                           Text(element['repairman'],
                               style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w600)),
+                                  fontSize: 16, fontWeight: FontWeight.w600)),
                         ],
                       ),
                       Row(
@@ -184,7 +192,6 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                       )
                     ],
                   ),
-                  trailing: Icon(CupertinoIcons.arrow_right),
                 ),
               ),
             );

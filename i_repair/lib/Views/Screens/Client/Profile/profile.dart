@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -41,7 +42,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Row(
                   children: [
                     Container(
-                      child: Icon(CupertinoIcons.profile_circled, size: 50),
+                      child: Icon(CupertinoIcons.profile_circled,
+                          size: 50, color: kBackgroundColor),
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 10),
@@ -51,12 +53,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           Text('Đỗ Dương Tâm Đăng',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 24)),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24,
+                                  color: kBackgroundColor)),
                           Text('0774839222',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
-                                  letterSpacing: 0.5)),
+                                  letterSpacing: 0.5,
+                                  color: kBackgroundColor)),
                         ],
                       ),
                     ),
@@ -66,8 +71,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         decoration: BoxDecoration(
                             color: kBackgroundColor,
                             borderRadius: BorderRadius.circular(35)),
-                        child:
-                            InkWell(onTap: () => {}, child: Icon(Icons.logout)))
+                        child: InkWell(
+                            onTap: () => {Get.offAllNamed("/")},
+                            child: Icon(Icons.logout)))
                   ],
                 )),
           ),
@@ -91,8 +97,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ]),
         SizedBox(height: 40),
         Center(
-            //Logo
-            child: Icon(CupertinoIcons.profile_circled, size: 120)),
+          //Logo
+          child: Container(
+            margin: EdgeInsets.only(bottom: 15),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image.asset(
+                "assets/images/avatar.jpg",
+                height: 150,
+                width: 150,
+              ),
+            ),
+          ),
+          // Icon(CupertinoIcons.profile_circled, size: 120),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -129,6 +147,69 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: CupertinoColors.black,
                         fontWeight: FontWeight.bold))),
           ],
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 20, left: 20),
+          child: Row(
+            children: [
+              Container(
+                child: Text('Họ và tên: ',
+                    style:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+              ),
+              Container(child: Text('Đỗ Dương Tâm Đăng'))
+            ],
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 20, left: 20),
+          child: Row(
+            children: [
+              Container(
+                child: Text('Địa chỉ: ',
+                    style:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+              ),
+              Container(
+                  child: Text(
+                      'Chung cư Sky9, Liên Phường, Phú Hữu, TP.Thủ Đức, TP.HCM'))
+            ],
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 20, left: 20),
+          child: Row(
+            children: [
+              Container(
+                child: Text('Số điện thoại: ',
+                    style:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+              ),
+              Container(child: Text('0774839222'))
+            ],
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end:
+                  Alignment(1, 1), // 10% of the width, so there are ten blinds.
+              colors: <Color>[
+                kSecondaryLightColor,
+                kSecondaryColor,
+              ], // red to yellow
+              tileMode:
+                  TileMode.repeated, // repeats the gradient over the canvas
+            ),
+          ),
+          child: MaterialButton(
+            onPressed: () => {},
+            child: Text('Cập nhật thông tin',
+                style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
         )
       ],
     );

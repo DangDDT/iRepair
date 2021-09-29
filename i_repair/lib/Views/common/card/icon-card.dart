@@ -25,17 +25,21 @@ class IconCard extends StatelessWidget {
         child: Card(
           semanticContainer: true,
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: kPrimaryLightColor,
+          color: color,
           elevation: 7,
           shadowColor: Colors.grey,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0), side: BorderSide.none),
+              borderRadius: BorderRadius.circular(10.0),
+              side: BorderSide(width: 3)),
           child: Container(
               alignment: Alignment.centerRight,
               margin: EdgeInsets.only(right: 10),
               child: Text(
                 '$number ' + '$unit',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: kTextColor),
               )),
         ),
       ),

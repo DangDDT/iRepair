@@ -5,14 +5,14 @@ import 'package:i_repair/Models/Constants/constants.dart';
 class RecommendedCard extends StatelessWidget {
   final String image;
   final String service;
-  final String company;
+  final String? company;
   final double stars;
   final double distance;
   const RecommendedCard({
     Key? key,
     required this.image,
     required this.service,
-    required this.company,
+    this.company,
     required this.stars,
     required this.distance,
   }) : super(key: key);
@@ -30,7 +30,7 @@ class RecommendedCard extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.center,
-            margin: EdgeInsets.only(top: 15, left: 15, right: 15),
+            margin: EdgeInsets.only(top: 15, left: 15, right: 15, bottom: 15),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(15),
               child: Image.asset(
@@ -40,20 +40,24 @@ class RecommendedCard extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.topLeft,
-            margin: EdgeInsets.only(left: size.width * 0.05),
+            margin: EdgeInsets.only(left: size.width * 0.05, bottom: 10),
             height: 25,
             child: Text(service,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           ),
-          Container(
-            alignment: Alignment.topLeft,
-            margin: EdgeInsets.only(left: size.width * 0.05),
-            height: 25,
-            child: Text(company,
-                style: TextStyle(
-                  fontSize: 16,
-                )),
-          ),
+          (company != null)
+              ? Container(
+                  alignment: Alignment.topLeft,
+                  margin: EdgeInsets.only(left: size.width * 0.05),
+                  height: 25,
+                  child: Text(company!,
+                      style: TextStyle(
+                        fontSize: 16,
+                      )),
+                )
+              : SizedBox(
+                  height: 0,
+                ),
           Row(
             children: [
               Container(

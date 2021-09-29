@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart.';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Views/Screens/Client/Explore/explore.dart';
 import 'package:i_repair/Views/Screens/Client/Profile/profile.dart';
+import 'package:i_repair/Views/common/appbar/common-appbar.dart';
 import 'package:i_repair/views/Screens/Client/Home/home_screen.dart';
 
 class App extends StatefulWidget {
@@ -65,11 +66,22 @@ class _AppState extends State<App> {
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
               gap: 8,
-              activeColor: Colors.black,
+              activeColor: kBackgroundColor,
               iconSize: 24,
               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
               duration: Duration(milliseconds: 400),
-              tabBackgroundColor: kPrimaryLightColor,
+              tabBackgroundColor: kBackgroundColor,
+              tabBackgroundGradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment(
+                    5, 10), // 10% of the width, so there are ten blinds.
+                colors: <Color>[
+                  kSecondaryLightColor,
+                  kBackgroundColor
+                ], // red to yellow
+                tileMode:
+                    TileMode.repeated, // repeats the gradient over the canvas
+              ),
               color: Colors.black,
               tabs: [
                 GButton(
