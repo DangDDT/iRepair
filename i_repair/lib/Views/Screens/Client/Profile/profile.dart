@@ -73,10 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             borderRadius: BorderRadius.circular(35)),
                         child: InkWell(
                             onTap: () async {
-                              await loginProvider.logout();
-                              final user =
-                                  Provider.of<User?>(context, listen: false);
-                              print(user);
+                              await loginProvider.logout(context: context);
                               Get.offAllNamed("/");
                             },
                             child: Icon(Icons.exit_to_app)))

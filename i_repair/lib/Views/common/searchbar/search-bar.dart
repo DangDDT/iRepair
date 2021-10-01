@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:i_repair/views/common/placeholder/placeholder-widget.dart';
 import 'package:searchfield/searchfield.dart';
 
 class SearchBar extends StatefulWidget {

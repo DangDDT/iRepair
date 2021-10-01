@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:get/get.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Services/auth/auth.dart';
@@ -124,6 +125,7 @@ class LoginFormState extends State<LoginForm> {
                         final user = Provider.of<User?>(context, listen: false);
                         if (user != null) {
                           print(user);
+                          print(await user.getIdToken());
                           Get.offAndToNamed('/client_app');
                         }
                       }
@@ -136,6 +138,23 @@ class LoginFormState extends State<LoginForm> {
                     child: Text('Đăng nhập', style: TextStyle(fontSize: 16)),
                   ),
           ),
+          Container(
+            alignment: Alignment.center,
+            child: SignInButton(
+              Buttons.Google,
+              elevation: 5,
+              shape: OutlineInputBorder(borderSide: BorderSide.none),
+              text: "Sign up with Google",
+              onPressed: () async {
+                await loginProvider.signInWithGoogle(context: context);
+                final user = Provider.of<User?>(context, listen: false);
+                if (user != null) {
+                  print(user);
+                  Get.offAndToNamed('/client_app');
+                }
+              },
+            ),
+          )
         ],
       ),
     );

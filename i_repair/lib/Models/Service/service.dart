@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:i_repair/Models/Field/field.dart';
 
 List<Service> serviceFromJson(String str) => List<Service>.from(json.decode(str).map((x) => Service.fromJson(x)));
 
