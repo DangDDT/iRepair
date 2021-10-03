@@ -50,10 +50,15 @@ class SelectCard extends StatelessWidget {
                           Positioned(
                             top: 0,
                             left: 15,
-                            child: SvgPicture.asset(
-                              (choice.imageUrl),
-                              height: 50,
-                            ),
+                            child: (choice.picture != "none")
+                                ? SvgPicture.asset(
+                                    choice.picture!,
+                                    height: 50,
+                                  )
+                                : SvgPicture.asset(
+                                    "assets/images/default-icon.svg",
+                                    height: 50,
+                                  ),
                           ),
                         ],
                       ),

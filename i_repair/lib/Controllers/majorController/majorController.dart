@@ -10,15 +10,16 @@ class MajorController extends GetxController {
   @override
   // ignore: must_call_super
   void onInit() {
-    fetchMajor();
+    fetchMajors();
     super.onInit();
   }
 
-  void fetchMajor() async {
+  void fetchMajors() async {
     try {
       isLoading(true);
       var majors = await APIServices.fetchMajors();
       majorList.assignAll(majors);
+      print("fetchMajors() success");
     } finally {
       isLoading(false);
     }

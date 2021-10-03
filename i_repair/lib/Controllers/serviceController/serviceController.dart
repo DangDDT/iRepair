@@ -17,20 +17,22 @@ class ServiceController extends GetxController {
   void fetchService() async {
     try {
       isLoading(true);
-      var services = await APIServices.fetchServices();
+      var services = List<Service>.empty().obs;
       serviceList.assignAll(services);
+      print("fetchService() success");
     } finally {
       isLoading(false);
     }
   }
 
-  List<Service> getServicesByField(Field field) {
-    List<Service> list = [];
-    print(serviceList);
-    for (Service service in serviceList) {
-      if (service.fieldId == field.id) list.add(service);
+  void getServicesByField(Field field) async {
+    try {
+      isLoading(true);
+      var services = await APIServices.fetchServicesByField(field);
+      serviceList.assignAll(services);
+      print("getServicesByField() success");
+    } finally {
+      isLoading(false);
     }
-    // print(list);
-    return list;
   }
 }

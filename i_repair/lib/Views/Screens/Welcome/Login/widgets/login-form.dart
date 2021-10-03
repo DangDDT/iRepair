@@ -144,7 +144,7 @@ class LoginFormState extends State<LoginForm> {
               Buttons.Google,
               elevation: 5,
               shape: OutlineInputBorder(borderSide: BorderSide.none),
-              text: "Sign up with Google",
+              text: "Sign in with Google",
               onPressed: () async {
                 await loginProvider.signInWithGoogle(context: context);
                 final user = Provider.of<User?>(context, listen: false);

@@ -3,12 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:i_repair/Controllers/fieldController/fieldController.dart';
 import 'package:i_repair/Controllers/majorController/majorController.dart';
 import 'package:i_repair/Controllers/serviceController/serviceController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Field/field.dart';
 import 'package:i_repair/Models/Major/major.dart';
 import 'package:i_repair/Models/Service/service.dart';
+import 'package:i_repair/Services/api.services.dart';
 import 'package:i_repair/Views/common/appbar/common-appbar.dart';
 import 'package:im_stepper/stepper.dart';
 
@@ -156,14 +158,19 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
     );
   }
 
+  //Controller
   MajorController majorController = Get.put(MajorController());
   ServiceController serviceController = Get.put(ServiceController());
-  List<Field>? fieldList = Field.choices;
-  List<Major>? selectedMajorList = [];
-  List<Field> displayFieldList = [];
-  Field? selectedField;
-  List<Service> displayServiceList = [];
+  FieldController fieldController = Get.put(FieldController());
+
+  //Selected
+  List<Major>? selectedMajorList = List<Major>.empty().obs;
   Service? selectedService;
+  Field? selectedField;
+
+  //Display
+  List<Service> displayServiceList = [];
+
   void _openFilterDialog() async {
     await FilterListDialog.display<Major>(
       context,
@@ -201,6 +208,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
       onApplyButtonClick: (list) {
         setState(() {
           selectedMajorList = List.from(list!);
+          fieldController.getFieldsByMajors(selectedMajorList!);
         });
         Navigator.pop(context);
       },
@@ -210,170 +218,175 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
   Widget bodyWidget(value) {
     switch (value) {
       case 0:
-        (selectedMajorList!.length == 0)
-            ? displayFieldList = fieldList!
-            : displayFieldList = Field.getFieldByMajor(selectedMajorList!);
-        return Column(children: [
-          Container(
-            margin: EdgeInsets.only(right: 10),
-            alignment: Alignment.centerRight,
-            child: MaterialButton(
-                onPressed: _openFilterDialog,
-                child: Text('Lọc theo lĩnh vực'),
-                color: kBackgroundColor,
-                elevation: 5,
-                shape: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(35),
-                    borderSide: BorderSide(width: 2))),
-          ),
-          Expanded(
-              child: SizedBox(
-            height: 250,
-            child: displayFieldList.length == 0
-                ? Center(
-                    child: Text('No text selected'),
-                  )
-                : ListView.separated(
-                    itemBuilder: (context, index) {
-                      return Container(
-                        height: 100,
-                        child: Card(
-                          shape: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(25)),
-                          elevation: 5,
-                          child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  selectedField = displayFieldList[index];
-                                });
-                                print(selectedField);
-                                nextButton();
-                              },
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 60,
-                                    height: 60,
-                                    margin: EdgeInsets.only(left: 20),
-                                    decoration: BoxDecoration(
-                                        color: kPrimaryLightColor,
-                                        borderRadius:
-                                            BorderRadius.circular(34)),
-                                    child: Stack(
+        return Obx(() {
+          return Column(children: [
+            Container(
+              margin: EdgeInsets.only(right: 10),
+              alignment: Alignment.centerRight,
+              child: MaterialButton(
+                  onPressed: _openFilterDialog,
+                  child: Text('Lọc theo lĩnh vực'),
+                  color: kBackgroundColor,
+                  elevation: 5,
+                  shape: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(35),
+                      borderSide: BorderSide(width: 2))),
+            ),
+            Expanded(
+                child: SizedBox(
+              height: 250,
+              child: (fieldController.isLoading.isTrue)
+                  ? Center(child: CircularProgressIndicator())
+                  : (fieldController.fieldList.length == 0 &&
+                          fieldController.isLoading.isFalse)
+                      ? Center(child: Text('No field with this major'))
+                      : ListView.separated(
+                          itemBuilder: (context, index) {
+                            return Container(
+                              height: 100,
+                              child: Card(
+                                shape: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(25)),
+                                elevation: 5,
+                                child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedField =
+                                            fieldController.fieldList[index];
+                                        serviceController
+                                            .getServicesByField(selectedField!);
+                                      });
+                                      nextButton();
+                                    },
+                                    child: Row(
                                       children: [
-                                        Positioned(
-                                          left: 10,
-                                          child: SvgPicture.asset(
-                                            'assets/images/electric-appliance.svg',
-                                            height: 50,
+                                        Container(
+                                          width: 60,
+                                          height: 60,
+                                          margin: EdgeInsets.only(left: 20),
+                                          decoration: BoxDecoration(
+                                              color: kPrimaryLightColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(34)),
+                                          child: Stack(
+                                            children: [
+                                              Positioned(
+                                                left: 10,
+                                                child: SvgPicture.asset(
+                                                  'assets/images/default-icon.svg',
+                                                  height: 50,
+                                                ),
+                                              )
+                                            ],
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 20),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          displayFieldList[index].name,
-                                          style: TextStyle(fontSize: 24),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(left: 20),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                fieldController
+                                                    .fieldList[index].name,
+                                                style: TextStyle(fontSize: 24),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ],
-                                    ),
-                                  ),
-                                ],
-                              )),
+                                    )),
+                              ),
+                            );
+                          },
+                          itemCount: fieldController.fieldList.length,
+                          separatorBuilder: (context, index) => Divider(),
                         ),
-                      );
-                    },
-                    itemCount: displayFieldList.length,
-                    separatorBuilder: (context, index) => Divider(),
-                  ),
-          ))
-        ]);
+            ))
+          ]);
+        });
       case 1:
-        displayServiceList =
-            serviceController.getServicesByField(selectedField!);
-        print(displayServiceList);
-        return Column(children: [
-          Expanded(
-              child: SizedBox(
-            height: 250,
-            child: displayServiceList.length == 0
-                ? Center(
-                    child: Text('No text selected'),
-                  )
-                : ListView.separated(
-                    itemBuilder: (context, index) {
-                      return Container(
-                        height: 250,
-                        child: Card(
-                          shape: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(25)),
-                          elevation: 5,
-                          child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  selectedService = displayServiceList[index];
-                                });
-                                print(selectedField);
-                                nextButton();
-                              },
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 60,
-                                    height: 60,
-                                    margin: EdgeInsets.only(left: 20),
-                                    decoration: BoxDecoration(
-                                        color: kPrimaryLightColor,
-                                        borderRadius:
-                                            BorderRadius.circular(34)),
-                                    child: Stack(
+        return Obx(() {
+          return Column(children: [
+            Expanded(
+                child: SizedBox(
+              height: 250,
+              child: (serviceController.isLoading.isTrue)
+                  ? Center(child: CircularProgressIndicator())
+                  : (serviceController.serviceList.length == 0 &&
+                          serviceController.isLoading.isFalse)
+                      ? Center(child: Text('No service with this major'))
+                      : ListView.separated(
+                          itemBuilder: (context, index) {
+                            return Container(
+                              height: 250,
+                              child: Card(
+                                shape: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(25)),
+                                elevation: 5,
+                                child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedService = serviceController
+                                            .serviceList[index];
+                                      });
+                                      nextButton();
+                                    },
+                                    child: Row(
                                       children: [
-                                        Positioned(
-                                          left: 10,
-                                          child: SvgPicture.asset(
-                                            'assets/images/electric-appliance.svg',
-                                            height: 50,
+                                        Container(
+                                          width: 60,
+                                          height: 60,
+                                          margin: EdgeInsets.only(left: 20),
+                                          decoration: BoxDecoration(
+                                              color: kPrimaryLightColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(34)),
+                                          child: Stack(
+                                            children: [
+                                              Positioned(
+                                                left: 10,
+                                                child: SvgPicture.asset(
+                                                  'assets/images/default-icon.svg',
+                                                  height: 50,
+                                                ),
+                                              )
+                                            ],
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 20),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          displayServiceList[index]
-                                              .serviceName!,
-                                          style: TextStyle(fontSize: 16),
+                                        ),
+                                        Container(
+                                          margin: EdgeInsets.only(left: 20),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                serviceController
+                                                    .serviceList[index]
+                                                    .serviceName,
+                                                style: TextStyle(fontSize: 16),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ],
-                                    ),
-                                  ),
-                                ],
-                              )),
+                                    )),
+                              ),
+                            );
+                          },
+                          itemCount: serviceController.serviceList.length,
+                          separatorBuilder: (context, index) => Divider(),
                         ),
-                      );
-                    },
-                    itemCount: displayServiceList.length,
-                    separatorBuilder: (context, index) => Divider(),
-                  ),
-          ))
-        ]);
+            ))
+          ]);
+        });
+
       default:
         return Text('$activeStep');
     }
@@ -386,7 +399,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
         return 'Chọn dịch vụ bạn mong muốn';
 
       case 2:
-        return 'Cho chúng tôi xin một vài thông tin nhé';
+        return 'Vui lòng điền thông tin của bạn';
 
       case 3:
         return 'Mời bạn thanh toán dịch vụ';
