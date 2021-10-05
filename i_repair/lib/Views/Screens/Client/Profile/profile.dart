@@ -138,6 +138,94 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: CupertinoColors.black,
                         fontWeight: FontWeight.bold))),
           ],
+        ),
+        SizedBox(height: 5),
+        Container(
+          height: 200,
+          margin: EdgeInsets.all(20),
+          child: ListView(physics: NeverScrollableScrollPhysics(), children: [
+            Row(
+              children: [
+                Container(
+                  width: 100,
+                  child: Text(
+                    "Họ và tên: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                ),
+                Text(
+                  "Đỗ Dương Tâm Đăng",
+                  style: TextStyle(fontSize: 18),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 100,
+                  child: Text(
+                    "Địa chỉ: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                ),
+                Container(
+                  width: 250,
+                  child: Text(
+                    "Chung cư Sky9, đường Liên Phường, phường Phú Hữu, TP. Thủ Đức, TP.HCM.",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 100,
+                  child: Text(
+                    "Điện thoại: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                ),
+                Container(
+                  width: 100,
+                  child: Text(
+                    "0774839222",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                )
+              ],
+            ),
+            Container(
+              margin: EdgeInsets.all(20),
+              width: 200,
+              height: 50,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [kPrimaryColor, kPrimaryLightColor],
+                    begin: FractionalOffset.topLeft,
+                    end: FractionalOffset.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(5)),
+              child: TextButton(
+                child: Text(
+                  'Edit Profile',
+                  style:
+                      TextStyle(color: kTextColor, fontWeight: FontWeight.bold),
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ]),
         )
       ],
     );

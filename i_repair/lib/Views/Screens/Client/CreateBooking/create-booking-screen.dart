@@ -10,9 +10,10 @@ import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Field/field.dart';
 import 'package:i_repair/Models/Major/major.dart';
 import 'package:i_repair/Models/Service/service.dart';
-import 'package:i_repair/Services/api.services.dart';
 import 'package:i_repair/Views/common/appbar/common-appbar.dart';
 import 'package:im_stepper/stepper.dart';
+
+enum Payment { COD, BANKING }
 
 class CreateBookingScreen extends StatefulWidget {
   @override
@@ -21,8 +22,13 @@ class CreateBookingScreen extends StatefulWidget {
 
 class _CreateBookingScreenState extends State<CreateBookingScreen> {
   int activeStep = 0;
-
+  late bool useDefaultProfile;
+  final TextEditingController _nameController = new TextEditingController();
+  final TextEditingController _addressController = new TextEditingController();
+  final TextEditingController _phoneController = new TextEditingController();
   int upperBound = 4;
+  Payment? _payment = Payment.COD;
+
   Icon checkCompleteIcon(currentIndex, valueIndex, indexIcon) {
     if (currentIndex > valueIndex) {
       return Icon(
@@ -35,6 +41,22 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
   }
 
   @override
+  void initState() {
+    useDefaultProfile = false;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the widget tree.
+    // This also removes the _printLatestValue listener.
+    _nameController.dispose();
+    _addressController.dispose();
+    _phoneController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -44,11 +66,10 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
         appBar: AppBar(),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
             IconStepper(
-              stepReachedAnimationEffect: Curves.slowMiddle,
               icons: [
                 checkCompleteIcon(
                     activeStep, 0, Icon(CupertinoIcons.wrench_fill)),
@@ -56,15 +77,20 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                     activeStep, 1, Icon(Icons.home_repair_service)),
                 checkCompleteIcon(activeStep, 2, Icon(Icons.person)),
                 checkCompleteIcon(activeStep, 3, Icon(Icons.payment)),
+                checkCompleteIcon(activeStep, 4, Icon(Icons.check_circle)),
               ],
+              lineLength: 26.5,
               activeStepBorderColor: kPrimaryLightColor,
               scrollingDisabled: true,
               enableStepTapping: false,
               enableNextPreviousButtons: false,
-              lineDotRadius: 3,
+              lineDotRadius: 1.2,
               activeStepColor: kPrimaryLightColor,
               stepColor: kBackgroundColor,
               lineColor: kTextColor,
+              stepRadius: 26,
+              activeStepBorderWidth: 0,
+              activeStepBorderPadding: 0,
               // activeStep property set to activeStep variable defined above.
               activeStep: activeStep,
               // This ensures step-tapping updates the activeStep.
@@ -77,18 +103,21 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
             Container(
               height: 20,
               width: size.width,
-              padding: EdgeInsets.only(left: 22),
               child: GridView(
+                padding: EdgeInsets.only(
+                  left: 21,
+                ),
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  crossAxisSpacing: 20,
+                  crossAxisCount: 5,
+                  crossAxisSpacing: 12,
                 ),
                 children: [
-                  Text('Chọn đồ dùng'),
-                  Text('Chọn dịch vụ'),
-                  Text('Điền thông tin'),
-                  Text('Thanh toán')
+                  Text('Đồ dùng'),
+                  Text(' Dịch vụ'),
+                  Text('Thông tin'),
+                  Text('Thanh toán'),
+                  Text('  Chốt đơn'),
                 ],
               ),
             ),
@@ -104,6 +133,20 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 if (activeStep != 0) previousButton(),
+                if (activeStep == 2 || activeStep == 3)
+                  MaterialButton(
+                    color: kPrimaryLightColor,
+                    shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(35),
+                        borderSide: BorderSide.none),
+                    onPressed: () {
+                      // Decrement activeStep, when the previous button is tapped. However, check for lower bound i.e., must be greater than 0.
+                      if (activeStep > 0) {
+                        nextButton();
+                      }
+                    },
+                    child: Text('Tiếp theo'),
+                  ),
               ],
             ),
           ],
@@ -117,6 +160,8 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
       setState(() {
         activeStep++;
       });
+    } else {
+      Get.offNamed("/success_screen");
     }
   }
 
@@ -208,7 +253,11 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
       onApplyButtonClick: (list) {
         setState(() {
           selectedMajorList = List.from(list!);
-          fieldController.getFieldsByMajors(selectedMajorList!);
+          if (selectedMajorList!.isEmpty) {
+            fieldController.fetchFields();
+          } else {
+            fieldController.getFieldsByMajors(selectedMajorList!);
+          }
         });
         Navigator.pop(context);
       },
@@ -386,7 +435,134 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
             ))
           ]);
         });
-
+      case 2:
+        print(_nameController.text);
+        print(_addressController.text);
+        print(_phoneController.text);
+        return GestureDetector(
+          onTap: () {
+            FocusManager.instance.primaryFocus!.unfocus();
+          },
+          child: Container(
+            alignment: Alignment.centerLeft,
+            margin: EdgeInsets.all(5),
+            child: ListView(children: [
+              (useDefaultProfile)
+                  ? TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Họ và tên',
+                      ),
+                      initialValue: _nameController.text,
+                      enabled: !useDefaultProfile,
+                    )
+                  : TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Họ và tên',
+                      ),
+                      controller: _nameController,
+                      enabled: !useDefaultProfile,
+                    ),
+              SizedBox(
+                height: 30,
+              ),
+              (useDefaultProfile)
+                  ? TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Địa chỉ',
+                      ),
+                      initialValue: _addressController.text,
+                      enabled: !useDefaultProfile,
+                    )
+                  : TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Địa chỉ',
+                      ),
+                      controller: _addressController,
+                      enabled: !useDefaultProfile,
+                    ),
+              SizedBox(
+                height: 30,
+              ),
+              (useDefaultProfile)
+                  ? TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Số điện thoại',
+                      ),
+                      initialValue: _phoneController.text,
+                      enabled: !useDefaultProfile,
+                    )
+                  : TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Số điện thoại',
+                      ),
+                      controller: _phoneController,
+                      enabled: !useDefaultProfile,
+                    ),
+              Container(
+                child: CheckboxListTile(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 0),
+                  title: Text("Dùng thông tin tài khoản"),
+                  value: useDefaultProfile,
+                  onChanged: (newValue) {
+                    setState(() {
+                      useDefaultProfile = newValue!;
+                      _nameController.text =
+                          (useDefaultProfile) ? 'Đỗ Dương Tâm Đăng' : '';
+                      _addressController.text = (useDefaultProfile)
+                          ? 'Chung cư Sky9, đường Liên Phường, phường Phú Hữu, TP. Thủ Đức, TP.HCM.'
+                          : '';
+                      _phoneController.text =
+                          (useDefaultProfile) ? '0774839222' : '';
+                    });
+                  },
+                  controlAffinity:
+                      ListTileControlAffinity.leading, //  <-- leading Checkbox
+                ),
+              ),
+            ]),
+          ),
+        );
+      case 3:
+        print(_payment);
+        return Container(
+          child: Column(
+            children: [
+              ListTile(
+                title: const Text('Thanh toán tại nhà'),
+                leading: Radio<Payment>(
+                  value: Payment.COD,
+                  groupValue: _payment,
+                  onChanged: (Payment? value) {
+                    setState(() {
+                      _payment = value;
+                    });
+                  },
+                ),
+              ),
+              ListTile(
+                title:
+                    const Text('Chuyển khoản qua ngân hàng (Đang phát triển)'),
+                leading: Radio<Payment>(
+                  value: Payment.BANKING,
+                  groupValue: _payment,
+                  onChanged: (Payment? value) {
+                    // setState(() {
+                    //   _payment = value;
+                    // });
+                  },
+                  fillColor: MaterialStateProperty.all(Colors.grey),
+                ),
+                enabled: false,
+              ),
+            ],
+          ),
+        );
       default:
         return Text('$activeStep');
     }
@@ -402,7 +578,10 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
         return 'Vui lòng điền thông tin của bạn';
 
       case 3:
-        return 'Mời bạn thanh toán dịch vụ';
+        return 'Mời bạn chọn phương thức thanh toán';
+
+      case 4:
+        return 'Mời bạn xác nhận thông tin đơn hàng';
 
       default:
         return 'Chọn vật dụng bạn muốn sửa chữa';

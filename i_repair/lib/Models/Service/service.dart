@@ -13,10 +13,9 @@ class Service {
     required this.fieldId,
     required this.serviceName,
     this.description,
-    this.price,
-    this.picture,
+    required this.price,
+    this.imageUrl,
     required this.status,
-    required this.isDelete,
   });
 
   String id;
@@ -24,32 +23,29 @@ class Service {
   String fieldId;
   String serviceName;
   String? description;
-  int? price;
-  String? picture;
+  int price;
+  String? imageUrl;
   int status;
-  int isDelete;
 
   factory Service.fromJson(Map<String, dynamic> json) => Service(
         id: json["Id"],
-        companyId: json["Company_Id"],
-        fieldId: json["Field_Id"],
-        serviceName: json["Service_Name"],
+        companyId: json["CompanyId"],
+        fieldId: json["FieldId"],
+        serviceName: json["ServiceName"],
         description: json["Description"],
         price: json["Price"],
-        picture: json["Picture"],
+        imageUrl: json["ImageUrl"],
         status: json["Status"],
-        isDelete: json["Is_Delete"],
       );
 
   Map<String, dynamic> toJson() => {
         "Id": id,
-        "Company_Id": companyId,
-        "Field_Id": fieldId,
-        "Service_Name": serviceName,
+        "CompanyId": companyId,
+        "FieldId": fieldId,
+        "ServiceName": serviceName,
         "Description": description,
         "Price": price,
-        "Picture": picture,
+        "ImageUrl": imageUrl,
         "Status": status,
-        "Is_Delete": isDelete,
       };
 }

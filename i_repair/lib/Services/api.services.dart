@@ -1,10 +1,10 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:i_repair/Models/Field/field.dart';
 import 'package:i_repair/Models/Major/major.dart';
 import 'package:i_repair/Models/Service/service.dart';
+
+final endpoint = dotenv.get('MOBILE_APP_API_URL');
 
 class APIServices {
   static Future fetchWeatherForecast() async {
@@ -15,8 +15,7 @@ class APIServices {
 
   static Future<List<Major>> fetchMajors() async {
     final response = await http.get(
-      Uri.parse(
-          "https://ec2-3-1-222-201.ap-southeast-1.compute.amazonaws.com/api/v1.0/major/get-all"),
+      Uri.parse("$endpoint/api/v1.0/major"),
     );
     if (response.statusCode == 200) {
       print("API fetchMajorsAPI() success");
@@ -28,8 +27,7 @@ class APIServices {
 
   static Future<List<Field>> fetchFields() async {
     final response = await http.get(
-      Uri.parse(
-          "https://ec2-3-1-222-201.ap-southeast-1.compute.amazonaws.com/api/v1.0/major_field/get-all"),
+      Uri.parse("$endpoint/api/v1.0/major_field/"),
     );
     if (response.statusCode == 200) {
       await Future.delayed(Duration(seconds: 1));
@@ -41,14 +39,13 @@ class APIServices {
   }
 
   static Future<List<Field>> fetchFieldsByMajors(List<Major> majors) async {
-    List<String> majorIds = [];
-    majors.forEach((element) => {majorIds.add(element.id)});
-    var body = json.encode(majorIds);
-    final response = await http.post(
-        Uri.parse(
-            "https://ec2-3-1-222-201.ap-southeast-1.compute.amazonaws.com/api/v1.0/major_field/get-all-fields-by-majors"),
-        headers: {"content-type": "application/json"},
-        body: body);
+    String qParamString = '?';
+    majors.forEach((element) => {qParamString += 'listMajorId=${element.id}&'});
+    qParamString = qParamString.substring(0, qParamString.lastIndexOf('&'));
+    final response = await http.get(
+      Uri.parse("$endpoint/api/v1.0/major_field$qParamString"),
+      headers: {"content-type": "application/json"},
+    );
     if (response.statusCode == 200) {
       print("API fetchFieldsByMajorsAPI() success");
       return fieldFromJson(response.body);
@@ -58,12 +55,10 @@ class APIServices {
   }
 
   static Future<List<Service>> fetchServicesByField(Field field) async {
-    Map<String, String> qParam = {
-      'id': '${field.id}',
-    };
+    String qParamString = "?";
+    qParamString += "FieldId=${field.id}";
     final response = await http.get(
-      Uri.https("ec2-3-1-222-201.ap-southeast-1.compute.amazonaws.com",
-          "/api/v1.0/service/get-by-field-id/", qParam),
+      Uri.parse("$endpoint/api/v1.0/service/$qParamString"),
       headers: {"content-type": "application/json"},
     );
     if (response.statusCode == 200) {

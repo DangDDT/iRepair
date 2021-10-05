@@ -11,29 +11,29 @@ class Major {
     required this.id,
     required this.name,
     this.description,
-    this.picture,
-    required this.isDelete,
+    this.imageUrl,
+    required this.status,
   });
 
   String id;
   String name;
   String? description;
-  String? picture;
-  int isDelete;
+  String? imageUrl;
+  int status;
 
   factory Major.fromJson(Map<String, dynamic> json) => Major(
         id: json["Id"],
         name: json["Name"],
         description: json["Description"],
-        picture: json["Picture"],
-        isDelete: json["Is_Delete"],
+        imageUrl: json["ImageUrl"],
+        status: json["Status"],
       );
 
   Map<String, dynamic> toJson() => {
         "Id": id,
         "Name": name,
         "Description": description,
-        "Picture": picture,
-        "Is_Delete": isDelete,
+        "ImageUrl": imageUrl,
+        "Status": status,
       };
 }

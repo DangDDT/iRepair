@@ -12,32 +12,32 @@ class Field {
     required this.name,
     this.description,
     required this.majorId,
-    this.picture,
-    required this.isDelete,
+    this.imageUrl,
+    required this.status,
   });
 
   String id;
   String name;
   String? description;
   String majorId;
-  String? picture;
-  int isDelete;
+  String? imageUrl;
+  int status;
 
   factory Field.fromJson(Map<String, dynamic> json) => Field(
         id: json["Id"],
         name: json["Name"],
         description: json["Description"],
-        majorId: json["Major_Id"],
-        picture: json["Picture"],
-        isDelete: json["Is_Delete"],
+        majorId: json["MajorId"],
+        imageUrl: json["ImageUrl"],
+        status: json["Status"],
       );
 
   Map<String, dynamic> toJson() => {
         "Id": id,
         "Name": name,
         "Description": description,
-        "Major_Id": majorId,
-        "Picture": picture,
-        "Is_Delete": isDelete,
+        "MajorId": majorId,
+        "ImageUrl": imageUrl,
+        "Status": status,
       };
 }

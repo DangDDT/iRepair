@@ -1,9 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:i_repair/Screens/Welcome/welcome_screen.dart';
-// import 'package:i_repair/Screens/Welcome/welcome_screen.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Views/Screens/Client/CreateBooking/widgets/success-screen.dart';
 import 'package:i_repair/Views/Screens/Welcome/Signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 import 'Services/auth/auth.dart';
@@ -11,9 +10,11 @@ import 'Views/Screens/Client/CreateBooking/create-booking-screen.dart';
 import 'Views/Screens/Client/MyBooking/booking.dart';
 import 'Views/Screens/app.dart';
 import 'views/Screens/Welcome/Login/login-screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'app.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: "assets/.env");
   runApp(MyApp());
 }
 
@@ -21,7 +22,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    
     final _init = Firebase.initializeApp();
     return FutureBuilder(
         future: _init,
@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
                   '/client_app': (context) => App(),
                   '/my_booking': (context) => BookingScreen(),
                   '/create_booking': (context) => CreateBookingScreen(),
+                  '/success_screen': (context) => SuccessScreen()
                 },
               ),
             );

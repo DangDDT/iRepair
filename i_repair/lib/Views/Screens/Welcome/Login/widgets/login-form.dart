@@ -149,7 +149,6 @@ class LoginFormState extends State<LoginForm> {
                 await loginProvider.signInWithGoogle(context: context);
                 final user = Provider.of<User?>(context, listen: false);
                 if (user != null) {
-                  print(user);
                   Get.offAndToNamed('/client_app');
                 }
               },
