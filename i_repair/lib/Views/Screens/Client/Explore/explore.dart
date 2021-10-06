@@ -22,7 +22,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
       children: [
         Stack(children: [
           Container(
-            height: 120,
+            height: 140,
             decoration: const BoxDecoration(
               borderRadius:
                   BorderRadius.only(bottomRight: Radius.circular(100)),

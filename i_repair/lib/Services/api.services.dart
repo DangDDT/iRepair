@@ -7,15 +7,9 @@ import 'package:i_repair/Models/Service/service.dart';
 final endpoint = dotenv.get('MOBILE_APP_API_URL');
 
 class APIServices {
-  static Future fetchWeatherForecast() async {
-    return await http.get(
-      Uri.parse("https://irepair-api.herokuapp.com/WeatherForecast"),
-    );
-  }
-
   static Future<List<Major>> fetchMajors() async {
     final response = await http.get(
-      Uri.parse("$endpoint/api/v1.0/major"),
+      Uri.parse("$endpoint/api/v1.0/major?status=1"),
     );
     if (response.statusCode == 200) {
       print("API fetchMajorsAPI() success");
@@ -27,7 +21,7 @@ class APIServices {
 
   static Future<List<Field>> fetchFields() async {
     final response = await http.get(
-      Uri.parse("$endpoint/api/v1.0/major_field/"),
+      Uri.parse("$endpoint/api/v1.0/major-field?status=1"),
     );
     if (response.statusCode == 200) {
       await Future.delayed(Duration(seconds: 1));
@@ -41,9 +35,9 @@ class APIServices {
   static Future<List<Field>> fetchFieldsByMajors(List<Major> majors) async {
     String qParamString = '?';
     majors.forEach((element) => {qParamString += 'listMajorId=${element.id}&'});
-    qParamString = qParamString.substring(0, qParamString.lastIndexOf('&'));
+    qParamString += qParamString.substring(0, qParamString.lastIndexOf('&'));
     final response = await http.get(
-      Uri.parse("$endpoint/api/v1.0/major_field$qParamString"),
+      Uri.parse("$endpoint/api/v1.0/major-field$qParamString"),
       headers: {"content-type": "application/json"},
     );
     if (response.statusCode == 200) {
@@ -55,8 +49,7 @@ class APIServices {
   }
 
   static Future<List<Service>> fetchServicesByField(Field field) async {
-    String qParamString = "?";
-    qParamString += "FieldId=${field.id}";
+    String qParamString = "?FieldId=${field.id}";
     final response = await http.get(
       Uri.parse("$endpoint/api/v1.0/service/$qParamString"),
       headers: {"content-type": "application/json"},

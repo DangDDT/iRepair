@@ -56,13 +56,13 @@ class AuthService with ChangeNotifier {
             await _firebaseAuth.signInWithCredential(credential);
 
         user = userCredential.user;
-        // String token = await user!.getIdToken(true);
-        // while (token.length > 0) {
-        //   int initLength = (token.length >= 500 ? 500 : token.length);
-        //   print(token.substring(0, initLength));
-        //   int endLength = token.length;
-        //   token = token.substring(initLength, endLength);
-        // }
+        String token = await user!.getIdToken(true);
+        while (token.length > 0) {
+          int initLength = (token.length >= 500 ? 500 : token.length);
+          print(token.substring(0, initLength));
+          int endLength = token.length;
+          token = token.substring(initLength, endLength);
+        }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {
           setMessage(e.message);

@@ -133,7 +133,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 if (activeStep != 0) previousButton(),
-                if (activeStep == 2 || activeStep == 3)
+                if (activeStep == 2 || activeStep == 3 || activeStep == 4)
                   MaterialButton(
                     color: kPrimaryLightColor,
                     shape: OutlineInputBorder(
@@ -321,11 +321,21 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                           child: Stack(
                                             children: [
                                               Positioned(
-                                                left: 10,
-                                                child: SvgPicture.asset(
-                                                  'assets/images/default-icon.svg',
-                                                  height: 50,
-                                                ),
+                                                left: 5,
+                                                child: (fieldController
+                                                            .fieldList[index]
+                                                            .imageUrl ==
+                                                        'none')
+                                                    ? SvgPicture.asset(
+                                                        'assets/images/default-icon.svg',
+                                                        height: 50,
+                                                      )
+                                                    : Image.network(
+                                                        fieldController
+                                                            .fieldList[index]
+                                                            .imageUrl!,
+                                                        height: 50,
+                                                      ),
                                               )
                                             ],
                                           ),

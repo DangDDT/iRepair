@@ -24,7 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       children: [
         Stack(children: [
           Container(
-            height: 120,
+            height: 140,
             decoration: const BoxDecoration(
               borderRadius:
                   BorderRadius.only(bottomRight: Radius.circular(100)),
@@ -205,28 +205,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 )
               ],
             ),
-            Container(
-              margin: EdgeInsets.all(20),
-              width: 200,
-              height: 50,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [kPrimaryColor, kPrimaryLightColor],
-                    begin: FractionalOffset.topLeft,
-                    end: FractionalOffset.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(5)),
-              child: TextButton(
-                child: Text(
-                  'Edit Profile',
-                  style:
-                      TextStyle(color: kTextColor, fontWeight: FontWeight.bold),
-                ),
-                onPressed: () {},
-              ),
-            ),
           ]),
-        )
+        ),
+        Container(
+          margin: EdgeInsets.all(20),
+          width: 200,
+          height: 50,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [kPrimaryColor, kPrimaryLightColor],
+                begin: FractionalOffset.topLeft,
+                end: FractionalOffset.bottomRight,
+              ),
+              borderRadius: BorderRadius.circular(5)),
+          child: TextButton(
+            child: Text(
+              'Edit Profile',
+              style: TextStyle(color: kTextColor, fontWeight: FontWeight.bold),
+            ),
+            onPressed: () {},
+          ),
+        ),
       ],
     );
   }
