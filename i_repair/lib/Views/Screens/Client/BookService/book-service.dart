@@ -15,7 +15,7 @@ class BookServiceScreen extends StatefulWidget {
 
 class _BookServiceScreenState extends State<BookServiceScreen> {
   ImagePicker _picker = ImagePicker();
-  var selectedImage;
+  var selectedImage = [];
   MajorModel selectedMajor = majorList[0];
   Repairman selectedRepairman = Repairman('', '', 0, 0, 'none', '');
   final _formKey = GlobalKey<FormState>();
@@ -25,7 +25,9 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
   @override
   void initState() {
     super.initState();
+    selectedImage = [];
     _currentProlemnController = new TextEditingController();
+    _currentProlemnController!.text = 'Bảo trì và bơm gas tủ lạnh';
     _stepIndex = 0;
   }
 
@@ -520,67 +522,49 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                                         Container(
                                           margin: EdgeInsets.only(
                                               top: 10, left: 20),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 90,
-                                                child: Text('NGƯỜI ĐẶT: ',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ),
-                                              Container(
-                                                  child: Text(
-                                                      'Đỗ Dương Tâm Đăng',
-                                                      style: TextStyle(
-                                                          fontSize: 14)))
-                                            ],
-                                          ),
+                                          child: Text('HÌNH ẢNH MINH HỌA: ',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold)),
                                         ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              top: 10, left: 20),
-                                          child: Row(
+                                        if (selectedImage.length != 0)
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                CrossAxisAlignment.center,
                                             children: [
                                               Container(
-                                                width: 90,
-                                                child: Text('ĐỊA CHỈ: ',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
+                                                width: size.width * 0.8,
+                                                height: 120,
+                                                child: ListView(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    children: List.generate(
+                                                        selectedImage.length,
+                                                        (index) {
+                                                      return Container(
+                                                        padding:
+                                                            EdgeInsets.all(5),
+                                                        child: Image.file(
+                                                          selectedImage[index],
+                                                          width: 100.0,
+                                                          height: 100.0,
+                                                          fit: BoxFit.fitHeight,
+                                                        ),
+                                                      );
+                                                    })),
                                               ),
-                                              Container(
-                                                  width: 250,
-                                                  child: Text(
-                                                      'Chung cư Sky9, đường Liên Phường, phường Phú Hữu, TP.Thủ Đức, TP.HCM',
-                                                      style: TextStyle(
-                                                          fontSize: 14)))
                                             ],
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              top: 10, left: 20),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                child: Text('SỐ ĐIỆN THOẠI: ',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ),
-                                              Container(
-                                                  child: Text('0774839222',
-                                                      style: TextStyle(
-                                                          fontSize: 14)))
-                                            ],
-                                          ),
-                                        ),
+                                          )
+                                        else
+                                          Container(
+                                              alignment: Alignment.center,
+                                              margin: EdgeInsets.only(top: 20),
+                                              child: Text(
+                                                  'Không có hình ảnh minh họa',
+                                                  style:
+                                                      TextStyle(fontSize: 14)))
                                       ],
                           ),
                         ),
@@ -593,7 +577,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
               ? Container(
                   margin:
                       EdgeInsets.only(top: 0, left: 30, right: 30, bottom: 5),
-                  child: (selectedImage == null)
+                  child: (selectedImage.isEmpty)
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -603,7 +587,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                                   XFile? image = await _picker.pickImage(
                                       source: ImageSource.camera);
                                   setState(() {
-                                    selectedImage = File(image!.path);
+                                    selectedImage.add(File(image!.path));
                                   });
                                 },
                                 icon: Icon(Icons.camera_alt)),
@@ -611,18 +595,50 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                           ],
                         )
                       : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Image.file(
-                              selectedImage,
-                              width: 200.0,
-                              height: 200.0,
-                              fit: BoxFit.fitHeight,
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.centerLeft,
+                                width: size.width,
+                                height: 300,
+                                child: ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    children: List.generate(
+                                        selectedImage.length, (index) {
+                                      return Container(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image.file(
+                                          selectedImage[index],
+                                          width: 200.0,
+                                          height: 200.0,
+                                          fit: BoxFit.fitHeight,
+                                        ),
+                                      );
+                                    })),
+                              ),
                             ),
-                            IconButton(
-                                onPressed: (selectedImage = null),
-                                icon: Icon(Icons.delete_forever))
+                            Column(
+                              children: [
+                                IconButton(
+                                    onPressed: () async {
+                                      XFile? image = await _picker.pickImage(
+                                          source: ImageSource.camera);
+                                      setState(() {
+                                        selectedImage.add(File(image!.path));
+                                      });
+                                    },
+                                    icon: Icon(Icons.add_a_photo)),
+                                IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        selectedImage = [];
+                                      });
+                                    },
+                                    icon: Icon(Icons.delete_forever)),
+                              ],
+                            )
                           ],
                         ),
                 )

@@ -56,9 +56,9 @@ List _elements = [
   {
     'id': 'A123',
     'service': 'Sửa nồi cơm',
-    'repairman': 'Đang chờ có thợ',
+    'repairman': 'Phạm Hữu Nghĩa',
     'group': 'Đang xử lý',
-    'status': 'Đang chờ có thợ',
+    'status': 'Thợ đang đến',
     'createdAt': '30-09-2021'
   },
 ];
