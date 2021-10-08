@@ -9,7 +9,7 @@ List _elements = [
     'id': 'A002',
     'service': 'Thay gas máy lạnh',
     'repairman': 'Trần Văn Thái',
-    'group': 'Lịch sử đơn hàng',
+    'group': 'Đã xử lý',
     'status': 'Đã hoàn thành',
     'createdAt': '12-08-2020'
   },
@@ -17,7 +17,7 @@ List _elements = [
     'id': 'A007',
     'service': 'Thay đường ống nước',
     'repairman': 'Đỗ Thành Thái',
-    'group': 'Lịch sử đơn hàng',
+    'group': 'Đã xử lý',
     'status': 'Đã hủy',
     'createdAt': '19-08-2020'
   },
@@ -25,7 +25,7 @@ List _elements = [
     'id': 'A040',
     'service': 'Thay gas máy lạnh',
     'repairman': 'Trần Văn Thái',
-    'group': 'Lịch sử đơn hàng',
+    'group': 'Đã xử lý',
     'status': 'Đã hoàn thành',
     'createdAt': '30-10-2020'
   },
@@ -33,7 +33,7 @@ List _elements = [
     'id': 'A078',
     'service': 'Thay gas máy lạnh',
     'repairman': 'Trần Văn Thái',
-    'group': 'Lịch sử đơn hàng',
+    'group': 'Đã xử lý',
     'status': 'Đã hủy',
     'createdAt': '13-02-2021'
   },
@@ -41,7 +41,7 @@ List _elements = [
     'id': 'A084',
     'service': 'Thay đường ống nước',
     'repairman': 'Đỗ Thành Thái',
-    'group': 'Lịch sử đơn hàng',
+    'group': 'Đã xử lý',
     'status': 'Đã hoàn thành',
     'createdAt': '12-04-2021'
   },
@@ -98,10 +98,7 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BaseAppBar(
-          key: null,
-          appBar: AppBar(),
-          title: 'Lịch sử đơn hàng',
-          haveBackSpace: true),
+          key: null, appBar: AppBar(), title: 'Yêu cầu', haveBackSpace: true),
       body: RefreshIndicator(
         onRefresh: () {
           return Future.delayed(
@@ -122,7 +119,7 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
           physics: const AlwaysScrollableScrollPhysics(),
           elements: _elements,
           groupBy: (element) => element['group'],
-          groupComparator: (value1, value2) => value2.compareTo(value1),
+          groupComparator: (value1, value2) => value1.compareTo(value2),
           itemComparator: (item1, item2) => DateFormat('dd-MM-yyyy')
               .parse(item2['createdAt'])
               .compareTo(DateFormat('dd-MM-yyyy').parse(item1['createdAt'])),

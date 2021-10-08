@@ -22,12 +22,12 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
   String? _currentProlemnState;
   TextEditingController? _currentProlemnController;
   int? _stepIndex;
+
   @override
   void initState() {
     super.initState();
     selectedImage = [];
     _currentProlemnController = new TextEditingController();
-    _currentProlemnController!.text = 'Bảo trì và bơm gas tủ lạnh';
     _stepIndex = 0;
   }
 
@@ -84,7 +84,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                             ),
                             Container(
                               margin: EdgeInsets.only(top: 30, left: 0),
-                              child: Text('ĐẶT LỊCH SỬA',
+                              child: Text('TÌM THỢ',
                                   style: TextStyle(
                                       color: kBackgroundColor, fontSize: 16)),
                             ),
@@ -195,52 +195,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                                       margin:
                                           EdgeInsets.only(left: 20, top: 10),
                                       child: Text(
-                                        'Tôi muốn: ',
-                                        style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.bold,
-                                            letterSpacing: 0.5,
-                                            color: kPrimaryColor),
-                                      ),
-                                    ),
-                                    Form(
-                                      key: _formKey,
-                                      child: Container(
-                                        padding: EdgeInsets.only(
-                                            left: 30, right: 30, top: 10),
-                                        child: TextFormField(
-                                          validator: (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'Vui lòng nhập vấn đề bạn gặp';
-                                            }
-                                            return null;
-                                          },
-                                          controller: _currentProlemnController,
-                                          decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(35.0),
-                                            ),
-                                            hintStyle: TextStyle(
-                                                color: Colors.grey[800]),
-                                            hintText:
-                                                "Chào Đăng, bạn gặp vấn đề gì thế ?",
-                                            fillColor: Colors.white70,
-                                            contentPadding: EdgeInsets.all(16),
-                                            suffixIcon: IconButton(
-                                              icon: Icon(Icons.mic_rounded),
-                                              onPressed: () => {},
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      margin:
-                                          EdgeInsets.only(left: 20, top: 10),
-                                      child: Text(
-                                        'Bạn cần sửa chữa: ',
+                                        'Tôi cần sửa chữa: ',
                                         style: TextStyle(
                                             fontSize: 24,
                                             fontWeight: FontWeight.bold,
@@ -283,7 +238,51 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                                           ),
                                         ],
                                       ),
-                                    )
+                                    ),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(left: 20, top: 10),
+                                      child: Text(
+                                        'Tôi muốn: ',
+                                        style: TextStyle(
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kPrimaryColor),
+                                      ),
+                                    ),
+                                    Form(
+                                      key: _formKey,
+                                      child: Container(
+                                        padding: EdgeInsets.only(
+                                            left: 30, right: 30, top: 10),
+                                        child: TextFormField(
+                                          validator: (value) {
+                                            if (value == null ||
+                                                value.isEmpty) {
+                                              return 'Vui lòng nhập vấn đề bạn gặp';
+                                            }
+                                            return null;
+                                          },
+                                          controller: _currentProlemnController,
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(35.0),
+                                            ),
+                                            hintStyle: TextStyle(
+                                                color: Colors.grey[800]),
+                                            hintText: "Mô tả hư hỏng cần sửa",
+                                            fillColor: Colors.white70,
+                                            contentPadding: EdgeInsets.all(16),
+                                            suffixIcon: IconButton(
+                                              icon: Icon(Icons.mic_rounded),
+                                              onPressed: () => {},
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ]
                                 : (_stepIndex == 1)
                                     ? [
@@ -765,7 +764,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                           child: MaterialButton(
                             onPressed: () =>
                                 {Get.offAndToNamed("/book_service")},
-                            child: Text('Tiếp tục tạo lịch hẹn mới'),
+                            child: Text('Tiếp tục tìm thợ mới'),
                           ),
                         ),
                         Container(

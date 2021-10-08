@@ -68,7 +68,7 @@ class GridViewButtons extends StatelessWidget {
                   size: 50,
                   color: kSecondaryColor,
                 ),
-                Text('ĐƠN HÀNG',
+                Text('YÊU CẦU',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
               ],
             ),

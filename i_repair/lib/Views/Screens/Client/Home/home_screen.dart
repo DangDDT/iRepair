@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Container(width: 150, height: 135, child: GridViewButtons()),
         Container(
           margin: EdgeInsets.only(left: 20, top: 0),
-          child: Text('ĐƠN HÀNG ĐANG SỬA CHỮA',
+          child: Text('YÊU CẦU VỪA MỚI TẠO',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -255,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Container(
                                 margin: EdgeInsets.only(left: 10),
-                                child: Text('Đang xử lý',
+                                child: Text('Thợ đang đến',
                                     style: TextStyle(color: kSecondaryColor))),
                           ],
                         ),
