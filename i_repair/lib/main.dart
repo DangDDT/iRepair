@@ -2,8 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Models/User/user.dart';
 import 'package:i_repair/Views/Screens/Client/CreateBooking/widgets/success-screen.dart';
-import 'package:i_repair/Views/Screens/Welcome/Signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 import 'Services/auth/auth.dart';
 import 'Views/Screens/Client/CreateBooking/create-booking-screen.dart';
@@ -15,6 +15,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: "assets/.env");
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 
@@ -45,7 +46,6 @@ class MyApp extends StatelessWidget {
                 initialRoute: '/',
                 routes: {
                   '/': (context) => LoginPage(),
-                  '/signup_screen': (context) => SignUpPage(),
                   '/client_app': (context) => App(),
                   '/my_booking': (context) => BookingScreen(),
                   '/create_booking': (context) => CreateBookingScreen(),

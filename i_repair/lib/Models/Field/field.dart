@@ -27,7 +27,7 @@ class Field {
         id: json["Id"],
         name: json["Name"],
         description: json["Description"],
-        majorId: json["MajorId"],
+        majorId: json["MajorId"] ?? '', // bug MajorId required not null
         imageUrl: json["ImageUrl"],
         status: json["Status"],
       );

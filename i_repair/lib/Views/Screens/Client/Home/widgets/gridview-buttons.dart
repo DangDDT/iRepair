@@ -28,7 +28,7 @@ class GridViewButtons extends StatelessWidget {
                   size: 50,
                   color: kPrimaryColor,
                 ),
-                Text('Tạo Yêu Cầu',
+                Text('TÌM THỢ',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
               ],
             ),
@@ -50,29 +50,7 @@ class GridViewButtons extends StatelessWidget {
                   size: 50,
                   color: kPrimaryColor,
                 ),
-                Text('Đơn hàng',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
-              ],
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () => {},
-          child: Card(
-            shape: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(25)),
-            elevation: 10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  CupertinoIcons.list_bullet,
-                  size: 50,
-                  color: kPrimaryColor,
-                ),
-                Text('Danh mục',
+                Text('ĐƠN HÀNG',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
               ],
             ),
@@ -94,29 +72,7 @@ class GridViewButtons extends StatelessWidget {
                   size: 50,
                   color: kPrimaryColor,
                 ),
-                Text('Phản hồi',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
-              ],
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () => {},
-          child: Card(
-            shape: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(25)),
-            elevation: 10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  CupertinoIcons.star_circle,
-                  size: 50,
-                  color: kPrimaryColor,
-                ),
-                Text('Mẹo vặt',
+                Text('PHẢN HỒI',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
               ],
             ),

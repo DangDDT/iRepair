@@ -1,21 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Models/User/user.dart';
 import 'package:i_repair/Services/auth/auth.dart';
 import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _ProfileScreenState createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({Key? key, required this.user}) : super(key: key);
+  final CurrentUser? user;
   @override
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<AuthService>(context);
@@ -42,41 +35,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             child: Container(
                 padding: EdgeInsets.only(left: 25),
-                alignment: Alignment.centerLeft,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
                       child: Icon(CupertinoIcons.profile_circled, size: 50),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 10),
+                      margin: EdgeInsets.only(left: 20),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Đỗ Dương Tâm Đăng',
+                          Text(user!.name,
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 24)),
-                          Text('0774839222',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  letterSpacing: 0.5)),
+                                  fontWeight: FontWeight.bold, fontSize: 18)),
+                          (user!.phoneNumber != null)
+                              ? Text(user!.phoneNumber,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      letterSpacing: 0.5))
+                              : SizedBox(
+                                  height: 0,
+                                ),
                         ],
                       ),
                     ),
-                    Container(
-                        margin: EdgeInsets.only(left: 50),
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: kBackgroundColor,
-                            borderRadius: BorderRadius.circular(35)),
-                        child: InkWell(
-                            onTap: () async {
-                              await loginProvider.logout(context: context);
-                              Get.offAllNamed("/");
-                            },
-                            child: Icon(Icons.exit_to_app)))
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        margin: EdgeInsets.only(right: 20),
+                        child: MaterialButton(
+                          elevation: 5,
+                          color: kBackgroundColor,
+                          minWidth: 2,
+                          shape: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(50),
+                              borderSide: BorderSide.none),
+                          onPressed: () async {
+                            await loginProvider.logout(context: context);
+                            Get.offAllNamed("/");
+                          },
+                          child: Icon(
+                            Icons.exit_to_app,
+                            color: kTextColor,
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 )),
           ),
@@ -98,10 +106,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           )
         ]),
-        SizedBox(height: 40),
-        Center(
-            //Logo
-            child: Icon(CupertinoIcons.profile_circled, size: 120)),
+        SizedBox(height: 20),
+        (user!.avatar != 'none')
+            ? ClipRRect(
+                child: Image.network(
+                  user!.avatar,
+                  height: 140,
+                  width: 140,
+                  fit: BoxFit.fitHeight,
+                ),
+              )
+            : Center(
+                //Logo
+                child: Icon(CupertinoIcons.profile_circled, size: 120)),
+        SizedBox(height: 20),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,7 +135,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: CupertinoColors.black,
                   size: 28,
                 ),
-                label: Text('Upload Avatar',
+                label: Text('Cập nhật ảnh',
                     style: TextStyle(
                         color: CupertinoColors.black,
                         fontWeight: FontWeight.bold))),
@@ -133,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: CupertinoColors.black,
                   size: 28,
                 ),
-                label: Text('Delete Avatar',
+                label: Text('Xóa ảnh',
                     style: TextStyle(
                         color: CupertinoColors.black,
                         fontWeight: FontWeight.bold))),
@@ -141,7 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         SizedBox(height: 5),
         Container(
-          height: 200,
+          height: 120,
           margin: EdgeInsets.all(20),
           child: ListView(physics: NeverScrollableScrollPhysics(), children: [
             Row(
@@ -154,7 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 Text(
-                  "Đỗ Dương Tâm Đăng",
+                  user!.name,
                   style: TextStyle(fontSize: 18),
                 )
               ],
@@ -176,7 +194,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Container(
                   width: 250,
                   child: Text(
-                    "Chung cư Sky9, đường Liên Phường, phường Phú Hữu, TP. Thủ Đức, TP.HCM.",
+                    (user!.addressDetail != null)
+                        ? user!.addressDetail
+                        : 'Chưa có địa chỉ',
                     style: TextStyle(fontSize: 18),
                   ),
                 )
@@ -197,9 +217,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 Container(
-                  width: 100,
+                  width: 150,
                   child: Text(
-                    "0774839222",
+                    (user!.phoneNumber != null)
+                        ? user!.phoneNumber
+                        : 'Chưa có số điện thoại',
                     style: TextStyle(fontSize: 18),
                   ),
                 )
@@ -208,7 +230,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ]),
         ),
         Container(
-          margin: EdgeInsets.all(20),
+          margin: EdgeInsets.only(left: 20, right: 20),
           width: 200,
           height: 50,
           decoration: BoxDecoration(
@@ -220,7 +242,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               borderRadius: BorderRadius.circular(5)),
           child: TextButton(
             child: Text(
-              'Edit Profile',
+              'Cập nhật thông tin',
               style: TextStyle(color: kTextColor, fontWeight: FontWeight.bold),
             ),
             onPressed: () {},

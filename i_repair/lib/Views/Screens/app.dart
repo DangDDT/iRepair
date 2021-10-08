@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/cupertino.dart.';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Models/User/user.dart';
 import 'package:i_repair/Views/Screens/Client/Explore/explore.dart';
-import 'package:i_repair/Views/Screens/Client/Profile/profile.dart';
-import 'package:i_repair/views/Screens/Client/Home/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'Client/Home/home_screen.dart';
+import 'Client/Profile/profile.dart';
 
 class App extends StatefulWidget {
   @override
@@ -17,15 +20,25 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   int _selectedIndex = 0;
   PageController _pageController = PageController();
+  CurrentUser? currentUser;
   @override
   void initState() {
-    super.initState();
     _pageController.addListener(() {
       if (_pageController.page!.round() != _selectedIndex) {
         setState(() {
           _selectedIndex = _pageController.page!.round();
         });
       }
+    });
+    getCurrentUser();
+    super.initState();
+  }
+
+  getCurrentUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    final currentUserString = prefs.getString('currentUser') ?? null;
+    setState(() {
+      currentUser = userFromJson(currentUserString!);
     });
   }
 
@@ -40,7 +53,13 @@ class _AppState extends State<App> {
       //     haveBackSpace: false),
       body: PageView(
         controller: _pageController,
-        children: [HomeScreen(), ExploreScreen(), ProfileScreen()],
+        children: [
+          (currentUser == null)
+              ? CircularProgressIndicator()
+              : HomeScreen(user: currentUser),
+          ExploreScreen(),
+          ProfileScreen(user: currentUser)
+        ],
         onPageChanged: (page) {
           setState(() {
             _selectedIndex = page;

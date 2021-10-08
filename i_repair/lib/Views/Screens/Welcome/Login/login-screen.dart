@@ -63,35 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                 'assets/images/logo_letter.png',
                 height: 100,
               ),
-              SizedBox(height: 45.0),
               loginForm,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: MaterialButton(
-                      child: Text(
-                        'Bạn chưa có tài khoản ?',
-                        style: TextStyle(color: Colors.black54),
-                      ),
-                      onPressed: () {
-                        Provider.of<AuthService>(context, listen: false)
-                            .setMessage('');
-                        Get.toNamed("/signup_screen");
-                      },
-                    ),
-                  ),
-                  Center(
-                    child: TextButton(
-                      child: Text(
-                        'Quên mật khẩu ?',
-                        style: TextStyle(color: Colors.black54),
-                      ),
-                      onPressed: () => {},
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
         ),

@@ -4,16 +4,7 @@ import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Views/Screens/Client/Explore/widgets/major-card.dart';
 import 'package:i_repair/Views/Screens/Client/Explore/widgets/recommended-card.dart';
 
-class ExploreScreen extends StatefulWidget {
-  const ExploreScreen({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _ExploreScreenState createState() => _ExploreScreenState();
-}
-
-class _ExploreScreenState extends State<ExploreScreen> {
+class ExploreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

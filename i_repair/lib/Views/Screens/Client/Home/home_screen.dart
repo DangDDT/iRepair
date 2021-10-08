@@ -1,24 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Models/User/user.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/gridview-buttons.dart';
 import 'package:i_repair/Views/common/card/icon-card.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key, required this.user}) : super(key: key);
+  final CurrentUser? user;
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return ListView(
@@ -56,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Xin chào, ', style: TextStyle(fontSize: 16)),
-                          Text('Đỗ Dương Tâm Đăng',
+                          Text(user!.name,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 24)),
                         ],
@@ -90,15 +79,15 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconCard(
-                  number: 500,
+                  number: 0,
                   icon: 'assets/images/money.png',
-                  unit: 'USD',
+                  unit: 'VNĐ',
                   color: kPrimaryColor,
                 ),
                 IconCard(
-                  number: 200,
+                  number: 0,
                   icon: 'assets/images/hand-gesture.png',
-                  unit: 'RP',
+                  unit: 'ĐIỂM',
                   color: kPrimaryColor,
                 ),
               ],
