@@ -5,14 +5,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:i_repair/Controllers/fieldController/fieldController.dart';
 import 'package:i_repair/Controllers/majorController/majorController.dart';
+import 'package:i_repair/Controllers/placeController/placeController.dart';
 import 'package:i_repair/Controllers/serviceController/serviceController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Field/field.dart';
 import 'package:i_repair/Models/Major/major.dart';
 import 'package:i_repair/Models/Service/service.dart';
+import 'package:i_repair/Models/User/user.dart';
 import 'package:i_repair/Views/common/appbar/common-appbar.dart';
 import 'package:im_stepper/stepper.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+const kGoogleApiKey = "AIzaSyBkE1pdgaevKBiWqziMQiHfpTp36lU1w68";
 enum Payment { COD, BANKING }
 
 class CreateBookingScreen extends StatefulWidget {
@@ -21,6 +26,12 @@ class CreateBookingScreen extends StatefulWidget {
 }
 
 class _CreateBookingScreenState extends State<CreateBookingScreen> {
+  final _formKey = GlobalKey<FormState>();
+  //Controller
+  MajorController majorController = Get.put(MajorController());
+  ServiceController serviceController = Get.put(ServiceController());
+  FieldController fieldController = Get.put(FieldController());
+
   int activeStep = 0;
   late bool useDefaultProfile;
   final TextEditingController _nameController = new TextEditingController();
@@ -28,6 +39,14 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
   final TextEditingController _phoneController = new TextEditingController();
   int upperBound = 4;
   Payment? _payment = Payment.COD;
+  CurrentUser? user;
+  var focusNode = FocusNode();
+  @override
+  void initState() {
+    useDefaultProfile = false;
+    getCurrentUser();
+    super.initState();
+  }
 
   Icon checkCompleteIcon(currentIndex, valueIndex, indexIcon) {
     if (currentIndex > valueIndex) {
@@ -40,10 +59,12 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
     }
   }
 
-  @override
-  void initState() {
-    useDefaultProfile = false;
-    super.initState();
+  getCurrentUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    final currentUserString = prefs.getString('currentUser') ?? null;
+    setState(() {
+      user = userFromJson(currentUserString!);
+    });
   }
 
   @override
@@ -58,6 +79,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final placeBloc = Provider.of<PlaceBloc>(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: BaseAppBar(
@@ -67,89 +89,178 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            IconStepper(
-              icons: [
-                checkCompleteIcon(
-                    activeStep, 0, Icon(CupertinoIcons.wrench_fill)),
-                checkCompleteIcon(
-                    activeStep, 1, Icon(Icons.home_repair_service)),
-                checkCompleteIcon(activeStep, 2, Icon(Icons.person)),
-                checkCompleteIcon(activeStep, 3, Icon(Icons.payment)),
-                checkCompleteIcon(activeStep, 4, Icon(Icons.check_circle)),
-              ],
-              lineLength: 26.5,
-              activeStepBorderColor: kPrimaryLightColor,
-              scrollingDisabled: true,
-              enableStepTapping: false,
-              enableNextPreviousButtons: false,
-              lineDotRadius: 1.2,
-              activeStepColor: kPrimaryLightColor,
-              stepColor: kBackgroundColor,
-              lineColor: kTextColor,
-              stepRadius: 26,
-              activeStepBorderWidth: 0,
-              activeStepBorderPadding: 0,
-              // activeStep property set to activeStep variable defined above.
-              activeStep: activeStep,
-              // This ensures step-tapping updates the activeStep.
-              onStepReached: (index) {
-                setState(() {
-                  activeStep = index;
-                });
-              },
-            ),
-            Container(
-              height: 20,
-              width: size.width,
-              child: GridView(
-                padding: EdgeInsets.only(
-                  left: 21,
-                ),
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 5,
-                  crossAxisSpacing: 12,
-                ),
-                children: [
-                  Text('Đồ dùng'),
-                  Text(' Dịch vụ'),
-                  Text('Thông tin'),
-                  Text('Thanh toán'),
-                  Text('  Chốt đơn'),
-                ],
-              ),
-            ),
-            SizedBox(height: 10),
-            header(),
-            SizedBox(height: 10),
-            Expanded(
-              child: Center(
-                child: bodyWidget(activeStep),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: GestureDetector(
+          onTap: () {
+            FocusManager.instance.primaryFocus!.unfocus();
+          },
+          child: Stack(children: [
+            Column(
               children: [
-                if (activeStep != 0) previousButton(),
-                if (activeStep == 2 || activeStep == 3 || activeStep == 4)
-                  MaterialButton(
-                    color: kPrimaryLightColor,
-                    shape: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(35),
-                        borderSide: BorderSide.none),
-                    onPressed: () {
-                      // Decrement activeStep, when the previous button is tapped. However, check for lower bound i.e., must be greater than 0.
-                      if (activeStep > 0) {
-                        nextButton();
-                      }
-                    },
-                    child: Text('Tiếp theo'),
+                TextField(
+                  focusNode: focusNode,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    labelText: 'Địa chỉ',
+                    prefixIcon: Icon(CupertinoIcons.location),
+                    suffixIcon: Icon(CupertinoIcons.search),
+                    contentPadding: EdgeInsets.all(5),
                   ),
+                  controller: _addressController,
+                  enabled: (!useDefaultProfile || user!.addressDetail == null),
+                  onChanged: (value) => placeBloc.searchPlaces(value),
+                ),
+                IconStepper(
+                  icons: [
+                    checkCompleteIcon(
+                        activeStep, 0, Icon(CupertinoIcons.wrench_fill)),
+                    checkCompleteIcon(
+                        activeStep, 1, Icon(Icons.home_repair_service)),
+                    checkCompleteIcon(activeStep, 2, Icon(Icons.person)),
+                    checkCompleteIcon(activeStep, 3, Icon(Icons.payment)),
+                    checkCompleteIcon(activeStep, 4, Icon(Icons.check_circle)),
+                  ],
+                  lineLength: 26.5,
+                  scrollingDisabled: true,
+                  enableStepTapping: false,
+                  enableNextPreviousButtons: false,
+                  lineDotRadius: 1.2,
+                  activeStepColor: kSecondaryLightColor,
+                  stepColor: kBackgroundColor,
+                  lineColor: kTextColor,
+                  stepRadius: 26,
+                  activeStepBorderWidth: 0,
+                  activeStepBorderPadding: 0,
+                  // activeStep property set to activeStep variable defined above.
+                  activeStep: activeStep,
+                  // This ensures step-tapping updates the activeStep.
+                  onStepReached: (index) {
+                    setState(() {
+                      activeStep = index;
+                    });
+                  },
+                ),
+                Container(
+                  height: 20,
+                  width: size.width,
+                  child: GridView(
+                    padding: EdgeInsets.only(
+                      left: 21,
+                    ),
+                    physics: NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 5,
+                      crossAxisSpacing: 12,
+                    ),
+                    children: [
+                      Text('Đồ dùng'),
+                      Text(' Dịch vụ'),
+                      Text('Thông tin'),
+                      Text('Thanh toán'),
+                      Text('  Chốt đơn'),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10),
+                header(),
+                SizedBox(height: 10),
+                Expanded(
+                  child: Center(
+                    child: bodyWidget(activeStep),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (activeStep != 0) previousButton(),
+                    if (activeStep == 2)
+                      MaterialButton(
+                        color: kSecondaryLightColor,
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(35),
+                            borderSide: BorderSide.none),
+                        onPressed: () {
+                          // Decrement activeStep, when the previous button is tapped. However, check for lower bound i.e., must be greater than 0.
+
+                          if (activeStep > 0
+                              // && _formKey.currentState!.validate()
+                              ) {
+                            nextButton();
+                          }
+                        },
+                        child: Text('Tiếp theo'),
+                      ),
+                    if (activeStep == 3)
+                      MaterialButton(
+                        color: kSecondaryLightColor,
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(35),
+                            borderSide: BorderSide.none),
+                        onPressed: () {
+                          // Decrement activeStep, when the previous button is tapped. However, check for lower bound i.e., must be greater than 0.
+                          if (activeStep > 0) {
+                            nextButton();
+                          }
+                        },
+                        child: Text('Tiếp theo'),
+                      ),
+                    if (activeStep == 4)
+                      MaterialButton(
+                        color: kSecondaryLightColor,
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(35),
+                            borderSide: BorderSide.none),
+                        onPressed: () {
+                          // Decrement activeStep, when the previous button is tapped. However, check for lower bound i.e., must be greater than 0.
+                          if (activeStep > 0) {
+                            nextButton();
+                          }
+                        },
+                        child: Text('Chốt đơn'),
+                      ),
+                  ],
+                ),
               ],
             ),
-          ],
+            if (placeBloc.searchResults.length != 0 &&
+                focusNode.hasFocus == true)
+              Container(
+                margin: EdgeInsets.only(top: 55),
+                height: 500,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    backgroundBlendMode: BlendMode.lighten,
+                    color: Colors.white),
+              ),
+            if (placeBloc.searchResults.length != 0 &&
+                focusNode.hasFocus == true)
+              Container(
+                  margin: EdgeInsets.only(top: 55),
+                  height: 500,
+                  child: ListView.builder(
+                      itemCount: placeBloc.searchResults.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                border: Border(bottom: BorderSide(width: 0.2)),
+                              ),
+                              child: InkWell(
+                                onTap: () => {
+                                  placeBloc.setSelectedPlace(placeBloc
+                                      .searchResults[index].placeId
+                                      .trim()),
+                                  focusNode.unfocus(),
+                                  _addressController.text =
+                                      placeBloc.searchResults[index].description
+                                },
+                                child: Text(
+                                    placeBloc.searchResults[index].description),
+                              )),
+                        );
+                      }))
+          ]),
         ),
       ),
     );
@@ -168,7 +279,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
   /// Returns the previous button.
   Widget previousButton() {
     return MaterialButton(
-      color: kPrimaryLightColor,
+      color: kSecondaryLightColor,
       shape: OutlineInputBorder(
           borderRadius: BorderRadius.circular(35), borderSide: BorderSide.none),
       onPressed: () {
@@ -203,11 +314,6 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
     );
   }
 
-  //Controller
-  MajorController majorController = Get.put(MajorController());
-  ServiceController serviceController = Get.put(ServiceController());
-  FieldController fieldController = Get.put(FieldController());
-
   //Selected
   List<Major>? selectedMajorList = List<Major>.empty().obs;
   Service? selectedService;
@@ -222,8 +328,8 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
       allButtonText: 'Tất cả',
       resetButtonText: 'Mặc định',
       applyButtonText: 'Lọc',
-      applyButonTextBackgroundColor: kPrimaryLightColor,
-      selectedTextBackgroundColor: kPrimaryLightColor,
+      applyButonTextBackgroundColor: kSecondaryLightColor,
+      selectedTextBackgroundColor: kSecondaryLightColor,
       selectedItemsText: 'lĩnh vực được chọn',
       listData: majorController.majorList,
       selectedListData: selectedMajorList,
@@ -315,7 +421,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                           height: 60,
                                           margin: EdgeInsets.only(left: 20),
                                           decoration: BoxDecoration(
-                                              color: kPrimaryLightColor,
+                                              color: kSecondaryLightColor,
                                               borderRadius:
                                                   BorderRadius.circular(34)),
                                           child: Stack(
@@ -402,7 +508,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                           height: 60,
                                           margin: EdgeInsets.only(left: 20),
                                           decoration: BoxDecoration(
-                                              color: kPrimaryLightColor,
+                                              color: kSecondaryLightColor,
                                               borderRadius:
                                                   BorderRadius.circular(34)),
                                           child: Stack(
@@ -449,15 +555,13 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
         print(_nameController.text);
         print(_addressController.text);
         print(_phoneController.text);
-        return GestureDetector(
-          onTap: () {
-            FocusManager.instance.primaryFocus!.unfocus();
-          },
+        return Form(
+          key: _formKey,
           child: Container(
             alignment: Alignment.centerLeft,
             margin: EdgeInsets.all(5),
             child: ListView(children: [
-              (useDefaultProfile)
+              (useDefaultProfile && user!.name != null)
                   ? TextFormField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -472,47 +576,39 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                         labelText: 'Họ và tên',
                       ),
                       controller: _nameController,
-                      enabled: !useDefaultProfile,
+                      enabled: (!useDefaultProfile || user!.name == null),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Vui lòng nhập họ và tên';
+                        }
+                        return null;
+                      },
                     ),
               SizedBox(
                 height: 30,
               ),
-              (useDefaultProfile)
-                  ? TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Địa chỉ',
-                      ),
-                      initialValue: _addressController.text,
-                      enabled: !useDefaultProfile,
-                    )
-                  : TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Địa chỉ',
-                      ),
-                      controller: _addressController,
-                      enabled: !useDefaultProfile,
-                    ),
-              SizedBox(
-                height: 30,
-              ),
-              (useDefaultProfile)
+              (useDefaultProfile && user!.phoneNumber != null)
                   ? TextFormField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Số điện thoại',
                       ),
                       initialValue: _phoneController.text,
-                      enabled: !useDefaultProfile,
-                    )
+                      enabled: !useDefaultProfile)
                   : TextFormField(
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Số điện thoại',
                       ),
                       controller: _phoneController,
-                      enabled: !useDefaultProfile,
+                      enabled:
+                          (!useDefaultProfile || user!.phoneNumber == null),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Vui lòng nhập số điện thoại';
+                        }
+                        return null;
+                      },
                     ),
               Container(
                 child: CheckboxListTile(
@@ -523,12 +619,9 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                     setState(() {
                       useDefaultProfile = newValue!;
                       _nameController.text =
-                          (useDefaultProfile) ? 'Đỗ Dương Tâm Đăng' : '';
-                      _addressController.text = (useDefaultProfile)
-                          ? 'Chung cư Sky9, đường Liên Phường, phường Phú Hữu, TP. Thủ Đức, TP.HCM.'
-                          : '';
+                          (useDefaultProfile) ? user!.name : '';
                       _phoneController.text =
-                          (useDefaultProfile) ? '0774839222' : '';
+                          (useDefaultProfile) ? user!.phoneNumber : '';
                     });
                   },
                   controlAffinity:
@@ -539,7 +632,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
           ),
         );
       case 3:
-        print(_payment);
+        // print(_payment);
         return Container(
           child: Column(
             children: [
@@ -573,6 +666,8 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
             ],
           ),
         );
+      case 4:
+        return Container();
       default:
         return Text('$activeStep');
     }

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:i_repair/Models/Field/field.dart';
@@ -23,7 +21,8 @@ class APIServices {
       print("API authenticate-customer success");
       return userFromJson(response.body);
     } else {
-      throw Exception('Failed to load user');
+      throw Exception(
+          'Failed to load user and ${response.statusCode} and ${response.reasonPhrase}');
     }
   }
 

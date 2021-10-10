@@ -15,6 +15,7 @@ class GridViewButtons extends StatelessWidget {
         GestureDetector(
           onTap: () => {Get.toNamed('/create_booking')},
           child: Card(
+            color: kSecondaryLightColor,
             shape: OutlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.circular(25)),
@@ -26,10 +27,13 @@ class GridViewButtons extends StatelessWidget {
                 Icon(
                   CupertinoIcons.add_circled,
                   size: 50,
-                  color: kPrimaryColor,
+                  color: kBackgroundColor,
                 ),
                 Text('TÌM THỢ',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: kBackgroundColor))
               ],
             ),
           ),
@@ -48,7 +52,7 @@ class GridViewButtons extends StatelessWidget {
                 Icon(
                   CupertinoIcons.bookmark,
                   size: 50,
-                  color: kPrimaryColor,
+                  color: kSecondaryColor,
                 ),
                 Text('ĐƠN HÀNG',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
@@ -70,7 +74,7 @@ class GridViewButtons extends StatelessWidget {
                 Icon(
                   CupertinoIcons.chat_bubble,
                   size: 50,
-                  color: kPrimaryColor,
+                  color: kSecondaryColor,
                 ),
                 Text('PHẢN HỒI',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))

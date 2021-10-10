@@ -23,7 +23,8 @@ class ExploreScreen extends StatelessWidget {
                     1, 1), // 10% of the width, so there are ten blinds.
                 colors: <Color>[
                   kPrimaryColor,
-                  kPrimaryLightColor
+                  kPrimaryLightColor,
+                  kBackgroundColor
                 ], // red to yellow
                 tileMode:
                     TileMode.repeated, // repeats the gradient over the canvas

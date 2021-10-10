@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:i_repair/Models/Constants/constants.dart';
 
 class IconCard extends StatelessWidget {
   final int number;
@@ -25,7 +24,7 @@ class IconCard extends StatelessWidget {
         child: Card(
           semanticContainer: true,
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          color: kPrimaryLightColor,
+          color: color,
           elevation: 7,
           shadowColor: Colors.grey,
           shape: RoundedRectangleBorder(

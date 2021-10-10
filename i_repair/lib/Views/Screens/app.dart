@@ -88,7 +88,7 @@ class _AppState extends State<App> {
               iconSize: 24,
               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
               duration: Duration(milliseconds: 400),
-              tabBackgroundColor: kPrimaryLightColor,
+              tabBackgroundColor: kSecondaryLightColor,
               color: Colors.black,
               tabs: [
                 GButton(

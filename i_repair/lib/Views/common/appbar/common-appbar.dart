@@ -33,10 +33,8 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                  margin: EdgeInsets.only(left: 0),
                   child: Text((title == null) ? '' : title!,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, color: kTextColor))),
+                      style: TextStyle(color: kBackgroundColor))),
             ],
           )
         ],
