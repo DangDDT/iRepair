@@ -12,6 +12,7 @@ class FieldController extends GetxController {
     fetchFields();
     super.onInit();
   }
+
   void fetchFields() async {
     try {
       isLoading(true);
@@ -22,6 +23,7 @@ class FieldController extends GetxController {
       isLoading(false);
     }
   }
+
   void getFieldsByMajors(List<Major> majors) async {
     try {
       isLoading(true);
