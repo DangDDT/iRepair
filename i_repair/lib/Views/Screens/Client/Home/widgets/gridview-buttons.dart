@@ -75,7 +75,7 @@ class GridViewButtons extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => {},
+          onTap: () => {Get.toNamed("/chat")},
           child: Card(
             shape: OutlineInputBorder(
                 borderSide: BorderSide.none,

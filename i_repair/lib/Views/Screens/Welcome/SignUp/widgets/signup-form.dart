@@ -3,17 +3,17 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 // Create a Form widget.
-class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({Key? key}) : super(key: key);
   @override
-  LoginFormState createState() {
-    return LoginFormState();
+  SignUpFormState createState() {
+    return SignUpFormState();
   }
 }
 
 // Create a corresponding State class.
 // This class holds data related to the form.
-class LoginFormState extends State<LoginForm> {
+class SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -100,37 +100,23 @@ class LoginFormState extends State<LoginForm> {
                     if (_formKey.currentState!.validate()) {
                       // if (loginAction(
                       //     _emailController.text, _passwordController.text)) {
-                      Get.offNamed('/client_app');
+                      Get.offNamed('/');
                     }
                   },
-                  child: Text('Đăng nhập', style: TextStyle(fontSize: 16)),
+                  child: Text('Đăng ký', style: TextStyle(fontSize: 16)),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.orange),
                   )),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: TextButton(
-                  child: Text(
-                    'Bạn chưa có tài khoản ?',
-                    style: TextStyle(color: Colors.black54),
-                  ),
-                  onPressed: () => {Get.toNamed("/signup")},
-                ),
+          Center(
+            child: TextButton(
+              child: Text(
+                'Bạn đã có tài khoản ?',
+                style: TextStyle(color: Colors.black54),
               ),
-              Center(
-                child: TextButton(
-                  child: Text(
-                    'Quên mật khẩu ?',
-                    style: TextStyle(color: Colors.black54),
-                  ),
-                  onPressed: () => {Get.toNamed("/forgot_password")},
-                ),
-              ),
-            ],
+              onPressed: () => {Get.back()},
+            ),
           ),
         ],
       ),

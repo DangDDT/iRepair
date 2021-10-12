@@ -3,17 +3,17 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 // Create a Form widget.
-class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+class ForgotPasswordForm extends StatefulWidget {
+  const ForgotPasswordForm({Key? key}) : super(key: key);
   @override
-  LoginFormState createState() {
-    return LoginFormState();
+  ForgotPasswordFormState createState() {
+    return ForgotPasswordFormState();
   }
 }
 
 // Create a corresponding State class.
 // This class holds data related to the form.
-class LoginFormState extends State<LoginForm> {
+class ForgotPasswordFormState extends State<ForgotPasswordForm> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -66,31 +66,6 @@ class LoginFormState extends State<LoginForm> {
               ),
             ),
           ),
-          SizedBox(height: 15.0),
-          TextFormField(
-            controller: _passwordController,
-            autofocus: false,
-            // initialValue: _passwordController.text,
-            obscureText: true,
-            // validator: (value) {
-            //   if (value == null || value.isEmpty) {
-            //     return 'Please enter some text';
-            //   }
-            //   return null;
-            // },
-            decoration: InputDecoration(
-              hintText: 'Mật khẩu',
-              contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey, width: 1.5),
-                borderRadius: BorderRadius.all(Radius.circular(32.0)),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.orange, width: 2.0),
-                borderRadius: BorderRadius.all(Radius.circular(32.0)),
-              ),
-            ),
-          ),
           SizedBox(height: 10.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -100,37 +75,23 @@ class LoginFormState extends State<LoginForm> {
                     if (_formKey.currentState!.validate()) {
                       // if (loginAction(
                       //     _emailController.text, _passwordController.text)) {
-                      Get.offNamed('/client_app');
+                      Get.offNamed('/');
                     }
                   },
-                  child: Text('Đăng nhập', style: TextStyle(fontSize: 16)),
+                  child: Text('Tìm mật khẩu', style: TextStyle(fontSize: 16)),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.orange),
                   )),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: TextButton(
-                  child: Text(
-                    'Bạn chưa có tài khoản ?',
-                    style: TextStyle(color: Colors.black54),
-                  ),
-                  onPressed: () => {Get.toNamed("/signup")},
-                ),
+          Center(
+            child: TextButton(
+              child: Text(
+                'Quay lại',
+                style: TextStyle(color: Colors.black54),
               ),
-              Center(
-                child: TextButton(
-                  child: Text(
-                    'Quên mật khẩu ?',
-                    style: TextStyle(color: Colors.black54),
-                  ),
-                  onPressed: () => {Get.toNamed("/forgot_password")},
-                ),
-              ),
-            ],
+              onPressed: () => {Get.back()},
+            ),
           ),
         ],
       ),

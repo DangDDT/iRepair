@@ -123,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: kPrimaryColor)),
         ),
         Container(
-          height: 150,
+          height: 170,
           width: size.width,
           child: ListView(
             scrollDirection: Axis.horizontal,
@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Container(
                           margin: EdgeInsets.only(left: 20, top: 20),
-                          child: Text('ID:A122',
+                          child: Text('MÃ YÊU CẦU: A122',
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -150,10 +150,39 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: kSecondaryLightColor))),
                       Container(
                           margin: EdgeInsets.only(left: 20, top: 5),
-                          child: Text(
-                              'Lắp 2 cái máy điều hòa tầng trệt và tầng 1, và sửa 1 điều hòa ở tầng 3.',
-                              style:
-                                  TextStyle(fontSize: 14, color: kTextColor))),
+                          child: IntrinsicHeight(
+                            child: Row(
+                              children: [
+                                Text('ĐỒ CẦN SỬA: ',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: kTextColor,
+                                        fontWeight: FontWeight.bold)),
+                                Text('Tủ lạnh',
+                                    style: TextStyle(
+                                        fontSize: 14, color: kTextColor)),
+                              ],
+                            ),
+                          )),
+                      SizedBox(height: 5),
+                      Container(
+                          margin: EdgeInsets.only(left: 20, top: 0),
+                          child: IntrinsicHeight(
+                            child: Row(
+                              children: [
+                                Text('VẤN ĐỀ GẶP PHẢI: ',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: kTextColor,
+                                        fontWeight: FontWeight.bold)),
+                                Container(
+                                  child: Text('Cửa bị chênh hoặc không kín',
+                                      style: TextStyle(
+                                          fontSize: 14, color: kTextColor)),
+                                ),
+                              ],
+                            ),
+                          )),
                       SizedBox(height: 5),
                       Divider(
                         height: 20,
@@ -166,12 +195,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             Container(
                                 margin: EdgeInsets.only(left: 15),
-                                child: Icon(Icons.alarm)),
+                                child: Icon(Icons.person)),
                             Container(
-                                margin: EdgeInsets.only(left: 15),
-                                child: Text('14:30')),
+                                margin: EdgeInsets.only(left: 10),
+                                child: Text('Phạm Hữu Nghĩa')),
                             VerticalDivider(
-                              width: 50,
+                              width: 20,
                               thickness: 1,
                               indent: 0,
                               endIndent: 0,
@@ -180,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 margin: EdgeInsets.only(left: 10, right: 10),
                                 child: Text('Ngày 30/09/2021')),
                             VerticalDivider(
-                              width: 50,
+                              width: 30,
                               thickness: 1,
                               indent: 0,
                               endIndent: 0,
@@ -210,7 +239,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Container(
                           margin: EdgeInsets.only(left: 20, top: 20),
-                          child: Text('ID:A123',
+                          child: Text('MÃ YÊU CẦU: A123',
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
@@ -218,10 +247,39 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: kSecondaryLightColor))),
                       Container(
                           margin: EdgeInsets.only(left: 20, top: 5),
-                          child: Text(
-                              'Sửa nồi cơm điện đang bị hư, cụ thể là nấu cơm không chín.',
-                              style:
-                                  TextStyle(fontSize: 14, color: kTextColor))),
+                          child: IntrinsicHeight(
+                            child: Row(
+                              children: [
+                                Text('ĐỒ CẦN SỬA: ',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: kTextColor,
+                                        fontWeight: FontWeight.bold)),
+                                Text('Máy tính',
+                                    style: TextStyle(
+                                        fontSize: 14, color: kTextColor)),
+                              ],
+                            ),
+                          )),
+                      SizedBox(height: 5),
+                      Container(
+                          margin: EdgeInsets.only(left: 20, top: 0),
+                          child: IntrinsicHeight(
+                            child: Row(
+                              children: [
+                                Text('VẤN ĐỀ GẶP PHẢI: ',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: kTextColor,
+                                        fontWeight: FontWeight.bold)),
+                                Container(
+                                  child: Text('Máy tự khởi động lại',
+                                      style: TextStyle(
+                                          fontSize: 14, color: kTextColor)),
+                                ),
+                              ],
+                            ),
+                          )),
                       SizedBox(height: 5),
                       Divider(
                         height: 20,
@@ -234,12 +292,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             Container(
                                 margin: EdgeInsets.only(left: 15),
-                                child: Icon(Icons.alarm)),
+                                child: Icon(Icons.person)),
                             Container(
-                                margin: EdgeInsets.only(left: 15),
-                                child: Text('16:30')),
+                                margin: EdgeInsets.only(left: 10),
+                                child: Text('Lê Tấn Thịnh')),
                             VerticalDivider(
-                              width: 50,
+                              width: 30,
                               thickness: 1,
                               indent: 0,
                               endIndent: 0,
@@ -248,13 +306,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                 margin: EdgeInsets.only(left: 10, right: 10),
                                 child: Text('Ngày 30/09/2021')),
                             VerticalDivider(
-                              width: 50,
+                              width: 30,
                               thickness: 1,
                               indent: 0,
                               endIndent: 0,
                             ),
                             Container(
-                                margin: EdgeInsets.only(left: 10),
+                                margin: EdgeInsets.only(left: 5),
                                 child: Text('Thợ đang đến',
                                     style: TextStyle(color: kSecondaryColor))),
                           ],
