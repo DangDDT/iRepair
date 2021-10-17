@@ -61,7 +61,24 @@ class GridViewButtons extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => {},
+          onTap: () => {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('PHẢN HỒI'),
+                    content:
+                        Text('Chức năng này đang phát triển, vui lòng đợi !!!'),
+                    actions: <Widget>[
+                      TextButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: Text('Đóng')),
+                    ],
+                  );
+                })
+          },
           child: Card(
             shape: OutlineInputBorder(
                 borderSide: BorderSide.none,

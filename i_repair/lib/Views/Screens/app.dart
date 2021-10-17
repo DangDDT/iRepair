@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/cupertino.dart.';
+import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/User/user.dart';
 import 'package:i_repair/Views/Screens/Client/Explore/explore.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:provider/provider.dart';
 import 'Client/Home/home_screen.dart';
 import 'Client/Profile/profile.dart';
 
@@ -20,7 +20,6 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   int _selectedIndex = 0;
   PageController _pageController = PageController();
-  CurrentUser? currentUser;
   @override
   void initState() {
     _pageController.addListener(() {
@@ -30,20 +29,13 @@ class _AppState extends State<App> {
         });
       }
     });
-    getCurrentUser();
     super.initState();
-  }
-
-  getCurrentUser() async {
-    final prefs = await SharedPreferences.getInstance();
-    final currentUserString = prefs.getString('currentUser') ?? null;
-    setState(() {
-      currentUser = userFromJson(currentUserString!);
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final userBloc = Provider.of<UserBloc>(context);
+    CurrentUser? currentUser = userBloc.currentUser;
     return Scaffold(
       // appBar: BaseAppBar(
       //     key: null,

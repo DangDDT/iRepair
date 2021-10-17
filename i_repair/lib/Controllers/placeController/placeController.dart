@@ -10,13 +10,18 @@ class PlaceBloc with ChangeNotifier {
   List<PlaceSearch> searchResults = <PlaceSearch>[];
   PlaceBloc() {}
   searchPlaces(String searchTerm) async {
-    searchResults = await placesService.getAutocomplete(searchTerm);
-    notifyListeners();
+    if (!searchTerm.isEmpty) {
+      searchResults = await placesService.getAutocomplete(searchTerm);
+      print(searchResults);
+      notifyListeners();
+    } else {
+      searchResults.clear();
+      notifyListeners();
+    }
   }
 
   setSelectedPlace(String placeId) async {
     selectedPlace = await placesService.getPlaceDetail(placeId);
-    print(selectedPlace!.geometry.location);
     notifyListeners();
   }
 }

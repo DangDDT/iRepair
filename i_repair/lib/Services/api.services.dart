@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:i_repair/Models/Field/field.dart';
@@ -76,9 +78,10 @@ class APIServices {
     }
   }
 
-  static Future<List<Service>> fetchServicesByField(Field field) async {
+  static Future<List<Service>> fetchServicesByFieldAndLocation(
+      Field field, double lat, double lng) async {
     String token = await getToken();
-    String qParamString = "?FieldId=${field.id}";
+    String qParamString = "?FieldId=${field.id}&lat=$lat&lng=$lng";
     final response = await http.get(
       Uri.parse("$endpoint/api/v1.0/services/$qParamString"),
       headers: {
@@ -91,6 +94,36 @@ class APIServices {
       return serviceFromJson(response.body);
     } else {
       throw Exception('Failed to load service');
+    }
+  }
+
+  static Future<CurrentUser> updateProfileUser(CurrentUser user) async {
+    String token = await getToken();
+    print(user.toJson());
+    final body = jsonEncode({
+      "id": "${user.id}",
+      "avatar": "${user.avatar}",
+      "phoneNumber": "${(user.phoneNumber)}",
+      "email": "${user.email}",
+      "username": "none",
+      "createDate": "2021-10-15T01:59:29.015Z",
+      "fullName": "${user.name}",
+      "uid": "${user.uid}"
+    });
+    final response = await http.put(
+      Uri.parse("$endpoint/api/v1.0/customers"),
+      headers: {
+        "Authorization": 'Bearer $token',
+        "content-type": "application/json"
+      },
+      body: body,
+    );
+    if (response.statusCode == 200) {
+      print("API updateProfileAPI() success");
+      return userFromJson(response.body);
+    } else {
+      throw Exception(
+          'Failed to put user and ${response.statusCode} and ${response.reasonPhrase}');
     }
   }
 

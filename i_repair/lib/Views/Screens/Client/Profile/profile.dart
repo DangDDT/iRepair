@@ -1,17 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/User/user.dart';
 import 'package:i_repair/Services/auth/auth.dart';
 import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key, required this.user}) : super(key: key);
   final CurrentUser? user;
+
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  //TextController
+  final TextEditingController _nameController = new TextEditingController();
+  final TextEditingController _phoneController = new TextEditingController();
+
+  @override
+  void initState() {
+    _nameController.text = '';
+    _phoneController.text = '';
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<AuthService>(context);
+    final userBloc = Provider.of<UserBloc>(context);
     Size size = MediaQuery.of(context).size;
     return ListView(
       children: [
@@ -49,11 +68,11 @@ class ProfileScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(user!.name,
+                          Text(widget.user!.name,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18)),
-                          (user!.phoneNumber != null)
-                              ? Text(user!.phoneNumber,
+                          (widget.user!.phoneNumber != null)
+                              ? Text(widget.user!.phoneNumber,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
@@ -107,11 +126,10 @@ class ProfileScreen extends StatelessWidget {
             ),
           )
         ]),
-        SizedBox(height: 20),
-        (user!.avatar != 'none')
+        (widget.user!.avatar != 'none')
             ? ClipRRect(
                 child: Image.network(
-                  user!.avatar,
+                  widget.user!.avatar,
                   height: 140,
                   width: 140,
                   fit: BoxFit.fitHeight,
@@ -158,96 +176,265 @@ class ProfileScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold))),
           ],
         ),
-        SizedBox(height: 5),
         Container(
-          height: 120,
+          height: 200,
           margin: EdgeInsets.all(20),
           child: ListView(physics: NeverScrollableScrollPhysics(), children: [
-            Row(
-              children: [
-                Container(
-                  width: 100,
-                  child: Text(
-                    "Họ và tên: ",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(left: 10),
+                    width: 100,
+                    child: Text(
+                      "Họ và tên: ",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
                   ),
-                ),
-                Text(
-                  user!.name,
-                  style: TextStyle(fontSize: 18),
-                )
-              ],
+                  Container(
+                    width: 210,
+                    child: Text(
+                      widget.user!.name,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: MaterialButton(
+                      color: Colors.white,
+                      minWidth: 2,
+                      elevation: 0,
+                      shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50),
+                          borderSide: BorderSide.none),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              final _formKey = GlobalKey<FormState>();
+                              var focusNode = FocusNode();
+                              return AlertDialog(
+                                title: Text('Chỉnh sửa họ và tên'),
+                                content: Form(
+                                  key: _formKey,
+                                  child: TextFormField(
+                                    focusNode: focusNode,
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.all(5),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25)),
+                                      labelText: 'Họ và tên',
+                                      prefixIcon: Icon(Icons.person),
+                                    ),
+                                    controller: _nameController,
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                      child: Text('Đóng')),
+                                  TextButton(
+                                      onPressed: () {
+                                        userBloc.setCurrentUserProfile(
+                                            "FULLNAME", _nameController.text);
+                                        Get.back();
+                                      },
+                                      child: Text('Lưu')),
+                                ],
+                              );
+                            });
+                      },
+                      child: Icon(
+                        Icons.edit,
+                        color: kTextColor,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-            SizedBox(
+            Divider(
               height: 10,
+              thickness: 1,
+              indent: 5,
+              endIndent: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 100,
-                  child: Text(
-                    "Địa chỉ: ",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(left: 10),
+                    width: 100,
+                    child: Text(
+                      "Địa chỉ: ",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
                   ),
-                ),
-                Container(
-                  width: 250,
-                  child: Text(
-                    (user!.addressDetail != null)
-                        ? user!.addressDetail
-                        : 'Chưa có địa chỉ',
-                    style: TextStyle(fontSize: 18),
+                  Container(
+                    width: 210,
+                    child: Text(
+                      (widget.user!.addressDetail != null)
+                          ? widget.user!.addressDetail
+                          : '< Chưa có địa chỉ >',
+                      style: TextStyle(fontSize: 15),
+                    ),
                   ),
-                )
-              ],
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: MaterialButton(
+                      color: Colors.white,
+                      elevation: 0,
+                      minWidth: 2,
+                      shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50),
+                          borderSide: BorderSide.none),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              final _formKey = GlobalKey<FormState>();
+                              var focusNode = FocusNode();
+                              return AlertDialog(
+                                title: Text('Chỉnh sửa địa chỉ'),
+                                content: Form(
+                                  key: _formKey,
+                                  child: TextFormField(
+                                    focusNode: focusNode,
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.all(5),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25)),
+                                      labelText: 'Địa chỉ',
+                                      prefixIcon: Icon(CupertinoIcons.location),
+                                    ),
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                      child: Text('Đóng')),
+                                  TextButton(
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                      child: Text('Lưu')),
+                                ],
+                              );
+                            });
+                      },
+                      child: Icon(
+                        Icons.edit,
+                        color: kTextColor,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-            SizedBox(
+            Divider(
               height: 10,
+              thickness: 1,
+              indent: 5,
+              endIndent: 10,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 100,
-                  child: Text(
-                    "Điện thoại: ",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(left: 10),
+                    width: 100,
+                    child: Text(
+                      "Điện thoại: ",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
                   ),
-                ),
-                Container(
-                  width: 150,
-                  child: Text(
-                    (user!.phoneNumber != null)
-                        ? user!.phoneNumber
-                        : 'Chưa có số điện thoại',
-                    style: TextStyle(fontSize: 18),
+                  Container(
+                    width: 210,
+                    child: Text(
+                      (widget.user!.phoneNumber != null)
+                          ? widget.user!.phoneNumber
+                          : 'Chưa có số điện thoại',
+                      style: TextStyle(fontSize: 15),
+                    ),
                   ),
-                )
-              ],
+                  Container(
+                    alignment: Alignment.centerRight,
+                    child: MaterialButton(
+                      elevation: 0,
+                      color: Colors.white,
+                      minWidth: 2,
+                      shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50),
+                          borderSide: BorderSide.none),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              final _formKey = GlobalKey<FormState>();
+                              var focusNode = FocusNode();
+                              return AlertDialog(
+                                title: Text('Chỉnh sửa số điện thoại'),
+                                content: Form(
+                                  key: _formKey,
+                                  child: TextFormField(
+                                    focusNode: focusNode,
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.all(5),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(25)),
+                                      labelText: 'Số điện thoại',
+                                      prefixIcon: Icon(Icons.phone),
+                                    ),
+                                    controller: _phoneController,
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                      child: Text('Đóng')),
+                                  TextButton(
+                                      onPressed: () {
+                                        userBloc.setCurrentUserProfile(
+                                            "PHONE_NUMBER",
+                                            _phoneController.text);
+                                        Get.back();
+                                      },
+                                      child: Text('Lưu')),
+                                ],
+                              );
+                            });
+                      },
+                      child: Icon(
+                        Icons.edit,
+                        color: kTextColor,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ]),
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 20, right: 20),
-          width: 200,
-          height: 50,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [kPrimaryColor, kPrimaryLightColor],
-                begin: FractionalOffset.topLeft,
-                end: FractionalOffset.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(5)),
-          child: TextButton(
-            child: Text(
-              'Cập nhật thông tin',
-              style: TextStyle(color: kTextColor, fontWeight: FontWeight.bold),
-            ),
-            onPressed: () {},
-          ),
         ),
       ],
     );

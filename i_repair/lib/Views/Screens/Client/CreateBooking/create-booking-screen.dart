@@ -26,20 +26,28 @@ class CreateBookingScreen extends StatefulWidget {
 }
 
 class _CreateBookingScreenState extends State<CreateBookingScreen> {
-  final _formKey = GlobalKey<FormState>();
   //Controller
   MajorController majorController = Get.put(MajorController());
   ServiceController serviceController = Get.put(ServiceController());
   FieldController fieldController = Get.put(FieldController());
 
-  int activeStep = 0;
-  late bool useDefaultProfile;
+  //TextController
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = new TextEditingController();
   final TextEditingController _addressController = new TextEditingController();
   final TextEditingController _phoneController = new TextEditingController();
+  late bool useDefaultProfile;
+
+  //Stepper
   int upperBound = 4;
+  int activeStep = 0;
+
+  //Paymentf
   Payment? _payment = Payment.COD;
+
+  //CurentUser
   CurrentUser? user;
+
   var focusNode = FocusNode();
   @override
   void initState() {
@@ -96,19 +104,31 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
           child: Stack(children: [
             Column(
               children: [
-                TextField(
-                  focusNode: focusNode,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50)),
-                    labelText: 'Địa chỉ',
-                    prefixIcon: Icon(CupertinoIcons.location),
-                    suffixIcon: Icon(CupertinoIcons.search),
-                    contentPadding: EdgeInsets.all(5),
+                Form(
+                  key: _formKey,
+                  child: TextFormField(
+                    focusNode: focusNode,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Vui lòng nhập địa chỉ';
+                      }
+                      if (placeBloc.selectedPlace == null) {
+                        return 'Địa chỉ của bạn không tồn tại';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50)),
+                      labelText: 'Địa chỉ',
+                      prefixIcon: Icon(CupertinoIcons.location),
+                      suffixIcon: Icon(CupertinoIcons.search),
+                      contentPadding: EdgeInsets.all(5),
+                    ),
+                    controller: _addressController,
+                    enabled: (activeStep == 0),
+                    onChanged: (value) => placeBloc.searchPlaces(value),
                   ),
-                  controller: _addressController,
-                  enabled: (!useDefaultProfile || user!.addressDetail == null),
-                  onChanged: (value) => placeBloc.searchPlaces(value),
                 ),
                 IconStepper(
                   icons: [
@@ -397,6 +417,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                       ? Center(child: Text('No field with this major'))
                       : ListView.separated(
                           itemBuilder: (context, index) {
+                            final placeBloc = Provider.of<PlaceBloc>(context);
                             return Container(
                               height: 100,
                               child: Card(
@@ -409,10 +430,16 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                       setState(() {
                                         selectedField =
                                             fieldController.fieldList[index];
-                                        serviceController
-                                            .getServicesByField(selectedField!);
+                                        serviceController.getServicesByField(
+                                            selectedField!,
+                                            placeBloc.selectedPlace!.geometry
+                                                .location.lat,
+                                            placeBloc.selectedPlace!.geometry
+                                                .location.lng);
                                       });
-                                      nextButton();
+                                      if (_formKey.currentState!.validate()) {
+                                        nextButton();
+                                      }
                                     },
                                     child: Row(
                                       children: [

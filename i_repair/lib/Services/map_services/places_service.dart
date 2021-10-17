@@ -5,12 +5,13 @@ import 'dart:convert' as convert;
 import 'package:i_repair/Models/Place/place_search.dart';
 
 class PlacesService {
-  String apiKey = 'AIzaSyCcoMLx76o67px54J1WHg9LUk1YknHEX4Q';
+  String apiKey = 'r1byucUIdryguz7i0L8e1BKvV93jCu3YTQtOD0SK';
   Future<List<PlaceSearch>> getAutocomplete(String search) async {
     var url = Uri.parse(
-        "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$search&types=establishment&language=vi&key=$apiKey&components=country:vn");
+        "https://rsapi.goong.io/Place/AutoComplete?api_key=$apiKey&input=$search");
     var response = await http.get(url);
     var json = convert.jsonDecode(response.body);
+    print(response.body);
     var jsonResults = json['predictions'] as List;
     return jsonResults.map((place) => PlaceSearch.fromJson(place)).toList();
   }

@@ -25,10 +25,11 @@ class ServiceController extends GetxController {
     }
   }
 
-  void getServicesByField(Field field) async {
+  void getServicesByField(Field field, double lat, double lng) async {
     try {
       isLoading(true);
-      var services = await APIServices.fetchServicesByField(field);
+      var services =
+          await APIServices.fetchServicesByFieldAndLocation(field, lat, lng);
       serviceList.assignAll(services);
       print("getServicesByField() success");
     } finally {
