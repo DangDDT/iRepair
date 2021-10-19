@@ -10,7 +10,6 @@ const List<MajorModel> majorList = <MajorModel>[
   MajorModel('Tủ lạnh', 'TL'),
   MajorModel('Xe máy', 'X2'),
   MajorModel('Máy giặt', 'MG'),
-  MajorModel('Điện thoại', 'ĐT'),
   MajorModel('Máy tính', 'MT'),
   MajorModel('Xe ôtô', 'X4'),
   MajorModel('Ống nước', 'ON'),

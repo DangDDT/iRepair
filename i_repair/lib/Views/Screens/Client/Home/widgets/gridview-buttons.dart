@@ -9,7 +9,7 @@ class GridViewButtons extends StatelessWidget {
     return GridView(
       physics: NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, crossAxisSpacing: 16, mainAxisSpacing: 16),
+          crossAxisCount: 3, mainAxisSpacing: 16, crossAxisSpacing: 16),
       padding: EdgeInsets.only(top: 5, left: 15, right: 15),
       children: [
         GestureDetector(
@@ -68,7 +68,7 @@ class GridViewButtons extends StatelessWidget {
                   size: 50,
                   color: kSecondaryColor,
                 ),
-                Text('YÊU CẦU',
+                Text('LỊCH SỬ',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
               ],
             ),

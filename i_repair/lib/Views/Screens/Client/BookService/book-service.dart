@@ -21,9 +21,9 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
   ImagePicker _picker = ImagePicker();
   var selectedImage = [];
 
-  MajorModel selectedMajor = majorList[0];
-  Brand selectedBrand = Brand("", "", []);
-  Problem selectedProblem = Problem("Kiểm tra tổng quát và bảo trì", "P00", []);
+  MajorModel selectedMajor = MajorModel("none", "none");
+  Brand selectedBrand = Brand("none", "none", []);
+  Problem selectedProblem = Problem("none", "none", []);
   Repairman selectedRepairman = Repairman('', '', 0, 0, 'none', '');
 
   String? _currentProlemnState;
@@ -34,8 +34,6 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
   void initState() {
     super.initState();
     selectedImage = [];
-    selectedProblem = getProblemsByMajor(selectedMajor.code)[0];
-    selectedBrand = getBrandByMajor(selectedMajor.code)[0];
     _currentProlemnController = new TextEditingController();
     _stepIndex = 0;
   }
@@ -50,11 +48,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
         },
         child: ListView(children: [
           Container(
-            height: (_stepIndex == 0)
-                ? 580
-                : (_stepIndex == 1)
-                    ? 580
-                    : 520,
+            height: 580,
             child: Stack(
               children: [
                 Positioned(
@@ -169,7 +163,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                                     width: size.width * 0.5,
                                     height: 20,
                                     padding: EdgeInsets.only(left: 25),
-                                    child: Text('B2: Chọn thợ sửa chữa',
+                                    child: Text('B2: Xác nhận thông tin',
                                         style: (_stepIndex == 1)
                                             ? TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -221,24 +215,32 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                                         children: [
                                           Container(
                                               margin: EdgeInsets.only(left: 30),
-                                              child: Text(selectedMajor.name,
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold))),
+                                              child: (selectedMajor.code !=
+                                                      "none")
+                                                  ? Text(selectedMajor.name,
+                                                      style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold))
+                                                  : Text(
+                                                      "< Mời bạn chọn thiết bị >",
+                                                      style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight
+                                                              .bold))),
                                           Expanded(
                                             child: Container(
                                               margin:
                                                   EdgeInsets.only(right: 20),
                                               alignment: Alignment.centerRight,
                                               child: ElevatedButton(
-                                                child: Text('CHỌN ĐỒ VẬT'),
+                                                child: Text('CHỌN THIẾT BỊ'),
                                                 onPressed: () =>
-                                                    showMaterialScrollPicker<
+                                                    showMaterialRadioPicker<
                                                         MajorModel>(
                                                   context: context,
                                                   title:
-                                                      'CHỌN ĐỒ VẬT BẠN CẦN SỬA',
+                                                      'CHỌN THIẾT BỊ BẠN CẦN SỬA',
                                                   items: majorList,
                                                   selectedItem: selectedMajor,
                                                   onChanged: (value) =>
@@ -275,34 +277,50 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                                       child: Row(
                                         children: [
                                           Container(
-                                              width: 220,
-                                              margin: EdgeInsets.only(left: 30),
-                                              child: Text(selectedBrand.name,
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight:
-                                                          FontWeight.bold))),
+                                            width: 220,
+                                            margin: EdgeInsets.only(left: 30),
+                                            child: (selectedBrand.code !=
+                                                    "none")
+                                                ? Text(selectedBrand.name,
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold))
+                                                : Text(
+                                                    "< Chưa có hãng sản xuất >",
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                          ),
                                           Expanded(
                                             child: Container(
                                               margin:
                                                   EdgeInsets.only(right: 20),
                                               alignment: Alignment.centerRight,
-                                              child: ElevatedButton(
-                                                child: Text('CHỌN HÃNG'),
-                                                onPressed: () =>
-                                                    showMaterialScrollPicker<
-                                                        Brand>(
-                                                  context: context,
-                                                  title: 'CHỌN HÃNG SẢN XUẤT',
-                                                  items: getBrandByMajor(
-                                                      selectedMajor.code),
-                                                  selectedItem: selectedBrand,
-                                                  onChanged: (value) =>
-                                                      setState(() =>
-                                                          selectedBrand =
-                                                              value),
-                                                ),
-                                              ),
+                                              child: (selectedMajor.code !=
+                                                      "none")
+                                                  ? ElevatedButton(
+                                                      child: Text('CHỌN HÃNG'),
+                                                      onPressed: () =>
+                                                          showMaterialRadioPicker<
+                                                              Brand>(
+                                                        context: context,
+                                                        title:
+                                                            'CHỌN HÃNG SẢN XUẤT',
+                                                        items: getBrandByMajor(
+                                                            selectedMajor.code),
+                                                        selectedItem:
+                                                            selectedBrand,
+                                                        onChanged: (value) =>
+                                                            setState(() =>
+                                                                selectedBrand =
+                                                                    value),
+                                                      ),
+                                                    )
+                                                  : SizedBox(
+                                                      height: 50,
+                                                    ),
                                             ),
                                           ),
                                         ],
@@ -325,33 +343,49 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                                           Container(
                                               width: 220,
                                               margin: EdgeInsets.only(left: 30),
-                                              child: Text(selectedProblem.name,
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold))),
+                                              child: (selectedProblem.code !=
+                                                      "none")
+                                                  ? Text(selectedProblem.name,
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold))
+                                                  : Text("< Chưa có vấn đề >",
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight: FontWeight
+                                                              .bold))),
                                           Expanded(
                                             child: Container(
                                               margin:
                                                   EdgeInsets.only(right: 20),
                                               alignment: Alignment.centerRight,
-                                              child: ElevatedButton(
-                                                child: Text('CHỌN VẤN ĐỀ'),
-                                                onPressed: () =>
-                                                    showMaterialScrollPicker<
-                                                        Problem>(
-                                                  context: context,
-                                                  title:
-                                                      'CHỌN VẤN ĐỀ BẠN GẶP PHẢI',
-                                                  items: getProblemsByMajor(
-                                                      selectedMajor.code),
-                                                  selectedItem: selectedProblem,
-                                                  onChanged: (value) =>
-                                                      setState(() =>
-                                                          selectedProblem =
-                                                              value),
-                                                ),
-                                              ),
+                                              child: (selectedMajor.code !=
+                                                      "none")
+                                                  ? ElevatedButton(
+                                                      child:
+                                                          Text('CHỌN VẤN ĐỀ'),
+                                                      onPressed: () =>
+                                                          showMaterialRadioPicker<
+                                                              Problem>(
+                                                        context: context,
+                                                        title:
+                                                            'CHỌN VẤN ĐỀ BẠN GẶP PHẢI',
+                                                        items:
+                                                            getProblemsByMajor(
+                                                                selectedMajor
+                                                                    .code),
+                                                        selectedItem:
+                                                            selectedProblem,
+                                                        onChanged: (value) =>
+                                                            setState(() =>
+                                                                selectedProblem =
+                                                                    value),
+                                                      ),
+                                                    )
+                                                  : SizedBox(
+                                                      height: 50,
+                                                    ),
                                             ),
                                           ),
                                         ],
@@ -389,355 +423,176 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                                       ),
                                     ),
                                   ]
-                                : (_stepIndex == 1)
-                                    ? [
+                                : [
+                                    Column(
+                                      children: [
                                         Container(
-                                          margin: EdgeInsets.only(
-                                              top: 20, bottom: 10),
-                                          alignment: Alignment.center,
+                                          margin: EdgeInsets.only(top: 20),
                                           child: Text(
-                                            'TÔI MUỐN CHỌN THỢ',
-                                            style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                letterSpacing: 0.5,
-                                                color: kPrimaryColor),
-                                          ),
-                                        ),
-                                        Container(
-                                          height: 300,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(50)),
-                                          child: GridView.count(
-                                            scrollDirection: Axis.vertical,
-                                            crossAxisCount: 2,
-                                            mainAxisSpacing: 5,
-                                            children: List.generate(
-                                                repairmanListByMajor(
-                                                        selectedMajor.code)
-                                                    .length, (index) {
-                                              Repairman repairman =
-                                                  repairmanListByMajor(
-                                                      selectedMajor
-                                                          .code)[index];
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    selectedRepairman =
-                                                        repairman;
-                                                  });
-                                                },
-                                                child: Card(
-                                                  margin: EdgeInsets.all(10),
-                                                  shape: OutlineInputBorder(
-                                                    borderSide: BorderSide.none,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50),
-                                                  ),
-                                                  color:
-                                                      (selectedRepairman.code ==
-                                                              repairman.code)
-                                                          ? kPrimaryLightColor
-                                                              .withOpacity(0.8)
-                                                          : Colors.white,
-                                                  elevation: 10,
-                                                  child: Container(
-                                                    child: Column(
-                                                      children: [
-                                                        Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  top: 10),
-                                                          child: (repairman
-                                                                      .avatar ==
-                                                                  'none')
-                                                              ? Icon(
-                                                                  CupertinoIcons
-                                                                      .person_circle,
-                                                                  size: 70)
-                                                              : ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              50),
-                                                                  child: Image.network(
-                                                                      repairman
-                                                                          .avatar,
-                                                                      width:
-                                                                          70),
-                                                                ),
-                                                        ),
-                                                        Text(
-                                                          repairman.name,
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  kTextColor),
-                                                        ),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Icon(Icons.star,
-                                                                color: (repairman
-                                                                            .rating >=
-                                                                        1)
-                                                                    ? kSecondaryColor
-                                                                    : kTextColor),
-                                                            Icon(Icons.star,
-                                                                color: (repairman
-                                                                            .rating >=
-                                                                        2)
-                                                                    ? kSecondaryColor
-                                                                    : kTextColor),
-                                                            Icon(Icons.star,
-                                                                color: (repairman
-                                                                            .rating >=
-                                                                        3)
-                                                                    ? kSecondaryColor
-                                                                    : kTextColor),
-                                                            Icon(Icons.star,
-                                                                color: (repairman
-                                                                            .rating >=
-                                                                        4)
-                                                                    ? kSecondaryColor
-                                                                    : kTextColor),
-                                                            Icon(Icons.star,
-                                                                color: (repairman
-                                                                            .rating >=
-                                                                        5)
-                                                                    ? kSecondaryColor
-                                                                    : kTextColor)
-                                                          ],
-                                                        ),
-                                                        Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child: Text(
-                                                                '${repairman.distance} km'))
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            }),
-                                          ),
-                                        )
-                                      ]
-                                    : [
-                                        Column(
-                                          children: [
-                                            Container(
-                                              margin: EdgeInsets.only(top: 20),
-                                              child: Text(
-                                                  'CHÚC MỪNG BẠN ĐÃ TẠO YÊU CẦU THÀNH CÔNG',
-                                                  style: TextStyle(
-                                                      fontSize: 18,
-                                                      color: kSecondaryColor,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            ),
-                                            Text(
-                                                'Bạn vui lòng đợi trong ít phút, thợ sẽ liên hệ với bạn để xác nhận thông tin.'),
-                                            Divider(
-                                              height: 10,
-                                              thickness: 1,
-                                              indent: 10,
-                                              endIndent: 10,
-                                            ),
-                                            Container(
-                                              alignment: Alignment.center,
-                                              margin: EdgeInsets.only(top: 0),
-                                              child: Text("Thông tin yêu cầu",
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              top: 20, left: 20),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 120,
-                                                child: Text('ĐỒ CẦN SỬA: ',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ),
-                                              Container(
-                                                  child: Text(
-                                                      selectedMajor.name,
-                                                      style: TextStyle(
-                                                          fontSize: 14)))
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              top: 10, left: 20),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 120,
-                                                child: Text('HÃNG SẢN XUẤT: ',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ),
-                                              Container(
-                                                  child: Text(
-                                                      selectedBrand.name,
-                                                      style: TextStyle(
-                                                          fontSize: 14)))
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              top: 10, left: 20),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 120,
-                                                child: Text('VẤN ĐỀ GẶP PHẢI: ',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ),
-                                              Container(
-                                                  child: Text(
-                                                      selectedProblem.name,
-                                                      style: TextStyle(
-                                                          fontSize: 14)))
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              top: 10, left: 20),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                width: 120,
-                                                child: Text('MÔ TẢ CHI TIẾT: ',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ),
-                                              Container(
-                                                width: 230,
-                                                margin:
-                                                    EdgeInsets.only(right: 10),
-                                                child: (_currentProlemnState !=
-                                                        '')
-                                                    ? Text(
-                                                        '$_currentProlemnState',
-                                                        style: TextStyle(
-                                                            fontSize: 14))
-                                                    : Text(
-                                                        '< Không có mô tả chi tiết >',
-                                                        style: TextStyle(
-                                                            fontSize: 14)),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Divider(
-                                          height: 20,
-                                          thickness: 1,
-                                          indent: 10,
-                                          endIndent: 10,
-                                        ),
-                                        Container(
-                                          margin:
-                                              EdgeInsets.only(top: 0, left: 20),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 120,
-                                                child: Text('THỢ: ',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ),
-                                              Container(
-                                                  child: Text(
-                                                      selectedRepairman.name,
-                                                      style: TextStyle(
-                                                          fontSize: 14)))
-                                            ],
-                                          ),
-                                        ),
-                                        Divider(
-                                          height: 20,
-                                          thickness: 1,
-                                          indent: 10,
-                                          endIndent: 10,
-                                        ),
-                                        Container(
-                                          margin:
-                                              EdgeInsets.only(top: 0, left: 20),
-                                          child: Text('HÌNH ẢNH MINH HỌA: ',
+                                              'MỜI BẠN XÁC NHẬN THÔNG TIN',
                                               style: TextStyle(
-                                                  fontSize: 14,
+                                                  fontSize: 18,
+                                                  color: kSecondaryColor,
                                                   fontWeight: FontWeight.bold)),
                                         ),
-                                        if (selectedImage.length != 0)
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: size.width * 0.8,
-                                                height: 120,
-                                                child: ListView(
-                                                    scrollDirection:
-                                                        Axis.horizontal,
-                                                    children: List.generate(
-                                                        selectedImage.length,
-                                                        (index) {
-                                                      return Container(
-                                                        padding:
-                                                            EdgeInsets.all(5),
-                                                        child: Image.file(
-                                                          selectedImage[index],
-                                                          width: 100.0,
-                                                          height: 100.0,
-                                                          fit: BoxFit.fitHeight,
-                                                        ),
-                                                      );
-                                                    })),
-                                              ),
-                                            ],
-                                          )
-                                        else
+                                        Text(
+                                            'Bạn vui lòng đợi bấm "XÁC NHẬN" để theo dõi hành trình của thợ'),
+                                        Divider(
+                                          height: 10,
+                                          thickness: 1,
+                                          indent: 10,
+                                          endIndent: 10,
+                                        ),
+                                        Container(
+                                          alignment: Alignment.center,
+                                          margin: EdgeInsets.only(top: 0),
+                                          child: Text("Thông tin yêu cầu",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
+                                      ],
+                                    ),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(top: 20, left: 20),
+                                      child: Row(
+                                        children: [
                                           Container(
-                                              alignment: Alignment.center,
-                                              margin: EdgeInsets.only(top: 20),
-                                              child: Text(
-                                                  '< Không có hình ảnh minh họa >',
+                                            width: 120,
+                                            child: Text('ĐỒ CẦN SỬA: ',
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                          ),
+                                          Container(
+                                              child: Text(selectedMajor.name,
                                                   style:
                                                       TextStyle(fontSize: 14)))
-                                      ],
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(top: 10, left: 20),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: 120,
+                                            child: Text('HÃNG SẢN XUẤT: ',
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                          ),
+                                          Container(
+                                              child: Text(selectedBrand.name,
+                                                  style:
+                                                      TextStyle(fontSize: 14)))
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(top: 10, left: 20),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: 120,
+                                            child: Text('VẤN ĐỀ GẶP PHẢI: ',
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                          ),
+                                          Container(
+                                              child: Text(selectedProblem.name,
+                                                  style:
+                                                      TextStyle(fontSize: 14)))
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(top: 10, left: 20),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            width: 120,
+                                            child: Text('MÔ TẢ CHI TIẾT: ',
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                          ),
+                                          Container(
+                                            width: 230,
+                                            margin: EdgeInsets.only(right: 10),
+                                            child: (_currentProlemnState != '')
+                                                ? Text('$_currentProlemnState',
+                                                    style:
+                                                        TextStyle(fontSize: 14))
+                                                : Text(
+                                                    '< Không có mô tả chi tiết >',
+                                                    style: TextStyle(
+                                                        fontSize: 14)),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Divider(
+                                      height: 20,
+                                      thickness: 1,
+                                      indent: 10,
+                                      endIndent: 10,
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 0, left: 20),
+                                      child: Text('HÌNH ẢNH MINH HỌA: ',
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                    if (selectedImage.length != 0)
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: size.width * 0.8,
+                                            height: 120,
+                                            child: ListView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                children: List.generate(
+                                                    selectedImage.length,
+                                                    (index) {
+                                                  return Container(
+                                                    padding: EdgeInsets.all(5),
+                                                    child: Image.file(
+                                                      selectedImage[index],
+                                                      width: 100.0,
+                                                      height: 100.0,
+                                                      fit: BoxFit.fitHeight,
+                                                    ),
+                                                  );
+                                                })),
+                                          ),
+                                        ],
+                                      )
+                                    else
+                                      Container(
+                                          alignment: Alignment.center,
+                                          margin: EdgeInsets.only(top: 20),
+                                          child: Text(
+                                              '< Không có hình ảnh minh họa >',
+                                              style: TextStyle(fontSize: 14)))
+                                  ],
                           ),
                         ),
                       ),
@@ -750,20 +605,36 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                   margin:
                       EdgeInsets.only(top: 0, left: 30, right: 30, bottom: 5),
                   child: (selectedImage.isEmpty)
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            IconButton(
-                                onPressed: () async {
-                                  XFile? image = await _picker.pickImage(
-                                      source: ImageSource.camera);
-                                  setState(() {
-                                    selectedImage.add(File(image!.path));
-                                  });
-                                },
-                                icon: Icon(Icons.camera_alt)),
-                            Text('Chụp ảnh đính kèm'),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                    onPressed: () async {
+                                      XFile? image = await _picker.pickImage(
+                                          source: ImageSource.camera);
+                                      setState(() {
+                                        selectedImage.add(File(image!.path));
+                                      });
+                                    },
+                                    icon: Icon(Icons.camera_alt)),
+                                Text('Chụp ảnh đính kèm'),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                    onPressed: () async {},
+                                    icon: Icon(Icons.video_camera_front)),
+                                Text('Quay video đính kèm'),
+                              ],
+                            ),
                           ],
                         )
                       : Row(
@@ -826,140 +697,93 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                       begin: Alignment.topLeft,
                       end: Alignment(
                           1, 1), // 10% of the width, so there are ten blinds.
-                      colors: <Color>[
-                        kSecondaryLightColor,
-                        kSecondaryColor,
-                      ], // red to yellow
+                      colors: (selectedMajor.code != "none" &&
+                              selectedBrand.code != "none" &&
+                              selectedProblem.code != "none")
+                          ? <Color>[
+                              kSecondaryLightColor,
+                              kSecondaryColor,
+                            ]
+                          : <Color>[
+                              Colors.grey,
+                              Colors.grey,
+                            ], // red to yellow
                       tileMode: TileMode
                           .repeated, // repeats the gradient over the canvas
                     ),
                   ),
                   child: MaterialButton(
                     onPressed: () {
-                      setState(() {
-                        _currentProlemnState = _currentProlemnController!.text;
-                        _stepIndex = 1;
-                      });
-                      print(_currentProlemnState);
-                      print(_stepIndex);
+                      if (selectedMajor.code != "none" &&
+                          selectedBrand.code != "none" &&
+                          selectedProblem.code != "none") {
+                        setState(() {
+                          _currentProlemnState =
+                              _currentProlemnController!.text;
+                          _stepIndex = 1;
+                        });
+                      }
                     },
-                    child: Text('Tiếp tục'),
+                    child: Text('TIẾP TỤC'),
                   ),
                 )
-              : (_stepIndex == 1)
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment(1,
-                                  1), // 10% of the width, so there are ten blinds.
-                              colors: <Color>[
-                                kSecondaryLightColor,
-                                kSecondaryColor,
-                              ], // red to yellow
-                              tileMode: TileMode
-                                  .repeated, // repeats the gradient over the canvas
-                            ),
-                          ),
-                          child: MaterialButton(
-                            onPressed: () {
-                              setState(() {
-                                selectedRepairman =
-                                    Repairman('', '', 0, 0, 'none', '');
-                                _stepIndex = 0;
-                              });
-                            },
-                            child: Text('Quay lại'),
-                          ),
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment(1,
+                              1), // 10% of the width, so there are ten blinds.
+                          colors: <Color>[
+                            kSecondaryLightColor,
+                            kSecondaryColor,
+                          ], // red to yellow
+                          tileMode: TileMode
+                              .repeated, // repeats the gradient over the canvas
                         ),
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment(1,
-                                  1), // 10% of the width, so there are ten blinds.
-                              colors: (selectedRepairman.code != '')
-                                  ? <Color>[
-                                      kSecondaryLightColor,
-                                      kSecondaryColor,
-                                    ]
-                                  : <Color>[
-                                      Colors.grey,
-                                      Colors.grey,
-                                    ], // red to yellow
-                              tileMode: TileMode
-                                  .repeated, // repeats the gradient over the canvas
-                            ),
-                          ),
-                          child: MaterialButton(
-                            onPressed: () {
-                              if (selectedRepairman.code != '') {
-                                setState(() {
-                                  _stepIndex = 2;
-                                });
-                              }
-                            },
-                            child: Text('Chốt đơn'),
-                          ),
-                        )
-                      ],
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          margin: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment(1,
-                                  1), // 10% of the width, so there are ten blinds.
-                              colors: <Color>[
-                                kPrimaryColor,
-                                kPrimaryLightColor,
-                              ], // red to yellow
-                              tileMode: TileMode
-                                  .repeated, // repeats the gradient over the canvas
-                            ),
-                          ),
-                          child: MaterialButton(
-                            onPressed: () =>
-                                {Get.offAndToNamed("/book_service")},
-                            child: Text('Tiếp tục tìm thợ mới'),
-                          ),
+                      ),
+                      child: MaterialButton(
+                        onPressed: () {
+                          setState(() {
+                            selectedRepairman =
+                                Repairman('', '', 0, 0, 'none', '');
+                            _stepIndex = 0;
+                          });
+                        },
+                        child: Text('QUAY LẠI'),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment(1,
+                              1), // 10% of the width, so there are ten blinds.
+                          colors: <Color>[
+                            kSecondaryLightColor,
+                            kSecondaryColor,
+                          ],
+                          tileMode: TileMode
+                              .repeated, // repeats the gradient over the canvas
                         ),
-                        Container(
-                          margin: EdgeInsets.all(0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment(1,
-                                  1), // 10% of the width, so there are ten blinds.
-                              colors: <Color>[
-                                kSecondaryLightColor,
-                                kSecondaryColor,
-                              ], // red to yellow
-                              tileMode: TileMode
-                                  .repeated, // repeats the gradient over the canvas
-                            ),
-                          ),
-                          child: MaterialButton(
-                            onPressed: () => {Get.offAndToNamed("/client_app")},
-                            child: Text('Quay lại trang chủ'),
-                          ),
-                        )
-                      ],
+                      ),
+                      child: MaterialButton(
+                        onPressed: () {
+                          setState(() {
+                            Get.toNamed("/map");
+                          });
+                        },
+                        child: Text('XÁC NHẬN'),
+                      ),
                     )
+                  ],
+                )
         ]),
       ),
     );

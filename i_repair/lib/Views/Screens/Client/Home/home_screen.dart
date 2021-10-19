@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/gridview-buttons.dart';
 import 'package:i_repair/Views/common/card/icon-card.dart';
@@ -113,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 )),
           ),
         ]),
-        Container(width: 150, height: 135, child: GridViewButtons()),
+        Container(width: 150, height: 150, child: GridViewButtons()),
         Container(
           margin: EdgeInsets.only(left: 20, top: 0),
           child: Text('YÊU CẦU VỪA MỚI TẠO',
@@ -132,193 +133,100 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 150,
                 padding: EdgeInsets.all(5),
                 width: size.width,
-                child: Card(
-                  elevation: 5,
-                  shape: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(25)),
-                  child: ListView(
-                    physics: NeverScrollableScrollPhysics(),
-                    children: [
-                      Container(
-                          margin: EdgeInsets.only(left: 20, top: 20),
-                          child: Text('MÃ YÊU CẦU: A122',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 0.5,
-                                  color: kSecondaryLightColor))),
-                      Container(
-                          margin: EdgeInsets.only(left: 20, top: 5),
-                          child: IntrinsicHeight(
-                            child: Row(
-                              children: [
-                                Text('ĐỒ CẦN SỬA: ',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: kTextColor,
-                                        fontWeight: FontWeight.bold)),
-                                Text('Tủ lạnh',
-                                    style: TextStyle(
-                                        fontSize: 14, color: kTextColor)),
-                              ],
-                            ),
-                          )),
-                      SizedBox(height: 5),
-                      Container(
-                          margin: EdgeInsets.only(left: 20, top: 0),
-                          child: IntrinsicHeight(
-                            child: Row(
-                              children: [
-                                Text('VẤN ĐỀ GẶP PHẢI: ',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: kTextColor,
-                                        fontWeight: FontWeight.bold)),
-                                Container(
-                                  child: Text('Cửa bị chênh hoặc không kín',
+                child: InkWell(
+                  onTap: () => {Get.toNamed("/map")},
+                  child: Card(
+                    elevation: 5,
+                    shape: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(25)),
+                    child: ListView(
+                      physics: NeverScrollableScrollPhysics(),
+                      children: [
+                        Container(
+                            margin: EdgeInsets.only(left: 20, top: 20),
+                            child: Text('MÃ YÊU CẦU: A122',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 0.5,
+                                    color: kSecondaryLightColor))),
+                        Container(
+                            margin: EdgeInsets.only(left: 20, top: 5),
+                            child: IntrinsicHeight(
+                              child: Row(
+                                children: [
+                                  Text('ĐỒ CẦN SỬA: ',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: kTextColor,
+                                          fontWeight: FontWeight.bold)),
+                                  Text('Tủ lạnh',
                                       style: TextStyle(
                                           fontSize: 14, color: kTextColor)),
-                                ),
-                              ],
-                            ),
-                          )),
-                      SizedBox(height: 5),
-                      Divider(
-                        height: 20,
-                        thickness: 1,
-                        indent: 0,
-                        endIndent: 0,
-                      ),
-                      IntrinsicHeight(
-                        child: Row(
-                          children: [
-                            Container(
-                                margin: EdgeInsets.only(left: 15),
-                                child: Icon(Icons.person)),
-                            Container(
-                                margin: EdgeInsets.only(left: 10),
-                                child: Text('Phạm Hữu Nghĩa')),
-                            VerticalDivider(
-                              width: 20,
-                              thickness: 1,
-                              indent: 0,
-                              endIndent: 0,
-                            ),
-                            Container(
-                                margin: EdgeInsets.only(left: 10, right: 10),
-                                child: Text('Ngày 30/09/2021')),
-                            VerticalDivider(
-                              width: 30,
-                              thickness: 1,
-                              indent: 0,
-                              endIndent: 0,
-                            ),
-                            Container(
-                                margin: EdgeInsets.only(left: 5),
-                                child: Text('Thợ đang đến',
-                                    style: TextStyle(color: kSecondaryColor))),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                height: 150,
-                padding: EdgeInsets.all(5),
-                width: size.width,
-                child: Card(
-                  elevation: 5,
-                  shape: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(25)),
-                  child: ListView(
-                    physics: NeverScrollableScrollPhysics(),
-                    children: [
-                      Container(
-                          margin: EdgeInsets.only(left: 20, top: 20),
-                          child: Text('MÃ YÊU CẦU: A123',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 0.5,
-                                  color: kSecondaryLightColor))),
-                      Container(
-                          margin: EdgeInsets.only(left: 20, top: 5),
-                          child: IntrinsicHeight(
-                            child: Row(
-                              children: [
-                                Text('ĐỒ CẦN SỬA: ',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: kTextColor,
-                                        fontWeight: FontWeight.bold)),
-                                Text('Máy tính',
-                                    style: TextStyle(
-                                        fontSize: 14, color: kTextColor)),
-                              ],
-                            ),
-                          )),
-                      SizedBox(height: 5),
-                      Container(
-                          margin: EdgeInsets.only(left: 20, top: 0),
-                          child: IntrinsicHeight(
-                            child: Row(
-                              children: [
-                                Text('VẤN ĐỀ GẶP PHẢI: ',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        color: kTextColor,
-                                        fontWeight: FontWeight.bold)),
-                                Container(
-                                  child: Text('Máy tự khởi động lại',
+                                ],
+                              ),
+                            )),
+                        SizedBox(height: 5),
+                        Container(
+                            margin: EdgeInsets.only(left: 20, top: 0),
+                            child: IntrinsicHeight(
+                              child: Row(
+                                children: [
+                                  Text('VẤN ĐỀ GẶP PHẢI: ',
                                       style: TextStyle(
-                                          fontSize: 14, color: kTextColor)),
-                                ),
-                              ],
-                            ),
-                          )),
-                      SizedBox(height: 5),
-                      Divider(
-                        height: 20,
-                        thickness: 1,
-                        indent: 0,
-                        endIndent: 0,
-                      ),
-                      IntrinsicHeight(
-                        child: Row(
-                          children: [
-                            Container(
-                                margin: EdgeInsets.only(left: 15),
-                                child: Icon(Icons.person)),
-                            Container(
-                                margin: EdgeInsets.only(left: 10),
-                                child: Text('Lê Tấn Thịnh')),
-                            VerticalDivider(
-                              width: 30,
-                              thickness: 1,
-                              indent: 0,
-                              endIndent: 0,
-                            ),
-                            Container(
-                                margin: EdgeInsets.only(left: 10, right: 10),
-                                child: Text('Ngày 30/09/2021')),
-                            VerticalDivider(
-                              width: 30,
-                              thickness: 1,
-                              indent: 0,
-                              endIndent: 0,
-                            ),
-                            Container(
-                                margin: EdgeInsets.only(left: 5),
-                                child: Text('Thợ đang đến',
-                                    style: TextStyle(color: kSecondaryColor))),
-                          ],
+                                          fontSize: 14,
+                                          color: kTextColor,
+                                          fontWeight: FontWeight.bold)),
+                                  Container(
+                                    child: Text('Cửa bị chênh hoặc không kín',
+                                        style: TextStyle(
+                                            fontSize: 14, color: kTextColor)),
+                                  ),
+                                ],
+                              ),
+                            )),
+                        SizedBox(height: 5),
+                        Divider(
+                          height: 20,
+                          thickness: 1,
+                          indent: 0,
+                          endIndent: 0,
                         ),
-                      )
-                    ],
+                        IntrinsicHeight(
+                          child: Row(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(left: 15),
+                                  child: Icon(Icons.person)),
+                              Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Text('Phạm Hữu Nghĩa')),
+                              VerticalDivider(
+                                width: 20,
+                                thickness: 1,
+                                indent: 0,
+                                endIndent: 0,
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(left: 10, right: 10),
+                                  child: Text('Ngày 30/09/2021')),
+                              VerticalDivider(
+                                width: 30,
+                                thickness: 1,
+                                indent: 0,
+                                endIndent: 0,
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(left: 5),
+                                  child: Text('Thợ đang đến',
+                                      style:
+                                          TextStyle(color: kSecondaryColor))),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

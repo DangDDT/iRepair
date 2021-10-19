@@ -41,7 +41,7 @@ class _AppState extends State<App> {
       //     haveBackSpace: false),
       body: PageView(
         controller: _pageController,
-        children: [HomeScreen(), ExploreScreen(), ProfileScreen()],
+        children: [HomeScreen(), ProfileScreen()],
         onPageChanged: (page) {
           setState(() {
             _selectedIndex = page;
@@ -68,7 +68,7 @@ class _AppState extends State<App> {
               gap: 8,
               activeColor: kBackgroundColor,
               iconSize: 24,
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+              padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
               duration: Duration(milliseconds: 400),
               tabBackgroundColor: kBackgroundColor,
               tabBackgroundGradient: LinearGradient(
@@ -87,10 +87,6 @@ class _AppState extends State<App> {
                 GButton(
                   icon: CupertinoIcons.home,
                   text: 'Trang chủ',
-                ),
-                GButton(
-                  icon: Icons.explore,
-                  text: 'Khám phá',
                 ),
                 GButton(
                   icon: CupertinoIcons.profile_circled,
