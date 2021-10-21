@@ -9,8 +9,6 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'page.dart';
 
-
-
 class FullMapPage extends ExamplePage {
   FullMapPage() : super(const Icon(Icons.map), 'Full screen map');
 
@@ -29,7 +27,7 @@ class FullMap extends StatefulWidget {
 
 class FullMapState extends State<FullMap> {
   MapboxMapController? mapController;
-  
+
   void _onMapCreated(MapboxMapController controller) {
     mapController = controller;
     controller.addSymbol(SymbolOptions(
@@ -112,12 +110,45 @@ class FullMapState extends State<FullMap> {
                     children: [
                       Container(
                         margin: EdgeInsets.only(top: 10, left: 10),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(50),
-                          child: Image.network(
-                              "https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/145490152_1645861872468232_2404576525271328519_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-KKRXEcThkEAX-VQeMP&_nc_ht=scontent.fsgn5-8.fna&oh=5dfe93870e948990400b19eafa9ebd6e&oe=6183DEBC",
-                              height: 70,
-                              width: 70),
+                        child: Column(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.network(
+                                  "https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/145490152_1645861872468232_2404576525271328519_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-KKRXEcThkEAX-VQeMP&_nc_ht=scontent.fsgn5-8.fna&oh=5dfe93870e948990400b19eafa9ebd6e&oe=6183DEBC",
+                                  height: 70,
+                                  width: 70),
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.star,
+                                  color: kSecondaryColor,
+                                  size: 14,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: kSecondaryColor,
+                                  size: 14,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: kSecondaryColor,
+                                  size: 14,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: kSecondaryColor,
+                                  size: 14,
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  color: Colors.grey,
+                                  size: 14,
+                                ),
+                              ],
+                            )
+                          ],
                         ),
                       ),
                       Column(

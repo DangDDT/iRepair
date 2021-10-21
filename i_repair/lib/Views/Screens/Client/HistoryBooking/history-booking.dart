@@ -169,7 +169,7 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                                     fontWeight:
                                                         FontWeight.bold)),
                                             content: Container(
-                                              height: 280,
+                                              height: 320,
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -234,14 +234,53 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                                       SizedBox(
                                                         width: 50,
                                                       ),
-                                                      ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(50),
-                                                        child: Image.network(
-                                                            "https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/145490152_1645861872468232_2404576525271328519_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-KKRXEcThkEAX-VQeMP&_nc_ht=scontent.fsgn5-8.fna&oh=5dfe93870e948990400b19eafa9ebd6e&oe=6183DEBC",
-                                                            height: 70,
-                                                            width: 70),
+                                                      Column(
+                                                        children: [
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        50),
+                                                            child: Image.network(
+                                                                "https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/145490152_1645861872468232_2404576525271328519_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-KKRXEcThkEAX-VQeMP&_nc_ht=scontent.fsgn5-8.fna&oh=5dfe93870e948990400b19eafa9ebd6e&oe=6183DEBC",
+                                                                height: 70,
+                                                                width: 70),
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Icon(
+                                                                Icons.star,
+                                                                color:
+                                                                    kSecondaryColor,
+                                                                size: 14,
+                                                              ),
+                                                              Icon(
+                                                                Icons.star,
+                                                                color:
+                                                                    kSecondaryColor,
+                                                                size: 14,
+                                                              ),
+                                                              Icon(
+                                                                Icons.star,
+                                                                color:
+                                                                    kSecondaryColor,
+                                                                size: 14,
+                                                              ),
+                                                              Icon(
+                                                                Icons.star,
+                                                                color:
+                                                                    kSecondaryColor,
+                                                                size: 14,
+                                                              ),
+                                                              Icon(
+                                                                Icons.star,
+                                                                color:
+                                                                    Colors.grey,
+                                                                size: 14,
+                                                              ),
+                                                            ],
+                                                          )
+                                                        ],
                                                       ),
                                                     ],
                                                   ),
@@ -251,6 +290,68 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                                     indent: 0,
                                                     endIndent: 0,
                                                   ),
+                                                  (element["status"] ==
+                                                          "Đã hoàn thành")
+                                                      ? Row(
+                                                          children: [
+                                                            Text(
+                                                                'Đánh giá yêu cầu: '),
+                                                            Text('Hài lòng ',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600)),
+                                                            Row(
+                                                              children: [
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color:
+                                                                      kSecondaryColor,
+                                                                  size: 14,
+                                                                ),
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color:
+                                                                      kSecondaryColor,
+                                                                  size: 14,
+                                                                ),
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color:
+                                                                      kSecondaryColor,
+                                                                  size: 14,
+                                                                ),
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color:
+                                                                      kSecondaryColor,
+                                                                  size: 14,
+                                                                ),
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  size: 14,
+                                                                ),
+                                                              ],
+                                                            )
+                                                          ],
+                                                        )
+                                                      : Row(
+                                                          children: [
+                                                            Text('Lý do hủy: '),
+                                                            Text(
+                                                                'Không liên hệ được thợ ',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600)),
+                                                          ],
+                                                        ),
                                                   Row(
                                                     children: [
                                                       Text('Ngày tạo:  '),

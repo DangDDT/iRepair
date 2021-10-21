@@ -134,6 +134,134 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.all(5),
                 width: size.width,
                 child: InkWell(
+                  onTap: () => {},
+                  child: Card(
+                    elevation: 5,
+                    shape: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(25)),
+                    child: ListView(
+                      physics: NeverScrollableScrollPhysics(),
+                      children: [
+                        Row(
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(left: 20, top: 20),
+                                    child: Text('MÃ YÊU CẦU: A121',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kSecondaryLightColor))),
+                                Container(
+                                    margin: EdgeInsets.only(left: 20, top: 5),
+                                    child: IntrinsicHeight(
+                                      child: Row(
+                                        children: [
+                                          Text('ĐỒ CẦN SỬA: ',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: kTextColor,
+                                                  fontWeight: FontWeight.bold)),
+                                          Text('Máy giặt',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: kTextColor)),
+                                        ],
+                                      ),
+                                    )),
+                                SizedBox(height: 5),
+                                Container(
+                                    margin: EdgeInsets.only(left: 20, top: 0),
+                                    child: IntrinsicHeight(
+                                      child: Row(
+                                        children: [
+                                          Text('VẤN ĐỀ GẶP PHẢI: ',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: kTextColor,
+                                                  fontWeight: FontWeight.bold)),
+                                          Container(
+                                            child: Text(
+                                                'Cửa bị chênh hoặc không kín',
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: kTextColor)),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                              ],
+                            ),
+                            Container(
+                                margin: EdgeInsets.only(left: 30, top: 20),
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: InkWell(
+                                    onTap: () => {Get.offAndToNamed("/rating")},
+                                    child: Text(
+                                      "XÁC NHẬN",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: kBackgroundColor),
+                                    )))
+                          ],
+                        ),
+                        SizedBox(height: 5),
+                        Divider(
+                          height: 20,
+                          thickness: 1,
+                          indent: 0,
+                          endIndent: 0,
+                        ),
+                        IntrinsicHeight(
+                          child: Row(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(left: 15),
+                                  child: Icon(Icons.person)),
+                              Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Text('Phạm Hữu Nghĩa')),
+                              VerticalDivider(
+                                width: 20,
+                                thickness: 1,
+                                indent: 0,
+                                endIndent: 0,
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(left: 10, right: 10),
+                                  child: Text('Ngày 30/09/2021')),
+                              VerticalDivider(
+                                width: 30,
+                                thickness: 1,
+                                indent: 0,
+                                endIndent: 0,
+                              ),
+                              Container(
+                                  margin: EdgeInsets.only(left: 5),
+                                  child: Text('Đã hoàn thành',
+                                      style:
+                                          TextStyle(color: kSecondaryColor))),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                height: 150,
+                padding: EdgeInsets.all(5),
+                width: size.width,
+                child: InkWell(
                   onTap: () => {Get.toNamed("/map")},
                   child: Card(
                     elevation: 5,
@@ -232,7 +360,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

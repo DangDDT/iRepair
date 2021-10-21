@@ -6,6 +6,7 @@ import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Views/Screens/Client/BookService/map/widgets/cancel_page.dart';
 import 'package:i_repair/Views/Screens/Welcome/ForgotPassword/forgotPassword-screen.dart';
 import 'package:i_repair/Views/Screens/Welcome/SignUp/signup-screen.dart';
+import 'package:i_repair/Views/common/repairman_rating/rating.dart';
 import 'package:i_repair/views/Screens/Client/HistoryBooking/history-booking.dart';
 import 'Views/Screens/Client/BookService/book-service.dart';
 import 'Views/Screens/Client/BookService/map/full_map.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginPage(),
         '/map': (context) => FullMapPage(),
+        '/rating': (context) => RatingPage(),
         '/chat2': (context) => ChatPage2(),
         '/chat': (context) => ChatPage(),
         '/cancel_page': (context) => CancelRequestPage(),

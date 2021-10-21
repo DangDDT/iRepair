@@ -48,7 +48,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
         },
         child: ListView(children: [
           Container(
-            height: 580,
+            height: 620,
             child: Stack(
               children: [
                 Positioned(
@@ -183,7 +183,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                       height: (_stepIndex == 0)
                           ? 400
                           : (_stepIndex == 1)
-                              ? 400
+                              ? 430
                               : 460,
                       width: size.width,
                       child: Container(
@@ -539,6 +539,31 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                                                     '< Không có mô tả chi tiết >',
                                                     style: TextStyle(
                                                         fontSize: 14)),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(top: 10, left: 20),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            width: 120,
+                                            child: Text('ĐỊA CHỈ: ',
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                          ),
+                                          Container(
+                                            width: 230,
+                                            margin: EdgeInsets.only(right: 10),
+                                            child: Text(
+                                                'Chung cư Sky9, Liên Phường, Phú Hữu, TP.Thủ Đức, TP.HCM.',
+                                                style: TextStyle(fontSize: 14)),
                                           ),
                                         ],
                                       ),
