@@ -51,12 +51,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Đỗ Dương Tâm Đăng',
+                          Text('Phạm Hữu Nghĩa',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 24,
                                   color: kBackgroundColor)),
-                          Text('0774839222',
+                          Text('0123456789',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
@@ -102,8 +102,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             margin: EdgeInsets.only(bottom: 15),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
-              child: Image.asset(
-                "assets/images/avatar.jpg",
+              child: Image.network(
+                "https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/145490152_1645861872468232_2404576525271328519_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-KKRXEcThkEAX-VQeMP&_nc_ht=scontent.fsgn5-8.fna&oh=5dfe93870e948990400b19eafa9ebd6e&oe=6183DEBC",
                 height: 150,
                 width: 150,
               ),
@@ -157,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style:
                         TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
               ),
-              Container(child: Text('Đỗ Dương Tâm Đăng'))
+              Container(child: Text('Phạm Hữu Nghĩa'))
             ],
           ),
         ),
@@ -171,8 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
               ),
               Container(
-                  child: Text(
-                      'Chung cư Sky9, Liên Phường, Phú Hữu, TP.Thủ Đức, TP.HCM'))
+                  child: Text('Sô 4, đường Đinh Tiên Hoàng, quận 11, TP.HCM'))
             ],
           ),
         ),
@@ -185,7 +184,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style:
                         TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
               ),
-              Container(child: Text('0774839222'))
+              Container(child: Text('0123456789'))
             ],
           ),
         ),
@@ -198,8 +197,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               end:
                   Alignment(1, 1), // 10% of the width, so there are ten blinds.
               colors: <Color>[
-                kSecondaryLightColor,
-                kSecondaryColor,
+                kPrimaryLightColor,
+                kPrimaryColor,
               ], // red to yellow
               tileMode:
                   TileMode.repeated, // repeats the gradient over the canvas
@@ -230,7 +229,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   fillColor: Colors.white70,
                                   contentPadding: EdgeInsets.only(left: 15),
                                 ),
-                                initialValue: "Đỗ Dương Tâm Đăng",
+                                initialValue: "Phạm Hữu Nghĩa",
                               ),
                             ),
                             SizedBox(
@@ -250,7 +249,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   contentPadding: EdgeInsets.only(left: 15),
                                 ),
                                 initialValue:
-                                    "Chung cư Sky9, Liên Phường, Phú Hữu, TP.Thủ Đức, TP.HCM",
+                                    "Sô 4, đường Đinh Tiên Hoàng, quận 11, TP.HCM",
                               ),
                             ),
                             SizedBox(
@@ -270,7 +269,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     fillColor: Colors.white70,
                                     contentPadding: EdgeInsets.only(left: 15),
                                   ),
-                                  initialValue: "0774839222"),
+                                  initialValue: "0123456789"),
                             ),
                           ],
                         ),

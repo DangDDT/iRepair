@@ -10,7 +10,7 @@ import 'package:i_repair/Views/common/repairman_rating/rating.dart';
 import 'package:i_repair/views/Screens/Client/HistoryBooking/history-booking.dart';
 import 'Views/Screens/Client/BookService/book-service.dart';
 import 'Views/Screens/Client/BookService/map/full_map.dart';
-import 'Views/Screens/Client/BookService/map/widgets/chat_with_repairman.dart';
+import 'Views/Screens/Client/BookService/map/widgets/chat_with_customer.dart';
 import 'Views/Screens/Client/Chat/chat.dart';
 import 'Views/Screens/app.dart';
 import 'views/Screens/Welcome/Login/login-screen.dart';

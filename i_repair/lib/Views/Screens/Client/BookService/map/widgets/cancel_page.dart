@@ -24,7 +24,7 @@ class _CancelRequestPageState extends State<CancelRequestPage> {
       body: Column(
         children: <Widget>[
           ListTile(
-            title: const Text('Muốn gửi 1 yêu cầu khác'),
+            title: const Text('Tôi không thể sửa được thiết bị'),
             leading: Radio<FavoriteMethod>(
               value: FavoriteMethod.r1,
               groupValue: _method,
@@ -34,7 +34,7 @@ class _CancelRequestPageState extends State<CancelRequestPage> {
             ),
           ),
           ListTile(
-            title: const Text('Không liên hệ được thợ'),
+            title: const Text('Tôi không tìm được vị trí của khách hàng'),
             leading: Radio<FavoriteMethod>(
               value: FavoriteMethod.r2,
               groupValue: _method,
@@ -44,7 +44,7 @@ class _CancelRequestPageState extends State<CancelRequestPage> {
             ),
           ),
           ListTile(
-            title: const Text('Thời gian chờ thợ đến quá lâu'),
+            title: const Text('Tôi không có đủ vật tư để sửa chữa'),
             leading: Radio<FavoriteMethod>(
               value: FavoriteMethod.r3,
               groupValue: _method,
@@ -72,8 +72,8 @@ class _CancelRequestPageState extends State<CancelRequestPage> {
                 end: Alignment(
                     1, 1), // 10% of the width, so there are ten blinds.
                 colors: <Color>[
-                  kSecondaryLightColor,
-                  kSecondaryColor,
+                  kPrimaryLightColor,
+                  kPrimaryColor,
                 ], // red to yellow
                 tileMode:
                     TileMode.repeated, // repeats the gradient over the canvas

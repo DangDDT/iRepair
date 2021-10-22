@@ -173,7 +173,7 @@ class _ChatPageState extends State<ChatPage2> {
     return Scaffold(
       appBar: BaseAppBar(
         haveBackSpace: true,
-        title: "Nhắn tin với thợ",
+        title: "Nhắn tin với khách hàng",
         appBar: AppBar(),
       ),
       body: SafeArea(

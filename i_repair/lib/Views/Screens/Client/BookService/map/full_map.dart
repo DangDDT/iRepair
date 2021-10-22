@@ -57,7 +57,7 @@ class FullMapState extends State<FullMap> {
       appBar: BaseAppBar(
         appBar: AppBar(),
         haveBackSpace: false,
-        title: "Theo dõi thợ",
+        title: "Chỉ đường đến khách hàng",
       ),
       body: Stack(children: [
         MapboxMap(
@@ -67,13 +67,13 @@ class FullMapState extends State<FullMap> {
           onMapCreated: _onMapCreated,
           scrollGesturesEnabled: false,
           initialCameraPosition: const CameraPosition(
-              target: LatLng(10.80457, 106.79079), zoom: 15.0),
+              target: LatLng(10.80606, 106.78953), zoom: 15.0),
           styleString:
               "https://tiles.goong.io/assets/goong_map_web.json?api_key=vRN7UdpxfAGDGSf2Np3GT4L99itmOuaZ6dfncWt8",
         ),
         Positioned(
-          top: 210,
-          left: 120,
+          top: 280,
+          left: 180,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
             child: Image.asset(
@@ -84,8 +84,8 @@ class FullMapState extends State<FullMap> {
           ),
         ),
         Positioned(
-          top: 300,
-          left: 190,
+          top: 370,
+          left: 250,
           child: Icon(
             CupertinoIcons.location_solid,
             color: Colors.red,
@@ -114,40 +114,9 @@ class FullMapState extends State<FullMap> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(50),
-                              child: Image.network(
-                                  "https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/145490152_1645861872468232_2404576525271328519_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-KKRXEcThkEAX-VQeMP&_nc_ht=scontent.fsgn5-8.fna&oh=5dfe93870e948990400b19eafa9ebd6e&oe=6183DEBC",
-                                  height: 70,
-                                  width: 70),
+                              child: Image.asset("assets/images/avatar.jpg",
+                                  height: 70, width: 70),
                             ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.star,
-                                  color: kSecondaryColor,
-                                  size: 14,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  color: kSecondaryColor,
-                                  size: 14,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  color: kSecondaryColor,
-                                  size: 14,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  color: kSecondaryColor,
-                                  size: 14,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.grey,
-                                  size: 14,
-                                ),
-                              ],
-                            )
                           ],
                         ),
                       ),
@@ -159,7 +128,7 @@ class FullMapState extends State<FullMap> {
                             children: [
                               Container(
                                   margin: EdgeInsets.only(left: 20, top: 10),
-                                  child: Text('THỢ: ',
+                                  child: Text('KHÁCH HÀNG: ',
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
@@ -167,7 +136,7 @@ class FullMapState extends State<FullMap> {
                                           color: kSecondaryLightColor))),
                               Container(
                                   margin: EdgeInsets.only(top: 10),
-                                  child: Text('PHẠM HỮU NGHĨA',
+                                  child: Text('Đ.D.TÂM ĐĂNG',
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold,
@@ -187,27 +156,7 @@ class FullMapState extends State<FullMap> {
                                           color: kSecondaryLightColor))),
                               Container(
                                   margin: EdgeInsets.only(top: 5),
-                                  child: Text('0123456789',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kTextColor)))
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                  margin: EdgeInsets.only(left: 20, top: 5),
-                                  child: Text('CHUYÊN MÔN: ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kSecondaryLightColor))),
-                              Container(
-                                  margin: EdgeInsets.only(top: 5),
-                                  child: Text('Kỹ sư điện',
+                                  child: Text('0774839222',
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold,
@@ -248,9 +197,9 @@ class FullMapState extends State<FullMap> {
                                     builder: (context) {
                                       return AlertDialog(
                                         title: Text(
-                                            'Bạn muốn gọi đến Phạm Hữu Nghĩa ?'),
+                                            'Bạn muốn gọi đến khách hàng ?'),
                                         content: Text(
-                                            'Nhấn "Gọi" để gọi đến số 0123456789'),
+                                            'Nhấn "Gọi" để gọi đến số 0774839222'),
                                         actions: <Widget>[
                                           TextButton(
                                               onPressed: () {
@@ -259,7 +208,7 @@ class FullMapState extends State<FullMap> {
                                               child: Text('Hủy')),
                                           TextButton(
                                             onPressed: () {
-                                              launch("tel://0123456789");
+                                              launch("tel://0774839222");
                                             },
                                             child: Text('Gọi'),
                                           )

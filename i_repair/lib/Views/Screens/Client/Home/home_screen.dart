@@ -24,117 +24,199 @@ class _HomeScreenState extends State<HomeScreen> {
     Size size = MediaQuery.of(context).size;
     return ListView(
       children: [
-        Stack(children: [
-          Container(
-            height: 280,
-            child: Stack(children: [
-              Positioned(
-                  top: 40,
-                  left: -5,
-                  child: Container(
-                    height: 280,
-                    child: ClipRRect(
-                      child: Image.asset(
-                        'assets/images/banner.jpg',
-                      ),
-                    ),
-                  )),
-            ]),
-          ),
-          Container(
-            height: 70,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(bottomRight: Radius.circular(0)),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment(
-                    1, 1), // 10% of the width, so there are ten blinds.
-                colors: <Color>[
-                  kPrimaryColor,
-                  kPrimaryLightColor
-                ], // red to yellow
-                tileMode:
-                    TileMode.repeated, // repeats the gradient over the canvas
-              ),
-            ),
-            child: Container(
-                padding: EdgeInsets.only(left: 25),
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  children: [
-                    Container(
-                      child: Icon(
-                        CupertinoIcons.profile_circled,
-                        size: 50,
-                        color: kBackgroundColor,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Xin chào, ',
-                              style: TextStyle(
-                                  fontSize: 16, color: kBackgroundColor)),
-                          Text('Đỗ Dương Tâm Đăng',
-                              style: TextStyle(
-                                  // fontWeight: FontWeight.bold,
-                                  fontSize: 24,
-                                  color: kBackgroundColor)),
-                        ],
-                      ),
-                    )
-                  ],
-                )),
-          ),
-          Positioned(
-            left: 10,
-            bottom: 10,
-            child: Container(
-                padding: EdgeInsets.only(top: 0),
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconCard(
-                      number: 120000,
-                      icon: 'assets/images/money.png',
-                      unit: 'VND',
-                      color: kBackgroundColor,
-                    ),
-                    IconCard(
-                      number: 200,
-                      icon: 'assets/images/hand-gesture.png',
-                      unit: 'RP',
-                      color: kBackgroundColor,
-                    ),
-                  ],
-                )),
-          ),
-        ]),
-        Container(width: 150, height: 150, child: GridViewButtons()),
         Container(
-          margin: EdgeInsets.only(left: 20, top: 0),
-          child: Text('YÊU CẦU VỪA MỚI TẠO',
+          height: 70,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(bottomRight: Radius.circular(0)),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end:
+                  Alignment(1, 1), // 10% of the width, so there are ten blinds.
+              colors: <Color>[
+                kPrimaryColor,
+                kPrimaryLightColor
+              ], // red to yellow
+              tileMode:
+                  TileMode.repeated, // repeats the gradient over the canvas
+            ),
+          ),
+          child: Container(
+              padding: EdgeInsets.only(left: 25),
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: [
+                  Container(
+                    child: Icon(
+                      CupertinoIcons.profile_circled,
+                      size: 50,
+                      color: kBackgroundColor,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Chúc một ngày mới tốt lành, ',
+                            style: TextStyle(
+                                fontSize: 16, color: kBackgroundColor)),
+                        Text('Phạm Hữu Nghĩa',
+                            style: TextStyle(
+                                // fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                                color: kBackgroundColor)),
+                      ],
+                    ),
+                  )
+                ],
+              )),
+        ),
+        Container(
+          margin: EdgeInsets.only(left: 20, top: 20),
+          child: Text('YÊU CẦU VỪA MỚI NHẬN',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                   color: kPrimaryColor)),
         ),
         Container(
-          height: 170,
+          height: 500,
           width: size.width,
           child: ListView(
-            scrollDirection: Axis.horizontal,
+            scrollDirection: Axis.vertical,
             children: [
               Container(
-                height: 150,
+                height: 190,
                 padding: EdgeInsets.all(5),
                 width: size.width,
                 child: InkWell(
-                  onTap: () => {},
+                  onTap: () => {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('CHI TIẾT YÊU CẦU',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            content: Container(
+                              height: 350,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Divider(
+                                    height: 30,
+                                    thickness: 1,
+                                    indent: 0,
+                                    endIndent: 0,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text('Đồ cần sửa:  '),
+                                      Text("Máy giặt",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600)),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text('Hãng:  '),
+                                      Text("Panasonic",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600)),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text('Vấn đề:  '),
+                                      Text("Cửa bị chênh hoặc không kín",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600)),
+                                    ],
+                                  ),
+                                  Divider(
+                                    height: 30,
+                                    thickness: 1,
+                                    indent: 0,
+                                    endIndent: 0,
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 100),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Image.asset(
+                                          "assets/images/avatar.jpg",
+                                          height: 70,
+                                          width: 70),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text('Khách hàng: '),
+                                      Text("Đỗ Dương Tâm Đăng",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600)),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: 75, child: Text('Địa chỉ: ')),
+                                      Container(
+                                        width: 200,
+                                        child: Text(
+                                            "Chung cư Sky9, đường Liên Phường, quận 9, TPHCM",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600)),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text('Số điện thoại: '),
+                                      Text("0774839222",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600)),
+                                    ],
+                                  ),
+                                  Divider(
+                                    height: 20,
+                                    thickness: 1,
+                                    indent: 0,
+                                    endIndent: 0,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text('Ngày tạo:  '),
+                                      Text("30/09/2021",
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  child: Text('Đóng')),
+                            ],
+                          );
+                        })
+                  },
                   child: Card(
                     elevation: 5,
                     shape: OutlineInputBorder(
@@ -197,20 +279,67 @@ class _HomeScreenState extends State<HomeScreen> {
                                     )),
                               ],
                             ),
-                            Container(
-                                margin: EdgeInsets.only(left: 30, top: 20),
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: InkWell(
-                                    onTap: () => {Get.offAndToNamed("/rating")},
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(left: 45, top: 10),
+                                    padding: EdgeInsets.all(6),
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: InkWell(
+                                        onTap: () =>
+                                            {Get.offAndToNamed("/rating")},
+                                        child: Text(
+                                          "BÁO CÁO",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: kBackgroundColor,
+                                              fontSize: 12),
+                                        ))),
+                                Container(
+                                    margin: EdgeInsets.only(left: 45, top: 5),
+                                    padding: EdgeInsets.all(6),
+                                    decoration: BoxDecoration(
+                                        color: Colors.green,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: InkWell(
+                                        onTap: () =>
+                                            {Get.offAndToNamed("/map")},
+                                        child: Text(
+                                          "BẢN ĐỒ",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: kBackgroundColor,
+                                              fontSize: 12),
+                                        ))),
+                                Container(
+                                  margin: EdgeInsets.only(
+                                    left: 20,
+                                    top: 5,
+                                  ),
+                                  padding: EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: InkWell(
+                                    onTap: () =>
+                                        {Get.offAndToNamed("/cancel_page")},
                                     child: Text(
-                                      "XÁC NHẬN",
+                                      "HỦY",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: kBackgroundColor),
-                                    )))
+                                          color: kBackgroundColor,
+                                          fontSize: 12),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
                           ],
                         ),
                         SizedBox(height: 5),
@@ -228,7 +357,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Icon(Icons.person)),
                               Container(
                                   margin: EdgeInsets.only(left: 10),
-                                  child: Text('Phạm Hữu Nghĩa')),
+                                  child: Text('Đỗ Dương Tâm Đăng')),
                               VerticalDivider(
                                 width: 20,
                                 thickness: 1,
@@ -236,19 +365,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                 endIndent: 0,
                               ),
                               Container(
-                                  margin: EdgeInsets.only(left: 10, right: 10),
+                                  margin: EdgeInsets.only(left: 5, right: 5),
                                   child: Text('Ngày 30/09/2021')),
                               VerticalDivider(
-                                width: 30,
+                                width: 20,
                                 thickness: 1,
                                 indent: 0,
                                 endIndent: 0,
                               ),
                               Container(
-                                  margin: EdgeInsets.only(left: 5),
-                                  child: Text('Đã hoàn thành',
-                                      style:
-                                          TextStyle(color: kSecondaryColor))),
+                                  margin: EdgeInsets.only(left: 0),
+                                  child: Text('Đã nhận yêu cầu',
+                                      style: TextStyle(color: kPrimaryColor))),
                             ],
                           ),
                         )
@@ -258,11 +386,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Container(
-                height: 150,
+                height: 180,
                 padding: EdgeInsets.all(5),
                 width: size.width,
                 child: InkWell(
-                  onTap: () => {Get.toNamed("/map")},
+                  onTap: () => {},
                   child: Card(
                     elevation: 5,
                     shape: OutlineInputBorder(
@@ -271,49 +399,108 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ListView(
                       physics: NeverScrollableScrollPhysics(),
                       children: [
-                        Container(
-                            margin: EdgeInsets.only(left: 20, top: 20),
-                            child: Text('MÃ YÊU CẦU: A122',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 0.5,
-                                    color: kSecondaryLightColor))),
-                        Container(
-                            margin: EdgeInsets.only(left: 20, top: 5),
-                            child: IntrinsicHeight(
-                              child: Row(
-                                children: [
-                                  Text('ĐỒ CẦN SỬA: ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: kTextColor,
-                                          fontWeight: FontWeight.bold)),
-                                  Text('Tủ lạnh',
-                                      style: TextStyle(
-                                          fontSize: 14, color: kTextColor)),
-                                ],
-                              ),
-                            )),
-                        SizedBox(height: 5),
-                        Container(
-                            margin: EdgeInsets.only(left: 20, top: 0),
-                            child: IntrinsicHeight(
-                              child: Row(
-                                children: [
-                                  Text('VẤN ĐỀ GẶP PHẢI: ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: kTextColor,
-                                          fontWeight: FontWeight.bold)),
-                                  Container(
-                                    child: Text('Cửa bị chênh hoặc không kín',
+                        Row(
+                          children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(left: 15, top: 20),
+                                    child: Text('MÃ YÊU CẦU: A122',
                                         style: TextStyle(
-                                            fontSize: 14, color: kTextColor)),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kSecondaryLightColor))),
+                                Container(
+                                    margin: EdgeInsets.only(left: 15, top: 5),
+                                    child: IntrinsicHeight(
+                                      child: Row(
+                                        children: [
+                                          Text('ĐỒ CẦN SỬA: ',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: kTextColor,
+                                                  fontWeight: FontWeight.bold)),
+                                          Text('Tủ lạnh',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: kTextColor)),
+                                        ],
+                                      ),
+                                    )),
+                                Container(
+                                    margin: EdgeInsets.only(left: 15, top: 0),
+                                    child: IntrinsicHeight(
+                                      child: Row(
+                                        children: [
+                                          Text('VẤN ĐỀ GẶP PHẢI: ',
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: kTextColor,
+                                                  fontWeight: FontWeight.bold)),
+                                          Container(
+                                            child: Text(
+                                                'Tủ lạnh đóng tuyết nhiều ngăn đông',
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    color: kTextColor)),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(
+                                    left: 20,
+                                    top: 5,
                                   ),
-                                ],
-                              ),
-                            )),
+                                  padding: EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: InkWell(
+                                    onTap: () => {},
+                                    child: Text(
+                                      "ĐỒNG Ý",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: kBackgroundColor,
+                                          fontSize: 12),
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(
+                                    left: 20,
+                                    top: 5,
+                                  ),
+                                  padding: EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: InkWell(
+                                    onTap: () =>
+                                        {Get.offAndToNamed("/cancel_page")},
+                                    child: Text(
+                                      "TỪ CHỐI",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: kBackgroundColor,
+                                          fontSize: 11),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
                         SizedBox(height: 5),
                         Divider(
                           height: 20,
@@ -329,7 +516,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Icon(Icons.person)),
                               Container(
                                   margin: EdgeInsets.only(left: 10),
-                                  child: Text('Phạm Hữu Nghĩa')),
+                                  child: Text('Phạm Tấn Phát')),
                               VerticalDivider(
                                 width: 20,
                                 thickness: 1,
@@ -347,9 +534,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               Container(
                                   margin: EdgeInsets.only(left: 5),
-                                  child: Text('Thợ đang đến',
-                                      style:
-                                          TextStyle(color: kSecondaryColor))),
+                                  child: Text('Đợi nhận yêu cầu',
+                                      style: TextStyle(
+                                          color: kPrimaryLightColor))),
                             ],
                           ),
                         )

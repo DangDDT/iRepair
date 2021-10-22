@@ -36,7 +36,7 @@ class _AppState extends State<App> {
       // appBar: BaseAppBar(
       //     key: null,
       //     appBar: AppBar(),
-      //     title: 'Xin chào, Đỗ Dương Tâm Đăng',
+      //     title: 'Xin chào, Phạm Hữu Nghĩa',
       //     content: 'Sky 9, Liên Phường, Phú Hữu, Thủ Đức, TPHCM',
       //     haveBackSpace: false),
       body: PageView(
@@ -66,7 +66,7 @@ class _AppState extends State<App> {
               rippleColor: Colors.grey[300]!,
               hoverColor: Colors.grey[100]!,
               gap: 8,
-              activeColor: kBackgroundColor,
+              activeColor: kTextColor,
               iconSize: 24,
               padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
               duration: Duration(milliseconds: 400),
