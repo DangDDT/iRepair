@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Views/Screens/Client/BookService/map/widgets/comment.dart';
 import 'package:i_repair/Views/Screens/app.dart';
 import 'package:i_repair/Views/common/appbar/common-appbar.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
@@ -92,7 +93,7 @@ class FullMapState extends State<FullMap> {
           ),
         ),
         Positioned(
-          bottom: 50,
+          bottom: 60,
           child: InkWell(
             onTap: () {
               showDialog(
@@ -102,17 +103,11 @@ class FullMapState extends State<FullMap> {
                       title: Text('CHI TIẾT YÊU CẦU',
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       content: Container(
-                        height: 350,
+                        height: 500,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Divider(
-                              height: 30,
-                              thickness: 1,
-                              indent: 0,
-                              endIndent: 0,
-                            ),
                             Row(
                               children: [
                                 Text('Đồ cần sửa:  '),
@@ -198,6 +193,41 @@ class FullMapState extends State<FullMap> {
                                 ),
                               ],
                             ),
+                            Row(
+                              children: [
+                                Text('Phản hồi gần đây của khách hàng:  '),
+                              ],
+                            ),
+                            Container(
+                              width: 300,
+                              height: 120,
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                                  CommentWidget(
+                                      time: "12:46:00 26/09/2021",
+                                      customer: "Dương Gia Mẫn",
+                                      sameStar: 32,
+                                      stars: 3,
+                                      comment:
+                                          "Thợ dễ thương, sửa nhanh, phục vụ rất tốt"),
+                                  CommentWidget(
+                                      time: "13:35:00 27/09/2021",
+                                      customer: "Phạm Ngọc Minh Hiếu",
+                                      sameStar: 32,
+                                      stars: 3,
+                                      comment:
+                                          "Thợ number 1, không chê vào đâu được"),
+                                  CommentWidget(
+                                      time: "17:10:00 28/09/2021",
+                                      customer: "Trần Gia Hảo",
+                                      sameStar: 32,
+                                      stars: 3,
+                                      comment:
+                                          "Tuy đến hơi lâu nhưng ảnh sửa rất nhanh, rất chuyên nghiệp")
+                                ],
+                              ),
+                            ),
                             Divider(
                               height: 20,
                               thickness: 1,
@@ -219,13 +249,16 @@ class FullMapState extends State<FullMap> {
                               ],
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Center(
                               child: Text("<Không có hình ảnh minh họa>",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600)),
+                            ),
+                            SizedBox(
+                              height: 10,
                             ),
                           ],
                         ),
@@ -241,7 +274,7 @@ class FullMapState extends State<FullMap> {
                   });
             },
             child: Container(
-              height: 140,
+              height: 170,
               padding: EdgeInsets.all(5),
               width: size.width,
               child: Card(
@@ -382,6 +415,14 @@ class FullMapState extends State<FullMap> {
                                             color: kTextColor)))
                               ],
                             ),
+                            Container(
+                                margin: EdgeInsets.only(left: 20, top: 5),
+                                child: Text('< Nhấn để xem chi tiết > ',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        letterSpacing: 0.5,
+                                        color: kTextColor)))
                           ],
                         ),
                         Container(

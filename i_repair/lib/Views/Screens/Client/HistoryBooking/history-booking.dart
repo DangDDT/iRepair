@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Views/Screens/Client/BookService/map/widgets/comment.dart';
 import 'package:i_repair/Views/common/appbar/common-appbar.dart';
 import 'package:intl/intl.dart';
 
@@ -169,7 +170,7 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                                     fontWeight:
                                                         FontWeight.bold)),
                                             content: Container(
-                                              height: 320,
+                                              height: 350,
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -292,51 +293,76 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                                   ),
                                                   (element["status"] ==
                                                           "Đã hoàn thành")
-                                                      ? Row(
+                                                      ? Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
                                                           children: [
-                                                            Text(
-                                                                'Đánh giá yêu cầu: '),
-                                                            Text('Hài lòng ',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        16,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600)),
                                                             Row(
                                                               children: [
-                                                                Icon(
-                                                                  Icons.star,
-                                                                  color:
-                                                                      kSecondaryColor,
-                                                                  size: 14,
-                                                                ),
-                                                                Icon(
-                                                                  Icons.star,
-                                                                  color:
-                                                                      kSecondaryColor,
-                                                                  size: 14,
-                                                                ),
-                                                                Icon(
-                                                                  Icons.star,
-                                                                  color:
-                                                                      kSecondaryColor,
-                                                                  size: 14,
-                                                                ),
-                                                                Icon(
-                                                                  Icons.star,
-                                                                  color:
-                                                                      kSecondaryColor,
-                                                                  size: 14,
-                                                                ),
-                                                                Icon(
-                                                                  Icons.star,
-                                                                  color: Colors
-                                                                      .grey,
-                                                                  size: 14,
-                                                                ),
+                                                                Text(
+                                                                    'Đánh giá yêu cầu: '),
+                                                                Text(
+                                                                    'Hài lòng ',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontWeight:
+                                                                            FontWeight.w600)),
+                                                                Row(
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons
+                                                                          .star,
+                                                                      color:
+                                                                          kSecondaryColor,
+                                                                      size: 14,
+                                                                    ),
+                                                                    Icon(
+                                                                      Icons
+                                                                          .star,
+                                                                      color:
+                                                                          kSecondaryColor,
+                                                                      size: 14,
+                                                                    ),
+                                                                    Icon(
+                                                                      Icons
+                                                                          .star,
+                                                                      color:
+                                                                          kSecondaryColor,
+                                                                      size: 14,
+                                                                    ),
+                                                                    Icon(
+                                                                      Icons
+                                                                          .star,
+                                                                      color:
+                                                                          kSecondaryColor,
+                                                                      size: 14,
+                                                                    ),
+                                                                    Icon(
+                                                                      Icons
+                                                                          .star,
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      size: 14,
+                                                                    ),
+                                                                  ],
+                                                                )
                                                               ],
-                                                            )
+                                                            ),
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                    'Phản hồi chi tiết: '),
+                                                                Text(
+                                                                    'Thợ đẹp trai, nhiệt tình',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontWeight:
+                                                                            FontWeight.w600)),
+                                                              ],
+                                                            ),
                                                           ],
                                                         )
                                                       : Row(
