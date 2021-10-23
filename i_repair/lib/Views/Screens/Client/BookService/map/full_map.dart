@@ -93,192 +93,337 @@ class FullMapState extends State<FullMap> {
         ),
         Positioned(
           bottom: 50,
-          child: Container(
-            height: 140,
-            padding: EdgeInsets.all(5),
-            width: size.width,
-            child: Card(
-              elevation: 5,
-              shape: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(25)),
-              child: ListView(
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 10, left: 10),
+          child: InkWell(
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('CHI TIẾT YÊU CẦU',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      content: Container(
+                        height: 320,
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: Image.network(
-                                  "https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/145490152_1645861872468232_2404576525271328519_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-KKRXEcThkEAX-VQeMP&_nc_ht=scontent.fsgn5-8.fna&oh=5dfe93870e948990400b19eafa9ebd6e&oe=6183DEBC",
-                                  height: 70,
-                                  width: 70),
+                            Divider(
+                              height: 30,
+                              thickness: 1,
+                              indent: 0,
+                              endIndent: 0,
                             ),
                             Row(
                               children: [
-                                Icon(
-                                  Icons.star,
-                                  color: kSecondaryColor,
-                                  size: 14,
+                                Text('Đồ cần sửa:  '),
+                                Text("Tủ lạnh",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600)),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text('Hãng:  '),
+                                Text("Panasonic",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600)),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text('Vấn đề:  '),
+                                Text("Tuyết đông nhiều trên ngăn đông",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600)),
+                              ],
+                            ),
+                            Divider(
+                              height: 30,
+                              thickness: 1,
+                              indent: 0,
+                              endIndent: 0,
+                            ),
+                            Row(
+                              children: [
+                                Text('Thợ: '),
+                                Text("Phạm Hữu Nghĩa",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600)),
+                                SizedBox(
+                                  width: 50,
                                 ),
-                                Icon(
-                                  Icons.star,
-                                  color: kSecondaryColor,
-                                  size: 14,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  color: kSecondaryColor,
-                                  size: 14,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  color: kSecondaryColor,
-                                  size: 14,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.grey,
-                                  size: 14,
+                                Column(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Image.network(
+                                          "https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/145490152_1645861872468232_2404576525271328519_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-KKRXEcThkEAX-VQeMP&_nc_ht=scontent.fsgn5-8.fna&oh=5dfe93870e948990400b19eafa9ebd6e&oe=6183DEBC",
+                                          height: 70,
+                                          width: 70),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.star,
+                                          color: kSecondaryColor,
+                                          size: 14,
+                                        ),
+                                        Icon(
+                                          Icons.star,
+                                          color: kSecondaryColor,
+                                          size: 14,
+                                        ),
+                                        Icon(
+                                          Icons.star,
+                                          color: kSecondaryColor,
+                                          size: 14,
+                                        ),
+                                        Icon(
+                                          Icons.star,
+                                          color: kSecondaryColor,
+                                          size: 14,
+                                        ),
+                                        Icon(
+                                          Icons.star,
+                                          color: Colors.grey,
+                                          size: 14,
+                                        ),
+                                      ],
+                                    )
+                                  ],
                                 ),
                               ],
-                            )
-                          ],
-                        ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                  margin: EdgeInsets.only(left: 20, top: 10),
-                                  child: Text('THỢ: ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kSecondaryLightColor))),
-                              Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  child: Text('PHẠM HỮU NGHĨA',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kTextColor)))
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                  margin: EdgeInsets.only(left: 20, top: 5),
-                                  child: Text('SỐ ĐIỆN THOẠI: ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kSecondaryLightColor))),
-                              Container(
-                                  margin: EdgeInsets.only(top: 5),
-                                  child: Text('0123456789',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kTextColor)))
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                  margin: EdgeInsets.only(left: 20, top: 5),
-                                  child: Text('CHUYÊN MÔN: ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kSecondaryLightColor))),
-                              Container(
-                                  margin: EdgeInsets.only(top: 5),
-                                  child: Text('Kỹ sư điện',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kTextColor)))
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                  margin: EdgeInsets.only(left: 20, top: 5),
-                                  child: Text('KHOẢNG CÁCH: ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kSecondaryLightColor))),
-                              Container(
-                                  margin: EdgeInsets.only(top: 5),
-                                  child: Text('0.3km',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kTextColor)))
-                            ],
-                          ),
-                        ],
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 20, top: 10),
-                        child: Column(
-                          children: [
-                            MaterialButton(
-                              onPressed: () => {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Text(
-                                            'Bạn muốn gọi đến Phạm Hữu Nghĩa ?'),
-                                        content: Text(
-                                            'Nhấn "Gọi" để gọi đến số 0123456789'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                              onPressed: () {
-                                                Get.back();
-                                              },
-                                              child: Text('Hủy')),
-                                          TextButton(
-                                            onPressed: () {
-                                              launch("tel://0123456789");
-                                            },
-                                            child: Text('Gọi'),
-                                          )
-                                        ],
-                                      );
-                                    })
-                              },
-                              child: Icon(Icons.phone, color: Colors.blue),
                             ),
-                            MaterialButton(
-                              onPressed: () => {Get.toNamed('/chat2')},
-                              child: Icon(Icons.message, color: Colors.blue),
-                            )
+                            Divider(
+                              height: 20,
+                              thickness: 1,
+                              indent: 0,
+                              endIndent: 0,
+                            ),
+                            Row(
+                              children: [
+                                Text('Phí dự kiến:  '),
+                                Text("200.000 - 300.000 VNĐ",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600)),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text('Hình ảnh minh họa:  '),
+                              ],
+                            ),
+                            Center(
+                              child: Text("<Không có hình ảnh minh họa>",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600)),
+                            ),
                           ],
                         ),
-                      )
-                    ],
-                  ),
-                ],
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: Text('Đóng')),
+                      ],
+                    );
+                  });
+            },
+            child: Container(
+              height: 140,
+              padding: EdgeInsets.all(5),
+              width: size.width,
+              child: Card(
+                elevation: 5,
+                shape: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(25)),
+                child: ListView(
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 10, left: 10),
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Image.network(
+                                    "https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/145490152_1645861872468232_2404576525271328519_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-KKRXEcThkEAX-VQeMP&_nc_ht=scontent.fsgn5-8.fna&oh=5dfe93870e948990400b19eafa9ebd6e&oe=6183DEBC",
+                                    height: 70,
+                                    width: 70),
+                              ),
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.star,
+                                    color: kSecondaryColor,
+                                    size: 14,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: kSecondaryColor,
+                                    size: 14,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: kSecondaryColor,
+                                    size: 14,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: kSecondaryColor,
+                                    size: 14,
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.grey,
+                                    size: 14,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(left: 20, top: 10),
+                                    child: Text('THỢ: ',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kSecondaryLightColor))),
+                                Container(
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: Text('PHẠM HỮU NGHĨA',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kTextColor)))
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(left: 20, top: 5),
+                                    child: Text('SỐ ĐIỆN THOẠI: ',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kSecondaryLightColor))),
+                                Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    child: Text('0123456789',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kTextColor)))
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(left: 20, top: 5),
+                                    child: Text('CHUYÊN MÔN: ',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kSecondaryLightColor))),
+                                Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    child: Text('Kỹ sư điện',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kTextColor)))
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(left: 20, top: 5),
+                                    child: Text('KHOẢNG CÁCH: ',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kSecondaryLightColor))),
+                                Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    child: Text('0.3km',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kTextColor)))
+                              ],
+                            ),
+                          ],
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 20, top: 10),
+                          child: Column(
+                            children: [
+                              MaterialButton(
+                                onPressed: () => {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text(
+                                              'Bạn muốn gọi đến Phạm Hữu Nghĩa ?'),
+                                          content: Text(
+                                              'Nhấn "Gọi" để gọi đến số 0123456789'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                                onPressed: () {
+                                                  Get.back();
+                                                },
+                                                child: Text('Hủy')),
+                                            TextButton(
+                                              onPressed: () {
+                                                launch("tel://0123456789");
+                                              },
+                                              child: Text('Gọi'),
+                                            )
+                                          ],
+                                        );
+                                      })
+                                },
+                                child: Icon(Icons.phone, color: Colors.blue),
+                              ),
+                              MaterialButton(
+                                onPressed: () => {Get.toNamed('/chat2')},
+                                child: Icon(Icons.message, color: Colors.blue),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
