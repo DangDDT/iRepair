@@ -102,7 +102,7 @@ class FullMapState extends State<FullMap> {
                       title: Text('CHI TIẾT YÊU CẦU',
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       content: Container(
-                        height: 320,
+                        height: 350,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,6 +217,9 @@ class FullMapState extends State<FullMap> {
                               children: [
                                 Text('Hình ảnh minh họa:  '),
                               ],
+                            ),
+                            SizedBox(
+                              height: 20,
                             ),
                             Center(
                               child: Text("<Không có hình ảnh minh họa>",
