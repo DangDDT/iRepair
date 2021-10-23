@@ -189,6 +189,60 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         Container(
+          margin: EdgeInsets.only(top: 20, left: 20),
+          child: Row(
+            children: [
+              Container(
+                child: Text('Chuyên môn: ',
+                    style:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+              ),
+              Container(child: Text('Kĩ sư điện lạnh, Kĩ sư điện gia dụng.'))
+            ],
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 20, left: 20),
+          child: Row(
+            children: [
+              Container(
+                child: Text('Đánh giá: ',
+                    style:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+              ),
+              Row(
+                children: [
+                  Icon(
+                    Icons.star,
+                    color: kSecondaryColor,
+                    size: 14,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: kSecondaryColor,
+                    size: 14,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: kSecondaryColor,
+                    size: 14,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: kSecondaryColor,
+                    size: 14,
+                  ),
+                  Icon(
+                    Icons.star,
+                    color: Colors.grey,
+                    size: 14,
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+        Container(
           margin: EdgeInsets.all(20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),

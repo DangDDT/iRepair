@@ -12,59 +12,59 @@ List _elements = [
     'majorModel': 'Máy lạnh',
     'brand': 'Panasonic',
     'problem': 'Bị chảy nước',
-    'repairman': 'Trần Văn Thái',
+    'customer': 'Vũ Phi Long',
     'group': 'Đã xử lý',
     'status': 'Đã hoàn thành',
-    'createdAt': '12-08-2020'
+    'createdAt': '25-09-2021'
   },
   {
     'id': 'A007',
     'majorModel': 'Ống nước',
     'brand': 'Khác',
     'problem': "Nghẹt ống cống nhà tắm",
-    'repairman': 'Đỗ Thành Thái',
+    'customer': 'Đ.D.Tâm Đăng',
     'group': 'Đã xử lý',
-    'status': 'Đã hủy',
-    'createdAt': '19-08-2020'
+    'status': 'Thợ đã hủy',
+    'createdAt': '25-09-2021'
   },
   {
     'id': 'A040',
     'majorModel': 'Máy lạnh',
     'brand': 'Panasonic',
     'problem': 'Bị chảy nước',
-    'repairman': 'Trần Văn Thái',
+    'customer': 'Đàm Tiến Đạt',
     'group': 'Đã xử lý',
     'status': 'Đã hoàn thành',
-    'createdAt': '30-10-2020'
+    'createdAt': '26-09-2021'
   },
   {
     'id': 'A078',
     'majorModel': 'Máy lạnh',
     'brand': 'Panasonic',
     'problem': 'Bị chảy nước',
-    'repairman': 'Trần Văn Thái',
+    'customer': 'Trần Gia Hảo',
     'group': 'Đã xử lý',
-    'status': 'Đã hủy',
-    'createdAt': '13-02-2021'
+    'status': 'Khách hàng đã hủy',
+    'createdAt': '26-09-2021'
   },
   {
     'id': 'A084',
     'majorModel': 'Ống nước',
     'brand': 'Khác',
     'problem': "Nghẹt ống cống nhà tắm",
-    'repairman': 'Đỗ Thành Thái',
+    'customer': 'Nguyễn Quốc Vinh',
     'group': 'Đã xử lý',
     'status': 'Đã hoàn thành',
-    'createdAt': '12-04-2021'
+    'createdAt': '27-09-2021'
   },
   {
     'id': 'A123',
     'majorModel': 'Tủ lạnh',
     'brand': 'Panasonic',
-    'repairman': 'Phạm Hữu Nghĩa',
+    'customer': 'Đ.D.Tâm Đăng',
     'problem': 'Bị chảy nước',
     'group': 'Đang xử lý',
-    'status': 'Thợ đang đến',
+    'status': 'Đang đến',
     'createdAt': '30-09-2021'
   },
 ];
@@ -224,15 +224,26 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                                   ),
                                                   Row(
                                                     children: [
-                                                      Text('Thợ: '),
-                                                      Text(element['repairman'],
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600)),
+                                                      Container(
+                                                        width: 180,
+                                                        child: Row(
+                                                          children: [
+                                                            Text(
+                                                                'Khách hàng: '),
+                                                            Text(
+                                                                element[
+                                                                    'customer'],
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600)),
+                                                          ],
+                                                        ),
+                                                      ),
                                                       SizedBox(
-                                                        width: 50,
+                                                        width: 25,
                                                       ),
                                                       Column(
                                                         children: [
@@ -241,45 +252,11 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                                                 BorderRadius
                                                                     .circular(
                                                                         50),
-                                                            child: Image.network(
-                                                                "https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/145490152_1645861872468232_2404576525271328519_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=-KKRXEcThkEAX-VQeMP&_nc_ht=scontent.fsgn5-8.fna&oh=5dfe93870e948990400b19eafa9ebd6e&oe=6183DEBC",
+                                                            child: Image.asset(
+                                                                "assets/images/avatar.jpg",
                                                                 height: 70,
                                                                 width: 70),
                                                           ),
-                                                          Row(
-                                                            children: [
-                                                              Icon(
-                                                                Icons.star,
-                                                                color:
-                                                                    kSecondaryColor,
-                                                                size: 14,
-                                                              ),
-                                                              Icon(
-                                                                Icons.star,
-                                                                color:
-                                                                    kSecondaryColor,
-                                                                size: 14,
-                                                              ),
-                                                              Icon(
-                                                                Icons.star,
-                                                                color:
-                                                                    kSecondaryColor,
-                                                                size: 14,
-                                                              ),
-                                                              Icon(
-                                                                Icons.star,
-                                                                color:
-                                                                    kSecondaryColor,
-                                                                size: 14,
-                                                              ),
-                                                              Icon(
-                                                                Icons.star,
-                                                                color:
-                                                                    Colors.grey,
-                                                                size: 14,
-                                                              ),
-                                                            ],
-                                                          )
                                                         ],
                                                       ),
                                                     ],
@@ -339,19 +316,34 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                                             )
                                                           ],
                                                         )
-                                                      : Row(
-                                                          children: [
-                                                            Text('Lý do hủy: '),
-                                                            Text(
-                                                                'Không liên hệ được thợ ',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        16,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600)),
-                                                          ],
-                                                        ),
+                                                      : (element["status"] ==
+                                                              "Thợ đã hủy")
+                                                          ? Row(
+                                                              children: [
+                                                                Text(
+                                                                    'Lý do thợ hủy: '),
+                                                                Text(
+                                                                    'Tôi không thể sửa được thiết bị',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontWeight:
+                                                                            FontWeight.w600)),
+                                                              ],
+                                                            )
+                                                          : Row(
+                                                              children: [
+                                                                Text(
+                                                                    'Lý do khách hàng hủy: '),
+                                                                Text(
+                                                                    'Chờ thợ quá lâu',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontWeight:
+                                                                            FontWeight.w600)),
+                                                              ],
+                                                            ),
                                                   Row(
                                                     children: [
                                                       Text('Ngày tạo:  '),
@@ -431,8 +423,8 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                       ),
                       Row(
                         children: [
-                          Text('Thợ: '),
-                          Text(element['repairman'],
+                          Text('Khách hàng: '),
+                          Text(element['customer'],
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600)),
                         ],

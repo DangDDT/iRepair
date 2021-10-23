@@ -93,141 +93,258 @@ class FullMapState extends State<FullMap> {
         ),
         Positioned(
           bottom: 50,
-          child: Container(
-            height: 140,
-            padding: EdgeInsets.all(5),
-            width: size.width,
-            child: Card(
-              elevation: 5,
-              shape: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(25)),
-              child: ListView(
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 10, left: 10),
-                        child: Column(
-                          children: [
-                            ClipRRect(
+          child: InkWell(
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('CHI TIẾT YÊU CẦU',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    content: Container(
+                      height: 350,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Divider(
+                            height: 30,
+                            thickness: 1,
+                            indent: 0,
+                            endIndent: 0,
+                          ),
+                          Row(
+                            children: [
+                              Text('Đồ cần sửa:  '),
+                              Text("Tủ lạnh",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600)),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text('Hãng:  '),
+                              Text("Panasonic",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600)),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text('Vấn đề:  '),
+                              Text("Tủ lạnh đóng tuyết nhiều ngăn đông",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600)),
+                            ],
+                          ),
+                          Divider(
+                            height: 30,
+                            thickness: 1,
+                            indent: 0,
+                            endIndent: 0,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(left: 100),
+                            child: ClipRRect(
                               borderRadius: BorderRadius.circular(50),
                               child: Image.asset("assets/images/avatar.jpg",
                                   height: 70, width: 70),
                             ),
-                          ],
-                        ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                          ),
                           Row(
                             children: [
+                              Text('Khách hàng: '),
+                              Text("Đỗ Dương Tâm Đăng",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600)),
+                              SizedBox(
+                                width: 10,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(width: 75, child: Text('Địa chỉ: ')),
                               Container(
-                                  margin: EdgeInsets.only(left: 20, top: 10),
-                                  child: Text('KHÁCH HÀNG: ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kSecondaryLightColor))),
-                              Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  child: Text('Đ.D.TÂM ĐĂNG',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kTextColor)))
+                                width: 200,
+                                child: Text(
+                                    "Chung cư Sky9, đường Liên Phường, quận 9, TPHCM.",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600)),
+                              ),
                             ],
                           ),
                           Row(
                             children: [
-                              Container(
-                                  margin: EdgeInsets.only(left: 20, top: 5),
-                                  child: Text('SỐ ĐIỆN THOẠI: ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kSecondaryLightColor))),
-                              Container(
-                                  margin: EdgeInsets.only(top: 5),
-                                  child: Text('0774839222',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kTextColor)))
+                              Text('Số điện thoại: '),
+                              Text("0774839222",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600)),
                             ],
                           ),
-                          Row(
-                            children: [
-                              Container(
-                                  margin: EdgeInsets.only(left: 20, top: 5),
-                                  child: Text('KHOẢNG CÁCH: ',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kSecondaryLightColor))),
-                              Container(
-                                  margin: EdgeInsets.only(top: 5),
-                                  child: Text('0.3km',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          letterSpacing: 0.5,
-                                          color: kTextColor)))
-                            ],
+                          Divider(
+                            height: 20,
+                            thickness: 1,
+                            indent: 0,
+                            endIndent: 0,
                           ),
                         ],
                       ),
-                      Container(
-                        margin: EdgeInsets.only(left: 20, top: 10),
-                        child: Column(
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: Text('Đóng')),
+                    ],
+                  );
+                },
+              );
+            },
+            child: Container(
+              height: 140,
+              padding: EdgeInsets.all(5),
+              width: size.width,
+              child: Card(
+                elevation: 5,
+                shape: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(25)),
+                child: ListView(
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 10, left: 10),
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Image.asset("assets/images/avatar.jpg",
+                                    height: 70, width: 70),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            MaterialButton(
-                              onPressed: () => {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title: Text(
-                                            'Bạn muốn gọi đến khách hàng ?'),
-                                        content: Text(
-                                            'Nhấn "Gọi" để gọi đến số 0774839222'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                              onPressed: () {
-                                                Get.back();
-                                              },
-                                              child: Text('Hủy')),
-                                          TextButton(
-                                            onPressed: () {
-                                              launch("tel://0774839222");
-                                            },
-                                            child: Text('Gọi'),
-                                          )
-                                        ],
-                                      );
-                                    })
-                              },
-                              child: Icon(Icons.phone, color: Colors.blue),
+                            Row(
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(left: 20, top: 10),
+                                    child: Text('KHÁCH HÀNG: ',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kSecondaryLightColor))),
+                                Container(
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: Text('Đ.D.TÂM ĐĂNG',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kTextColor)))
+                              ],
                             ),
-                            MaterialButton(
-                              onPressed: () => {Get.toNamed('/chat2')},
-                              child: Icon(Icons.message, color: Colors.blue),
-                            )
+                            Row(
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(left: 20, top: 5),
+                                    child: Text('SỐ ĐIỆN THOẠI: ',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kSecondaryLightColor))),
+                                Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    child: Text('0774839222',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kTextColor)))
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(left: 20, top: 5),
+                                    child: Text('KHOẢNG CÁCH: ',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kSecondaryLightColor))),
+                                Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    child: Text('0.3km',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 0.5,
+                                            color: kTextColor)))
+                              ],
+                            ),
                           ],
                         ),
-                      )
-                    ],
-                  ),
-                ],
+                        Container(
+                          margin: EdgeInsets.only(left: 20, top: 10),
+                          child: Column(
+                            children: [
+                              MaterialButton(
+                                onPressed: () => {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text(
+                                              'Bạn muốn gọi đến khách hàng ?'),
+                                          content: Text(
+                                              'Nhấn "Gọi" để gọi đến số 0774839222'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                                onPressed: () {
+                                                  Get.back();
+                                                },
+                                                child: Text('Hủy')),
+                                            TextButton(
+                                              onPressed: () {
+                                                launch("tel://0774839222");
+                                              },
+                                              child: Text('Gọi'),
+                                            )
+                                          ],
+                                        );
+                                      })
+                                },
+                                child: Icon(Icons.phone, color: Colors.blue),
+                              ),
+                              MaterialButton(
+                                onPressed: () => {Get.toNamed('/chat2')},
+                                child: Icon(Icons.message, color: Colors.blue),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

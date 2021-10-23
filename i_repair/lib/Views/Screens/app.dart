@@ -4,6 +4,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/cupertino.dart.';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Views/Screens/Client/Explore/explore.dart';
+import 'package:i_repair/Views/Screens/Client/HistoryBooking/history-booking.dart';
 import 'package:i_repair/Views/Screens/Client/Profile/profile.dart';
 import 'package:i_repair/Views/common/appbar/common-appbar.dart';
 import 'package:i_repair/views/Screens/Client/Home/home_screen.dart';
@@ -41,7 +42,7 @@ class _AppState extends State<App> {
       //     haveBackSpace: false),
       body: PageView(
         controller: _pageController,
-        children: [HomeScreen(), ProfileScreen()],
+        children: [HomeScreen(), HistoryBookingScreen(), ProfileScreen()],
         onPageChanged: (page) {
           setState(() {
             _selectedIndex = page;
@@ -68,7 +69,7 @@ class _AppState extends State<App> {
               gap: 8,
               activeColor: kTextColor,
               iconSize: 24,
-              padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
               duration: Duration(milliseconds: 400),
               tabBackgroundColor: kBackgroundColor,
               tabBackgroundGradient: LinearGradient(
@@ -87,6 +88,10 @@ class _AppState extends State<App> {
                 GButton(
                   icon: CupertinoIcons.home,
                   text: 'Trang chủ',
+                ),
+                GButton(
+                  icon: CupertinoIcons.book,
+                  text: 'Lịch sử',
                 ),
                 GButton(
                   icon: CupertinoIcons.profile_circled,
