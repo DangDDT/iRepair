@@ -48,7 +48,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
         },
         child: ListView(children: [
           Container(
-            height: (_stepIndex == 0) ? 600 : 650,
+            height: (_stepIndex == 0) ? 600 : 685,
             child: Stack(
               children: [
                 Positioned(
@@ -183,7 +183,7 @@ class _BookServiceScreenState extends State<BookServiceScreen> {
                       height: (_stepIndex == 0)
                           ? 400
                           : (_stepIndex == 1)
-                              ? 460
+                              ? 510
                               : 460,
                       width: size.width,
                       child: Container(

@@ -210,84 +210,86 @@ class _ProfileScreenState extends State<ProfileScreen> {
               showDialog(
                   context: context,
                   builder: (context) {
-                    return AlertDialog(
-                      title: Text('Cập nhật thông tin'),
-                      content: Container(
-                        height: 270,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Họ và tên : "),
-                            Container(
-                              padding:
-                                  EdgeInsets.only(left: 30, right: 30, top: 10),
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  hintStyle: TextStyle(color: Colors.grey[800]),
-                                  fillColor: Colors.white70,
-                                  contentPadding: EdgeInsets.only(left: 15),
-                                ),
-                                initialValue: "Đỗ Dương Tâm Đăng",
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text("Địa chỉ : "),
-                            Container(
-                              padding:
-                                  EdgeInsets.only(left: 30, right: 30, top: 10),
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  hintStyle: TextStyle(color: Colors.grey[800]),
-                                  fillColor: Colors.white70,
-                                  contentPadding: EdgeInsets.only(left: 15),
-                                ),
-                                initialValue:
-                                    "Chung cư Sky9, Liên Phường, Phú Hữu, TP.Thủ Đức, TP.HCM",
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text("Số điện thoại : "),
-                            Container(
-                              padding:
-                                  EdgeInsets.only(left: 30, right: 30, top: 10),
-                              child: TextFormField(
+                    return SingleChildScrollView(
+                      child: AlertDialog(
+                        title: Text('Cập nhật thông tin'),
+                        content: Container(
+                          height: 270,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Họ và tên : "),
+                              Container(
+                                padding:
+                                    EdgeInsets.only(left: 30, right: 30, top: 10),
+                                child: TextFormField(
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
-                                    hintStyle:
-                                        TextStyle(color: Colors.grey[800]),
+                                    hintStyle: TextStyle(color: Colors.grey[800]),
                                     fillColor: Colors.white70,
                                     contentPadding: EdgeInsets.only(left: 15),
                                   ),
-                                  initialValue: "0774839222"),
-                            ),
-                          ],
+                                  initialValue: "Đỗ Dương Tâm Đăng",
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text("Địa chỉ : "),
+                              Container(
+                                padding:
+                                    EdgeInsets.only(left: 30, right: 30, top: 10),
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    hintStyle: TextStyle(color: Colors.grey[800]),
+                                    fillColor: Colors.white70,
+                                    contentPadding: EdgeInsets.only(left: 15),
+                                  ),
+                                  initialValue:
+                                      "Chung cư Sky9, Liên Phường, Phú Hữu, TP.Thủ Đức, TP.HCM",
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text("Số điện thoại : "),
+                              Container(
+                                padding:
+                                    EdgeInsets.only(left: 30, right: 30, top: 10),
+                                child: TextFormField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      hintStyle:
+                                          TextStyle(color: Colors.grey[800]),
+                                      fillColor: Colors.white70,
+                                      contentPadding: EdgeInsets.only(left: 15),
+                                    ),
+                                    initialValue: "0774839222"),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
+                        actions: <Widget>[
+                          TextButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              child: Text('Hủy')),
+                          TextButton(
                             onPressed: () {
                               Get.back();
                             },
-                            child: Text('Hủy')),
-                        TextButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          child: Text('Cập nhật'),
-                        )
-                      ],
+                            child: Text('Cập nhật'),
+                          )
+                        ],
+                      ),
                     );
                   })
             },
