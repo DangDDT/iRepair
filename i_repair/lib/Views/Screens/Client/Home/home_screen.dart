@@ -636,7 +636,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Container(
                             margin: EdgeInsets.only(left: 5),
                             child: Text('Đang trì hoãn',
-                                style: TextStyle(color: kPrimaryLightColor))),
+                                style: TextStyle(color: Colors.brown))),
                       ],
                     ),
                   )

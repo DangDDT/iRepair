@@ -407,11 +407,13 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                                                     'Đang xử lý')
                                                                 ? CupertinoColors
                                                                     .activeOrange
-                                                                : (element['status'] ==
-                                                                        'Đã hoàn thành')
-                                                                    ? CupertinoColors
+                                                                : (element['group'] == 'Đang trì hoãn')
+                                                                    ?  Colors.brown
+                                                                    : (element['group'] ==
+                                                                        'Đã xử lý')
+                                                                      ? CupertinoColors
                                                                         .activeGreen
-                                                                    : CupertinoColors
+                                                                      : CupertinoColors
                                                                         .systemRed,
                                                             fontWeight:
                                                                 FontWeight
@@ -442,7 +444,9 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                       Icon(CupertinoIcons.bookmark_solid,
                           color: (element['group'] == 'Đang xử lý')
                               ? CupertinoColors.activeOrange
-                              : (element['status'] == 'Đã hoàn thành')
+                              : (element['group'] == 'Đang trì hoãn')
+                                ? Colors.brown
+                                : (element['group'] == 'Đã xữ lý')
                                   ? CupertinoColors.activeGreen
                                   : CupertinoColors.systemRed),
                       SizedBox(height: 10.0),
@@ -478,7 +482,9 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                 fontSize: 16,
                                 color: (element['group'] == 'Đang xử lý')
                                     ? CupertinoColors.activeOrange
-                                    : (element['status'] == 'Đã hoàn thành')
+                                    : (element['group'] == 'Đang trì hoãn')
+                                      ? Colors.brown
+                                      : (element['group'] == 'Đã xữ lý')
                                         ? CupertinoColors.activeGreen
                                         : CupertinoColors.systemRed,
                                 fontWeight: FontWeight.bold),
