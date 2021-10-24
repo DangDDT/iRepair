@@ -143,11 +143,24 @@ class FullMapState extends State<FullMap> {
                             ),
                             Row(
                               children: [
-                                Text('Thợ: '),
-                                Text("Phạm Hữu Nghĩa",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600)),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text('Thợ: '),
+                                        Text("Phạm Hữu Nghĩa",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600)),
+                                      ],
+                                    ),
+                                    Text('(Đã sửa thành công 127 yêu cầu)',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                        )),
+                                  ],
+                                ),
                                 SizedBox(
                                   width: 50,
                                 ),
