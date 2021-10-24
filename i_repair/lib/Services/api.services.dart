@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:i_repair/Models/Field/field.dart';
 import 'package:i_repair/Models/Major/major.dart';
+import 'package:i_repair/Models/Profile/userProfile.dart';
 import 'package:i_repair/Models/Service/service.dart';
 import 'package:i_repair/Models/User/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,6 +26,22 @@ class APIServices {
     } else {
       throw Exception(
           'Failed to load user and ${response.statusCode} and ${response.reasonPhrase}');
+    }
+  }
+
+  static Future<UserProfile> getUserProfile(String id) async {
+    String token = await getToken();
+    final response = await http
+        .get(Uri.parse("$endpoint/api/v1.0/customers/${id.trim()}"), headers: {
+      "Authorization": 'Bearer $token',
+      "content-type": "application/json"
+    });
+    if (response.statusCode == 200) {
+      print("API customer success");
+      return userProfileFromJson(response.body);
+    } else {
+      throw Exception(
+          'Failed to load user profile and ${response.statusCode} and ${response.reasonPhrase}');
     }
   }
 
@@ -97,7 +114,7 @@ class APIServices {
     }
   }
 
-  static Future<CurrentUser> updateProfileUser(CurrentUser user) async {
+  static Future<UserProfile> updateProfileUser(UserProfile user) async {
     String token = await getToken();
     print(user.toJson());
     final body = jsonEncode({
@@ -107,7 +124,7 @@ class APIServices {
       "email": "${user.email}",
       "username": "none",
       "createDate": "2021-10-15T01:59:29.015Z",
-      "fullName": "${user.name}",
+      "fullName": "${user.fullName}",
       "uid": "${user.uid}"
     });
     final response = await http.put(
@@ -120,7 +137,7 @@ class APIServices {
     );
     if (response.statusCode == 200) {
       print("API updateProfileAPI() success");
-      return userFromJson(response.body);
+      return userProfileFromJson(response.body);
     } else {
       throw Exception(
           'Failed to put user and ${response.statusCode} and ${response.reasonPhrase}');

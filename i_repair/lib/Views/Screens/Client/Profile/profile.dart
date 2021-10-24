@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Models/Profile/userProfile.dart';
 import 'package:i_repair/Models/User/user.dart';
 import 'package:i_repair/Services/auth/auth.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key, required this.user}) : super(key: key);
-  final CurrentUser? user;
+  final UserProfile? user;
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -68,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.user!.name,
+                          Text(widget.user!.fullName,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18)),
                           (widget.user!.phoneNumber != null)
@@ -198,7 +199,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Container(
                     width: 210,
                     child: Text(
-                      widget.user!.name,
+                      widget.user!.fullName,
                       style: TextStyle(fontSize: 15),
                     ),
                   ),
@@ -284,9 +285,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Container(
                     width: 210,
                     child: Text(
-                      (widget.user!.addressDetail != null)
-                          ? widget.user!.addressDetail
-                          : '< Chưa có địa chỉ >',
+                      // CHƯA CÓ ĐỊA CHỈ TRONG API
+                      '< Chưa có địa chỉ >',
                       style: TextStyle(fontSize: 15),
                     ),
                   ),

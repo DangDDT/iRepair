@@ -4,6 +4,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/cupertino.dart.';
 import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Models/Profile/userProfile.dart';
 import 'package:i_repair/Models/User/user.dart';
 import 'package:i_repair/Views/Screens/Client/Explore/explore.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +36,7 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     final userBloc = Provider.of<UserBloc>(context);
-    CurrentUser? currentUser = userBloc.currentUser;
+    UserProfile? currentUser = userBloc.currentUser;
     return Scaffold(
       // appBar: BaseAppBar(
       //     key: null,
@@ -49,7 +50,6 @@ class _AppState extends State<App> {
           (currentUser == null)
               ? CircularProgressIndicator()
               : HomeScreen(user: currentUser),
-          ExploreScreen(),
           ProfileScreen(user: currentUser)
         ],
         onPageChanged: (page) {
@@ -78,7 +78,7 @@ class _AppState extends State<App> {
               gap: 8,
               activeColor: Colors.black,
               iconSize: 24,
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+              padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
               duration: Duration(milliseconds: 400),
               tabBackgroundColor: kSecondaryLightColor,
               color: Colors.black,
@@ -86,10 +86,6 @@ class _AppState extends State<App> {
                 GButton(
                   icon: CupertinoIcons.home,
                   text: 'Trang chủ',
-                ),
-                GButton(
-                  icon: Icons.explore,
-                  text: 'Khám phá',
                 ),
                 GButton(
                   icon: CupertinoIcons.profile_circled,

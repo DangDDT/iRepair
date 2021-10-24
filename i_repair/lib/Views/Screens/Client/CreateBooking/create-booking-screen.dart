@@ -108,6 +108,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                   key: _formKey,
                   child: TextFormField(
                     focusNode: focusNode,
+                    autofocus: false,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Vui lòng nhập địa chỉ';

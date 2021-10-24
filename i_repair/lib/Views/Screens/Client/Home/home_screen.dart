@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Models/Profile/userProfile.dart';
 import 'package:i_repair/Models/User/user.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/gridview-buttons.dart';
 import 'package:i_repair/Views/common/card/icon-card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key, required this.user}) : super(key: key);
-  final CurrentUser? user;
+  final UserProfile? user;
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return ListView(
@@ -46,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Xin chào, ', style: TextStyle(fontSize: 16)),
-                          Text(user!.name,
+                          Text(user!.fullName,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 24)),
                         ],
@@ -98,7 +99,7 @@ class HomeScreen extends StatelessWidget {
             width: 150,
             height: 35,
             margin: EdgeInsets.only(left: 15),
-            child: Text('Đơn hàng vừa tiếp nhận',
+            child: Text('Đơn hàng vừa tạo',
                 style: TextStyle(
                     color: kPrimaryColor,
                     fontSize: 24,
