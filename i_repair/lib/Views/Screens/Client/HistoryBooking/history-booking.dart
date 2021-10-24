@@ -369,6 +369,21 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                                                                 FontWeight.w600)),
                                                                   ],
                                                                 ),
+                                                  if (element["status"] ==
+                                                      "Đã hoàn thành")
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                            'Phản hồi chi tiết:  '),
+                                                        Text(
+                                                            "Thợ sửa nhanh, chu đáo.",
+                                                            style: TextStyle(
+                                                                fontSize: 16,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600)),
+                                                      ],
+                                                    ),
                                                   Row(
                                                     children: [
                                                       Text('Ngày tạo:  '),
