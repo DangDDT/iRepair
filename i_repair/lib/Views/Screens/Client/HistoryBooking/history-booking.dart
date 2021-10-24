@@ -58,7 +58,17 @@ List _elements = [
     'createdAt': '27-09-2021'
   },
   {
-    'id': 'A123',
+    'id': 'A120',
+    'majorModel': 'Ống nước',
+    'brand': 'Khác: Thái Long',
+    'customer': 'Lưu Thy Huyền',
+    'problem': 'Vỡ ống nước nhà tắm',
+    'group': 'Đang trì hoãn',
+    'status': 'Đang đợi vật tư',
+    'createdAt': '29-09-2021'
+  },
+  {
+    'id': 'A121',
     'majorModel': 'Tủ lạnh',
     'brand': 'Panasonic',
     'customer': 'Đ.D.Tâm Đăng',
@@ -331,19 +341,34 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                                                             FontWeight.w600)),
                                                               ],
                                                             )
-                                                          : Row(
-                                                              children: [
-                                                                Text(
-                                                                    'Lý do khách hàng hủy: '),
-                                                                Text(
-                                                                    'Chờ thợ quá lâu',
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            16,
-                                                                        fontWeight:
-                                                                            FontWeight.w600)),
-                                                              ],
-                                                            ),
+                                                          : (element["status"] ==
+                                                                  "Khách hàng đã hủy")
+                                                              ? Row(
+                                                                  children: [
+                                                                    Text(
+                                                                        'Lý do khách hàng hủy: '),
+                                                                    Text(
+                                                                        'Chờ thợ quá lâu',
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                16,
+                                                                            fontWeight:
+                                                                                FontWeight.w600)),
+                                                                  ],
+                                                                )
+                                                              : Row(
+                                                                  children: [
+                                                                    Text(
+                                                                        'Lý do trì hoãn: '),
+                                                                    Text(
+                                                                        'Đang đợi vật tư',
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                16,
+                                                                            fontWeight:
+                                                                                FontWeight.w600)),
+                                                                  ],
+                                                                ),
                                                   Row(
                                                     children: [
                                                       Text('Ngày tạo:  '),
