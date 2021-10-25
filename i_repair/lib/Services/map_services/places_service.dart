@@ -18,7 +18,7 @@ class PlacesService {
 
   Future<Address> getPlaceDetail(String placeId) async {
     var url = Uri.parse(
-        "https://maps.googleapis.com/maps/api/place/details/json?place_id=$placeId&fields=name%2Cgeometry/location%2Cformatted_address&key=$apiKey");
+        "https://rsapi.goong.io/Place/Detail?place_id=$placeId&api_key=$apiKey");
     var response = await http.get(url);
     var json = convert.jsonDecode(response.body);
     var jsonResults = json['result'];

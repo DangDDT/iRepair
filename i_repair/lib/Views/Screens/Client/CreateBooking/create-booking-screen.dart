@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:filter_list/filter_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ import 'package:i_repair/Models/Field/field.dart';
 import 'package:i_repair/Models/Major/major.dart';
 import 'package:i_repair/Models/Service/service.dart';
 import 'package:i_repair/Models/User/user.dart';
+import 'package:i_repair/Views/Screens/Client/CreateBooking/widgets/debounce.dart';
 import 'package:i_repair/Views/common/appbar/common-appbar.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:provider/provider.dart';
@@ -55,6 +58,8 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
     getCurrentUser();
     super.initState();
   }
+
+  //Debounce help delay searching
 
   Icon checkCompleteIcon(currentIndex, valueIndex, indexIcon) {
     if (currentIndex > valueIndex) {
@@ -107,29 +112,32 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                 Form(
                   key: _formKey,
                   child: TextFormField(
-                    focusNode: focusNode,
-                    autofocus: false,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Vui lòng nhập địa chỉ';
-                      }
-                      if (placeBloc.selectedPlace == null) {
-                        return 'Địa chỉ của bạn không tồn tại';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50)),
-                      labelText: 'Địa chỉ',
-                      prefixIcon: Icon(CupertinoIcons.location),
-                      suffixIcon: Icon(CupertinoIcons.search),
-                      contentPadding: EdgeInsets.all(5),
-                    ),
-                    controller: _addressController,
-                    enabled: (activeStep == 0),
-                    onChanged: (value) => placeBloc.searchPlaces(value),
-                  ),
+                      focusNode: focusNode,
+                      autofocus: false,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Vui lòng nhập địa chỉ';
+                        }
+                        if (placeBloc.selectedPlace == null) {
+                          return 'Địa chỉ của bạn không tồn tại';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(50)),
+                        labelText: 'Địa chỉ',
+                        prefixIcon: Icon(CupertinoIcons.location),
+                        suffixIcon: Icon(CupertinoIcons.search),
+                        contentPadding: EdgeInsets.all(5),
+                      ),
+                      controller: _addressController,
+                      enabled: (activeStep == 0),
+                      onChanged: (value) => {
+                            new Debouncer().debounce(() {
+                              placeBloc.searchPlaces(value);
+                            })
+                          }),
                 ),
                 IconStepper(
                   icons: [

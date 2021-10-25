@@ -22,6 +22,7 @@ class PlaceBloc with ChangeNotifier {
 
   setSelectedPlace(String placeId) async {
     selectedPlace = await placesService.getPlaceDetail(placeId);
+    print(selectedPlace!.geometry.location);
     notifyListeners();
   }
 }
