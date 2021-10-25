@@ -111,7 +111,8 @@ class HomeScreen extends StatelessWidget {
                       backgroundColor: kBackgroundColor,
                       title: Text(
                         "YÊU CẦU CỦA BẠN",
-                        style: TextStyle(color: kTextColor),
+                        style: TextStyle(
+                            color: kTextColor, fontWeight: FontWeight.bold),
                       ),
                       bottom: TabBar(
                         labelColor: kTextColor,
