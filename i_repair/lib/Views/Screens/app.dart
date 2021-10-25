@@ -44,20 +44,36 @@ class _AppState extends State<App> {
       //     title: 'Xin chào, Đỗ Dương Tâm Đăng',
       //     content: 'Sky 9, Liên Phường, Phú Hữu, Thủ Đức, TPHCM',
       //     haveBackSpace: false),
-      body: PageView(
-        controller: _pageController,
-        children: [
-          (currentUser == null)
-              ? CircularProgressIndicator()
-              : HomeScreen(user: currentUser),
-          ProfileScreen(user: currentUser)
-        ],
-        onPageChanged: (page) {
-          setState(() {
-            _selectedIndex = page;
-          });
-        },
-      ),
+      body: (currentUser == null)
+          ? Padding(
+              padding: EdgeInsets.only(left: 100, right: 100, top: 300),
+              child: Column(
+                children: [
+                  Container(
+                      width: 50,
+                      height: 50,
+                      child: CircularProgressIndicator(
+                        color: kSecondaryColor,
+                      )),
+                  Container(
+                      margin: EdgeInsets.only(top: 10),
+                      width: 300,
+                      child:
+                          Text("Đang tải dữ liệu, đợi xíu nhé 'Thượng đế'...")),
+                ],
+              ))
+          : PageView(
+              controller: _pageController,
+              children: [
+                HomeScreen(user: currentUser),
+                ProfileScreen(user: currentUser)
+              ],
+              onPageChanged: (page) {
+                setState(() {
+                  _selectedIndex = page;
+                });
+              },
+            ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: kBackgroundColor,

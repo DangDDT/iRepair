@@ -122,7 +122,7 @@ class APIServices {
       "avatar": "${user.avatar}",
       "phoneNumber": "${(user.phoneNumber)}",
       "email": "${user.email}",
-      "username": "none",
+      "username": null,
       "createDate": "2021-10-15T01:59:29.015Z",
       "fullName": "${user.fullName}",
       "uid": "${user.uid}"
