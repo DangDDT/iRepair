@@ -23,13 +23,14 @@ class CurrentUser {
   String? uid;
   dynamic phoneNumber;
   dynamic addressDetail;
+
   dynamic token;
 
   factory CurrentUser.fromJson(Map<String, dynamic> json) => CurrentUser(
         id: json["id"],
         avatar: json["avatar"],
         email: json["email"],
-        name: json["fullName"],
+        name: json["fullname"],
         uid: json["uid"],
         addressDetail: json["addressDetail"],
         phoneNumber: json["phoneNumber"],

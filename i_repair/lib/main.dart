@@ -4,11 +4,8 @@ import 'package:get/get.dart';
 import 'package:i_repair/Controllers/placeController/placeController.dart';
 import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
-import 'package:i_repair/Views/Screens/Client/CreateBooking/widgets/success-screen.dart';
 import 'package:provider/provider.dart';
 import 'Services/auth/auth.dart';
-import 'Views/Screens/Client/CreateBooking/create-booking-screen.dart';
-import 'Views/Screens/Client/MyBooking/booking.dart';
 import 'Views/Screens/app.dart';
 import 'views/Screens/Welcome/Login/login-screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -34,7 +31,7 @@ class MyApp extends StatelessWidget {
             return MultiProvider(
               providers: [
                 ChangeNotifierProvider<AuthService>.value(value: AuthService()),
-                ChangeNotifierProvider(create: (context) => PlaceBloc()),
+                // ChangeNotifierProvider(create: (context) => PlaceBloc()),
                 ChangeNotifierProvider(create: (context) => UserBloc()),
                 StreamProvider.value(
                     value: AuthService().user, initialData: null),
@@ -50,9 +47,7 @@ class MyApp extends StatelessWidget {
                 routes: {
                   '/': (context) => LoginPage(),
                   '/client_app': (context) => App(),
-                  '/my_booking': (context) => BookingScreen(),
-                  '/create_booking': (context) => CreateBookingScreen(),
-                  '/success_screen': (context) => SuccessScreen()
+                  // '/create_booking': (context) => CreateBookingScreen(),
                 },
               ),
             );

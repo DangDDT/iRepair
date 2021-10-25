@@ -48,11 +48,18 @@ class AuthService with ChangeNotifier {
           initialtoken = initialtoken.substring(initLength, endLength);
         }
         if (!token.isEmpty) {
-          CurrentUser currentUser = await APIServices.createUser(token);
-          final prefs = await SharedPreferences.getInstance();
-          String currentUserString = jsonEncode(currentUser);
-          print(currentUserString);
-          prefs.setString('currentUser', currentUserString);
+          CurrentUser? currentUser = await APIServices.createUser(token);
+          if (currentUser != null) {
+            final prefs = await SharedPreferences.getInstance();
+            String currentUserString = jsonEncode(currentUser);
+            print(currentUserString);
+            prefs.setString('currentUser', currentUserString);
+            setMessage("");
+          } else {
+            setMessage(
+                "Tài khoản thợ của bạn không thuộc công ty nào. Vui lòng liên hệ với công ty trực thuộc để được hướng dẫn chi tiết");
+            logout(context: context);
+          }
         }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'account-exists-with-different-credential') {

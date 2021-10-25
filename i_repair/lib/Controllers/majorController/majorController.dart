@@ -1,27 +1,27 @@
-import 'package:get/get.dart';
-import 'package:i_repair/Services/api.services.dart';
+// import 'package:get/get.dart';
+// import 'package:i_repair/Services/api.services.dart';
 
-import '../../Models/Major/major.dart';
+// import '../../Models/Major/major.dart';
 
-class MajorController extends GetxController {
-  var isLoading = true.obs;
-  var majorList = List<Major>.empty().obs;
+// class MajorController extends GetxController {
+//   var isLoading = true.obs;
+//   var majorList = List<Major>.empty().obs;
 
-  @override
-  // ignore: must_call_super
-  void onInit() {
-    fetchMajors();
-    super.onInit();
-  }
+//   @override
+//   // ignore: must_call_super
+//   void onInit() {
+//     fetchMajors();
+//     super.onInit();
+//   }
 
-  void fetchMajors() async {
-    try {
-      isLoading(true);
-      var majors = await APIServices.fetchMajors();
-      majorList.assignAll(majors);
-      print("fetchMajors() success");
-    } finally {
-      isLoading(false);
-    }
-  }
-}
+//   void fetchMajors() async {
+//     try {
+//       isLoading(true);
+//       var majors = await APIServices.fetchMajors();
+//       majorList.assignAll(majors);
+//       print("fetchMajors() success");
+//     } finally {
+//       isLoading(false);
+//     }
+//   }
+// }

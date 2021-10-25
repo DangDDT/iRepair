@@ -69,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.user!.fullName,
+                          Text(widget.user!.name,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18)),
                           (widget.user!.phoneNumber != null)
@@ -97,6 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               borderSide: BorderSide.none),
                           onPressed: () async {
                             await loginProvider.logout(context: context);
+                            userBloc.logout();
                             Get.offAllNamed("/");
                           },
                           child: Icon(
@@ -182,6 +183,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           margin: EdgeInsets.all(20),
           child: ListView(physics: NeverScrollableScrollPhysics(), children: [
             Container(
+              height: 50,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
               child: Row(
@@ -199,65 +201,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Container(
                     width: 210,
                     child: Text(
-                      widget.user!.fullName,
+                      widget.user!.name,
                       style: TextStyle(fontSize: 15),
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: MaterialButton(
-                      color: Colors.white,
-                      minWidth: 2,
-                      elevation: 0,
-                      shape: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50),
-                          borderSide: BorderSide.none),
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              final _formKey = GlobalKey<FormState>();
-                              var focusNode = FocusNode();
-                              return AlertDialog(
-                                title: Text('Chỉnh sửa họ và tên'),
-                                content: Form(
-                                  key: _formKey,
-                                  child: TextFormField(
-                                    focusNode: focusNode,
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.all(5),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25)),
-                                      labelText: 'Họ và tên',
-                                      prefixIcon: Icon(Icons.person),
-                                    ),
-                                    controller: _nameController,
-                                  ),
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                      onPressed: () {
-                                        Get.back();
-                                      },
-                                      child: Text('Đóng')),
-                                  TextButton(
-                                      onPressed: () {
-                                        userBloc.setCurrentUserProfile(
-                                            "FULLNAME", _nameController.text);
-                                        Get.back();
-                                      },
-                                      child: Text('Lưu')),
-                                ],
-                              );
-                            });
-                      },
-                      child: Icon(
-                        Icons.edit,
-                        color: kTextColor,
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),
@@ -268,6 +215,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               endIndent: 10,
             ),
             Container(
+              height: 50,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
               child: Row(
@@ -290,58 +238,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       style: TextStyle(fontSize: 15),
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: MaterialButton(
-                      color: Colors.white,
-                      elevation: 0,
-                      minWidth: 2,
-                      shape: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50),
-                          borderSide: BorderSide.none),
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              final _formKey = GlobalKey<FormState>();
-                              var focusNode = FocusNode();
-                              return AlertDialog(
-                                title: Text('Chỉnh sửa địa chỉ'),
-                                content: Form(
-                                  key: _formKey,
-                                  child: TextFormField(
-                                    focusNode: focusNode,
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.all(5),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25)),
-                                      labelText: 'Địa chỉ',
-                                      prefixIcon: Icon(CupertinoIcons.location),
-                                    ),
-                                  ),
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                      onPressed: () {
-                                        Get.back();
-                                      },
-                                      child: Text('Đóng')),
-                                  TextButton(
-                                      onPressed: () {
-                                        Get.back();
-                                      },
-                                      child: Text('Lưu')),
-                                ],
-                              );
-                            });
-                      },
-                      child: Icon(
-                        Icons.edit,
-                        color: kTextColor,
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),
@@ -352,6 +248,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               endIndent: 10,
             ),
             Container(
+              height: 50,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(10)),
               child: Row(
@@ -375,62 +272,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       style: TextStyle(fontSize: 15),
                     ),
                   ),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: MaterialButton(
-                      elevation: 0,
-                      color: Colors.white,
-                      minWidth: 2,
-                      shape: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50),
-                          borderSide: BorderSide.none),
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              final _formKey = GlobalKey<FormState>();
-                              var focusNode = FocusNode();
-                              return AlertDialog(
-                                title: Text('Chỉnh sửa số điện thoại'),
-                                content: Form(
-                                  key: _formKey,
-                                  child: TextFormField(
-                                    focusNode: focusNode,
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.all(5),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25)),
-                                      labelText: 'Số điện thoại',
-                                      prefixIcon: Icon(Icons.phone),
-                                    ),
-                                    controller: _phoneController,
-                                  ),
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                      onPressed: () {
-                                        Get.back();
-                                      },
-                                      child: Text('Đóng')),
-                                  TextButton(
-                                      onPressed: () {
-                                        userBloc.setCurrentUserProfile(
-                                            "PHONE_NUMBER",
-                                            _phoneController.text);
-                                        Get.back();
-                                      },
-                                      child: Text('Lưu')),
-                                ],
-                              );
-                            });
-                      },
-                      child: Icon(
-                        Icons.edit,
-                        color: kTextColor,
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),

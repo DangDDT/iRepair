@@ -12,8 +12,8 @@ class UserProfile {
     required this.phoneNumber,
     required this.email,
     required this.username,
-    required this.createDate,
-    required this.fullName,
+    required this.name,
+    required this.companyId,
     required this.uid,
   });
 
@@ -22,8 +22,8 @@ class UserProfile {
   String phoneNumber;
   String email;
   String username;
-  DateTime createDate;
-  String fullName;
+  String name;
+  String companyId;
   String uid;
 
   factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
@@ -32,9 +32,9 @@ class UserProfile {
         phoneNumber: json["phoneNumber"],
         email: json["email"],
         username: json["username"],
-        createDate: DateTime.parse(json["createDate"]),
-        fullName: json["fullName"],
+        name: json["name"],
         uid: json["uid"],
+        companyId: json["companyId"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -43,8 +43,8 @@ class UserProfile {
         "phoneNumber": phoneNumber,
         "email": email,
         "username": username,
-        "createDate": createDate.toIso8601String(),
-        "fullName": fullName,
+        "name": name,
         "uid": uid,
+        "companyId": companyId,
       };
 }
