@@ -5,8 +5,6 @@ import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/pending-booking.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/processing-booking.dart';
-import 'package:i_repair/Views/Screens/Client/Home/widgets/waiting-booking.dart';
-import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,16 +19,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<OrderBloc>(context, listen: false)
+    Provider.of<OrderDetailBloc>(context, listen: false)
         .getProcessingBookingList(widget.user!.id);
-    Provider.of<OrderBloc>(context, listen: false)
+    Provider.of<OrderDetailBloc>(context, listen: false)
         .getPendingBookingList(widget.user!.id);
-    Provider.of<OrderBloc>(context, listen: false)
-        .getWaitingBookingList(widget.user!.id);
   }
 
   Widget build(BuildContext context) {
-    final orderBloc = Provider.of<OrderBloc>(context);
+    final orderBloc = Provider.of<OrderDetailBloc>(context);
     return ListView(
       children: [
         Stack(children: [
@@ -118,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Container(
           height: 500,
           child: DefaultTabController(
-            length: 3,
+            length: 2,
             initialIndex: 0,
             child: Column(
               children: [
@@ -134,17 +130,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       labelColor: kTextColor,
                       tabs: [
                         Tab(
-                          text:
-                              'Đang xử lý (${orderBloc.processingList.length})',
+                          text: 'Đang xử lý',
                         ),
                         Tab(
                           text:
                               'Đang trì hoãn (${orderBloc.pendingList.length})',
                         ),
-                        Tab(
-                          text:
-                              'Đang chờ bạn (${orderBloc.waitingList.length})',
-                        )
                       ],
                     ),
                   ),
@@ -186,7 +177,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount: orderBloc.processingList.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return ProcessingBooking(
-                                    order: orderBloc.processingList[index]);
+                                    orderDetail:
+                                        orderBloc.processingList[index]);
                               },
                             ),
                       (orderBloc.pendingList.length == 0)
@@ -220,41 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount: orderBloc.pendingList.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return PendingBooking(
-                                    order: orderBloc.pendingList[index]);
-                              },
-                            ),
-                      (orderBloc.waitingList.length == 0)
-                          ? Center(
-                              child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 60,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                      color: kPrimaryLightColor,
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: ClipRRect(
-                                    child: Image.asset(
-                                      "assets/images/repairman.png",
-                                      width: 50,
-                                      height: 50,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
-                                    child: Text(
-                                        "ĐỪNG BUỒN, UỐNG MIẾNG TRÀ ĂN MIỄNG BÁNH ĐỢI ĐƠN HÀNG NHÉ.")),
-                              ],
-                            ))
-                          : ListView.builder(
-                              itemCount: orderBloc.waitingList.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return WaitingBooking(
-                                    order: orderBloc.waitingList[index]);
+                                    orderDetail: orderBloc.pendingList[index]);
                               },
                             ),
                     ],

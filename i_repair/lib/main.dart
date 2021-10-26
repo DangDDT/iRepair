@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:i_repair/Controllers/placeController/placeController.dart';
 import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +33,7 @@ class MyApp extends StatelessWidget {
                 ChangeNotifierProvider<AuthService>.value(value: AuthService()),
                 // ChangeNotifierProvider(create: (context) => PlaceBloc()),
                 ChangeNotifierProvider(create: (context) => UserBloc()),
-                ChangeNotifierProvider(create: (context) => OrderBloc()),
+                ChangeNotifierProvider(create: (context) => OrderDetailBloc()),
                 StreamProvider.value(
                     value: AuthService().user, initialData: null),
               ],

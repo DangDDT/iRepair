@@ -1,12 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:i_repair/Models/Customer/customer.dart';
-import 'package:i_repair/Models/Field/field.dart';
-import 'package:i_repair/Models/Order/order.dart';
+import 'package:i_repair/Models/Company/company.dart';
+import 'package:i_repair/Models/Order/orderDetail.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
-import 'package:i_repair/Models/Service/service.dart';
 import 'package:i_repair/Models/User/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -47,7 +43,7 @@ class APIServices {
     }
   }
 
-  static Future<List<Order>> fetchOrders(
+  static Future<List<OrderDetail>> fetchOrders(
       String? repairmanId, int status) async {
     String token = await getToken();
     final response = await http.get(
@@ -59,47 +55,28 @@ class APIServices {
         });
     if (response.statusCode == 200) {
       print("API fetchOrdersAPI() success");
-      return orderFromJson(response.body);
+      return orderDetailFromJson(response.body);
     } else {
       throw Exception(
           'Failed to load orders and ${response.statusCode} and ${response.reasonPhrase}');
     }
   }
 
-  static Future<Customer> fetchCustomerById(String customerId) async {
+  static Future<Company> getCompanyById(String id) async {
     String token = await getToken();
-    final response = await http.get(
-      Uri.parse("$endpoint/api/v1.0/customers/$customerId"),
-      headers: {
-        "Authorization": 'Bearer $token',
-        "content-type": "application/json"
-      },
-    );
+    final response = await http
+        .get(Uri.parse("$endpoint/api/v1.0/companies/${id.trim()}"), headers: {
+      "Authorization": 'Bearer $token',
+      "content-type": "application/json"
+    });
     if (response.statusCode == 200) {
-      print("API fetchServicesByFieldAPI() success");
-      return customerFromJson(response.body);
+      print("API company success");
+      return companyFromJson(response.body);
     } else {
-      throw Exception('Failed to load customer');
+      throw Exception(
+          'Failed to load company and ${response.statusCode} and ${response.reasonPhrase}');
     }
   }
-
-  static Future<Service> fetchServiceById(Field field) async {
-    String token = await getToken();
-    final response = await http.get(
-      Uri.parse("$endpoint/api/v1.0/services/${field.id}"),
-      headers: {
-        "Authorization": 'Bearer $token',
-        "content-type": "application/json"
-      },
-    );
-    if (response.statusCode == 200) {
-      print("API fetchServiceByFieldAPI() success");
-      return serviceFromJson(response.body);
-    } else {
-      throw Exception('Failed to load service');
-    }
-  }
-
   // static Future<List<Major>> fetchMajors() async {
   //   String token = await getToken();
   //   final response = await http

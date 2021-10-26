@@ -1,11 +1,3 @@
-import 'dart:convert';
-
-List<Order> orderFromJson(String str) =>
-    List<Order>.from(json.decode(str).map((x) => Order.fromJson(x)));
-
-String orderToJson(List<Order> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
 class Order {
   Order({
     required this.id,
@@ -13,14 +5,18 @@ class Order {
     required this.repairmanId,
     required this.customerId,
     required this.createTime,
-    this.paymentTime,
+    required this.paymentTime,
     required this.total,
     required this.customerAddress,
     required this.feedbackPoint,
     this.feedbackMessage,
-    required this.status,
-    required this.lat,
     required this.lng,
+    required this.lat,
+    required this.status,
+    this.customer,
+    this.repairman,
+    this.service,
+    required this.orderHistories,
   });
 
   String id;
@@ -28,48 +24,57 @@ class Order {
   String repairmanId;
   String customerId;
   DateTime createTime;
-  DateTime? paymentTime;
+  dynamic paymentTime;
   int total;
   String customerAddress;
   int feedbackPoint;
   dynamic feedbackMessage;
-  int status;
-  double lat;
   double lng;
+  double lat;
+  int status;
+  dynamic customer;
+  dynamic repairman;
+  dynamic service;
+  List<dynamic> orderHistories;
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
-        id: json["Id"],
-        serviceId: json["ServiceId"],
-        repairmanId: json["RepairmanId"],
-        customerId: json["CustomerId"],
-        createTime: DateTime.parse(json["CreateTime"]),
-        paymentTime: json["PaymentTime"] == null
-            ? null
-            : DateTime.parse(json["PaymentTime"]),
-        total: json["Total"],
-        customerAddress: json["CustomerAddress"],
-        feedbackPoint: json["FeedbackPoint"],
-        feedbackMessage:
-            json["FeedbackMessage"] == null ? null : json["FeedbackMessage"],
-        status: json["Status"],
-        lat: json["lat"].toDouble(),
+        id: json["id"],
+        serviceId: json["serviceId"],
+        repairmanId: json["repairmanId"],
+        customerId: json["customerId"],
+        createTime: DateTime.parse(json["createTime"]),
+        paymentTime: json["paymentTime"],
+        total: json["total"],
+        customerAddress: json["customerAddress"],
+        feedbackPoint: json["feedbackPoint"],
+        feedbackMessage: json["feedbackMessage"],
         lng: json["lng"].toDouble(),
+        lat: json["lat"].toDouble(),
+        status: json["status"],
+        customer: json["customer"],
+        repairman: json["repairman"],
+        service: json["service"],
+        orderHistories:
+            List<dynamic>.from(json["orderHistories"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
-        "Id": id,
-        "ServiceId": serviceId,
-        "RepairmanId": repairmanId,
-        "CustomerId": customerId,
-        "CreateTime": createTime.toIso8601String(),
-        "PaymentTime":
-            paymentTime == null ? null : paymentTime!.toIso8601String(),
-        "Total": total,
-        "CustomerAddress": customerAddress,
-        "FeedbackPoint": feedbackPoint,
-        "FeedbackMessage": feedbackMessage == null ? null : feedbackMessage,
-        "Status": status,
-        "lat": lat,
+        "id": id,
+        "serviceId": serviceId,
+        "repairmanId": repairmanId,
+        "customerId": customerId,
+        "createTime": createTime.toIso8601String(),
+        "paymentTime": paymentTime,
+        "total": total,
+        "customerAddress": customerAddress,
+        "feedbackPoint": feedbackPoint,
+        "feedbackMessage": feedbackMessage,
         "lng": lng,
+        "lat": lat,
+        "status": status,
+        "customer": customer,
+        "repairman": repairman,
+        "service": service,
+        "orderHistories": List<dynamic>.from(orderHistories.map((x) => x)),
       };
 }

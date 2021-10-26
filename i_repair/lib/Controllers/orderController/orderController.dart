@@ -2,20 +2,20 @@ import 'dart:collection';
 
 import 'package:flutter/widgets.dart';
 import 'package:i_repair/Models/Customer/customer.dart';
-import 'package:i_repair/Models/Order/order.dart';
+import 'package:i_repair/Models/Order/orderDetail.dart';
 import 'package:i_repair/Services/api.services.dart';
 import 'package:location/location.dart';
 
-class OrderBloc with ChangeNotifier {
+class OrderDetailBloc with ChangeNotifier {
   bool isLoading = true;
-  List<Order> _processingList = <Order>[];
-  UnmodifiableListView<Order> get processingList =>
+  List<OrderDetail> _processingList = <OrderDetail>[];
+  UnmodifiableListView<OrderDetail> get processingList =>
       UnmodifiableListView(_processingList);
-  List<Order> _pendingList = <Order>[];
-  UnmodifiableListView<Order> get pendingList =>
+  List<OrderDetail> _pendingList = <OrderDetail>[];
+  UnmodifiableListView<OrderDetail> get pendingList =>
       UnmodifiableListView(_pendingList);
-  List<Order> _waitingList = <Order>[];
-  UnmodifiableListView<Order> get waitingList =>
+  List<OrderDetail> _waitingList = <OrderDetail>[];
+  UnmodifiableListView<OrderDetail> get waitingList =>
       UnmodifiableListView(_waitingList);
   Location location = new Location();
 
@@ -27,15 +27,6 @@ class OrderBloc with ChangeNotifier {
 
   OrderBloc() {
     getLocation();
-  }
-
-  getCustomer(String customerId) async {
-    setLoading(true);
-    this.customer = await APIServices.fetchCustomerById(customerId);
-    if (this.customer != null) {
-      setLoading(false);
-    }
-    notifyListeners();
   }
 
   getLocation() async {
@@ -61,20 +52,20 @@ class OrderBloc with ChangeNotifier {
       locationData = currentLocation;
     });
     location.enableBackgroundMode(enable: true);
+    notifyListeners();
   }
 
   getProcessingBookingList(String repairmanId) async {
-    this._processingList = await APIServices.fetchOrders(repairmanId, 2);
+    setLoading(true);
+    this._processingList = await APIServices.fetchOrders(repairmanId, 0);
+    setLoading(false);
     notifyListeners();
   }
 
   getPendingBookingList(String repairmanId) async {
+    setLoading(true);
     this._pendingList = await APIServices.fetchOrders(repairmanId, 1);
-    notifyListeners();
-  }
-
-  getWaitingBookingList(String repairmanId) async {
-    this._waitingList = await APIServices.fetchOrders(repairmanId, 0);
+    setLoading(false);
     notifyListeners();
   }
 

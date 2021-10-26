@@ -4,18 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_repair/Controllers/orderController/orderController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
-import 'package:i_repair/Models/Customer/customer.dart';
-import 'package:i_repair/Models/Order/order.dart';
+import 'package:i_repair/Models/Order/orderDetail.dart';
 import 'package:intl/intl.dart';
 import 'dart:math' show asin, cos, pow, sqrt;
 
 import 'package:provider/provider.dart';
 
 class ProcessingBooking extends StatefulWidget {
-  final Order order;
+  final OrderDetail orderDetail;
   const ProcessingBooking({
     Key? key,
-    required this.order,
+    required this.orderDetail,
   }) : super(key: key);
 
   @override
@@ -25,7 +24,6 @@ class ProcessingBooking extends StatefulWidget {
 class _ProcessingBookingState extends State<ProcessingBooking> {
   double distance = 0;
   Timer? _timer;
-  Customer? customer;
   double calculateDistance(lat1, lon1, lat2, lon2) {
     num mod = pow(10.0, 1);
     var p = 0.017453292519943295;
@@ -39,7 +37,6 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
   @override
   void initState() {
     super.initState();
-    _fetchCustomer();
     const fiveSec = const Duration(seconds: 5);
     _fetchDistance();
     _timer = new Timer.periodic(fiveSec, (Timer t) {
@@ -47,21 +44,14 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
     });
   }
 
-  _fetchCustomer() async {
-    final orderBloc = Provider.of<OrderBloc>(context, listen: false);
-    await orderBloc.getCustomer(widget.order.customerId);
-    if (orderBloc.customer != null) {
-      customer = orderBloc.customer;
-    }
-  }
-
   _fetchDistance() async {
-    final orderBloc = Provider.of<OrderBloc>(context, listen: false);
+    final orderBloc = Provider.of<OrderDetailBloc>(context, listen: false);
+    orderBloc.getLocation();
     if (this.mounted && orderBloc.locationData != null) {
       setState(() => {
             distance = calculateDistance(
-                widget.order.lat,
-                widget.order.lng,
+                widget.orderDetail.order.lat,
+                widget.orderDetail.order.lng,
                 orderBloc.locationData!.latitude,
                 orderBloc.locationData!.longitude),
           });
@@ -76,9 +66,9 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
 
   @override
   Widget build(BuildContext context) {
-    final orderBloc = Provider.of<OrderBloc>(context);
+    final orderBloc = Provider.of<OrderDetailBloc>(context);
 
-    return (orderBloc.isLoading || this.customer == null)
+    return (orderBloc.isLoading)
         ? Padding(
             padding: const EdgeInsets.all(150.0),
             child: Center(child: CircularProgressIndicator()),
@@ -105,7 +95,8 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
-                                child: Text("${widget.order.createTime}"),
+                                child: Text(
+                                    "${widget.orderDetail.order.createTime}"),
                               )
                             ],
                           ),
@@ -123,7 +114,7 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
-                                child: Text("Tủ lạnh"),
+                                child: Text("${widget.orderDetail.field.name}"),
                               )
                             ],
                           ),
@@ -139,7 +130,7 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                               ),
                               Container(
                                 child: Text(
-                                    "Kiểm tra và sửa chữa toàn bộ lốc máy"),
+                                    "${widget.orderDetail.service.serviceName}"),
                               )
                             ],
                           ),
@@ -155,7 +146,7 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                               ),
                               Container(
                                 child: Text(
-                                    "${NumberFormat.currency(locale: 'vi').format(widget.order.total)}"),
+                                    "${NumberFormat.currency(locale: 'vi').format(widget.orderDetail.order.total)}"),
                               )
                             ],
                           ),
@@ -173,7 +164,8 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
-                                child: Text("${customer!.fullName}"),
+                                child: Text(
+                                    "${widget.orderDetail.customer.fullName}"),
                               )
                             ],
                           ),
@@ -188,7 +180,8 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
-                                child: Text("${customer!.phoneNumber}"),
+                                child: Text(
+                                    "${widget.orderDetail.customer.phoneNumber}"),
                               )
                             ],
                           ),
@@ -205,7 +198,8 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                               ),
                               Container(
                                 width: 300,
-                                child: Text("${widget.order.customerAddress}"),
+                                child: Text(
+                                    "${widget.orderDetail.order.customerAddress}"),
                               )
                             ],
                           ),

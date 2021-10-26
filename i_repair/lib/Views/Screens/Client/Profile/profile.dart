@@ -25,6 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     _nameController.text = '';
     _phoneController.text = '';
+    Provider.of<UserBloc>(context, listen: false).getCompanyOfUser();
     super.initState();
   }
 
@@ -142,7 +143,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Icon(CupertinoIcons.profile_circled, size: 120)),
         SizedBox(height: 20),
         Container(
-          height: 200,
+          padding: EdgeInsets.only(left: 20),
+          width: 100,
+          child: Text(
+            "THÔNG TIN CỦA THỢ: ",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+        ),
+        Container(
+          height: 170,
           margin: EdgeInsets.all(20),
           child: ListView(physics: NeverScrollableScrollPhysics(), children: [
             Container(
@@ -231,6 +240,113 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Text(
                       (widget.user!.phoneNumber != null)
                           ? widget.user!.phoneNumber
+                          : 'Chưa có số điện thoại',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ]),
+        ),
+        Container(
+          padding: EdgeInsets.only(left: 20),
+          width: 100,
+          child: Text(
+            "THÔNG TIN CỦA CÔNG TY: ",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+        ),
+        Container(
+          height: 170,
+          margin: EdgeInsets.all(20),
+          child: ListView(physics: NeverScrollableScrollPhysics(), children: [
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(left: 10),
+                    width: 100,
+                    child: Text(
+                      "Tên công ty: ",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                  ),
+                  Container(
+                    width: 210,
+                    child: Text(
+                      userBloc.userCompany!.companyName,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Divider(
+              height: 10,
+              thickness: 1,
+              indent: 5,
+              endIndent: 10,
+            ),
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(left: 10),
+                    width: 100,
+                    child: Text(
+                      "Địa chỉ: ",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                  ),
+                  Container(
+                    width: 210,
+                    child: Text(
+                      // CHƯA CÓ ĐỊA CHỈ TRONG API
+                      userBloc.userCompany!.address,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Divider(
+              height: 10,
+              thickness: 1,
+              indent: 5,
+              endIndent: 10,
+            ),
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(left: 10),
+                    width: 100,
+                    child: Text(
+                      "Điện thoại: ",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                  ),
+                  Container(
+                    width: 210,
+                    child: Text(
+                      (widget.user!.phoneNumber != null)
+                          ? userBloc.userCompany!.hotline
                           : 'Chưa có số điện thoại',
                       style: TextStyle(fontSize: 15),
                     ),

@@ -5,17 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:i_repair/Controllers/orderController/orderController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Customer/customer.dart';
-import 'package:i_repair/Models/Order/order.dart';
+import 'package:i_repair/Models/Order/orderDetail.dart';
 import 'package:intl/intl.dart';
 import 'dart:math' show asin, cos, pow, sqrt;
 
 import 'package:provider/provider.dart';
 
 class PendingBooking extends StatefulWidget {
-  final Order order;
+  final OrderDetail orderDetail;
   const PendingBooking({
     Key? key,
-    required this.order,
+    required this.orderDetail,
   }) : super(key: key);
 
   @override
@@ -25,7 +25,6 @@ class PendingBooking extends StatefulWidget {
 class _PendingBookingState extends State<PendingBooking> {
   double distance = 0;
   Timer? _timer;
-  Customer? customer;
   double calculateDistance(lat1, lon1, lat2, lon2) {
     num mod = pow(10.0, 1);
     var p = 0.017453292519943295;
@@ -39,7 +38,6 @@ class _PendingBookingState extends State<PendingBooking> {
   @override
   void initState() {
     super.initState();
-    _fetchCustomer();
     const fiveSec = const Duration(seconds: 5);
     _fetchDistance();
     _timer = new Timer.periodic(fiveSec, (Timer t) {
@@ -47,19 +45,14 @@ class _PendingBookingState extends State<PendingBooking> {
     });
   }
 
-  _fetchCustomer() async {
-    final orderBloc = Provider.of<OrderBloc>(context, listen: false);
-    await orderBloc.getCustomer(widget.order.customerId);
-    customer = orderBloc.customer;
-  }
-
   _fetchDistance() async {
-    final orderBloc = Provider.of<OrderBloc>(context, listen: false);
+    final orderBloc = Provider.of<OrderDetailBloc>(context, listen: false);
+    orderBloc.getLocation();
     if (this.mounted && orderBloc.locationData != null) {
       setState(() => {
             distance = calculateDistance(
-                widget.order.lat,
-                widget.order.lng,
+                widget.orderDetail.order.lat,
+                widget.orderDetail.order.lng,
                 orderBloc.locationData!.latitude,
                 orderBloc.locationData!.longitude),
           });
@@ -74,7 +67,7 @@ class _PendingBookingState extends State<PendingBooking> {
 
   @override
   Widget build(BuildContext context) {
-    final orderBloc = Provider.of<OrderBloc>(context);
+    final orderBloc = Provider.of<OrderDetailBloc>(context);
     Future<void> _showMyDialog() async {
       return showDialog<void>(
         context: context,
@@ -106,7 +99,7 @@ class _PendingBookingState extends State<PendingBooking> {
       );
     }
 
-    return (orderBloc.isLoading || this.customer == null)
+    return (orderBloc.isLoading)
         ? Padding(
             padding: const EdgeInsets.all(100.0),
             child: Center(child: CircularProgressIndicator()),
@@ -118,7 +111,7 @@ class _PendingBookingState extends State<PendingBooking> {
                   borderRadius: BorderRadius.circular(10.0),
                   side: BorderSide.none),
               child: Container(
-                height: 330.0,
+                height: 350.0,
                 child: Column(
                   children: [
                     Container(
@@ -133,7 +126,8 @@ class _PendingBookingState extends State<PendingBooking> {
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
-                                child: Text("${widget.order.createTime}"),
+                                child: Text(
+                                    "${widget.orderDetail.order.createTime}"),
                               )
                             ],
                           ),
@@ -151,7 +145,7 @@ class _PendingBookingState extends State<PendingBooking> {
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
-                                child: Text("Tủ lạnh"),
+                                child: Text("${widget.orderDetail.field.name}"),
                               )
                             ],
                           ),
@@ -167,7 +161,7 @@ class _PendingBookingState extends State<PendingBooking> {
                               ),
                               Container(
                                 child: Text(
-                                    "Kiểm tra và sửa chữa toàn bộ lốc máy"),
+                                    "${widget.orderDetail.service.serviceName}"),
                               )
                             ],
                           ),
@@ -183,7 +177,7 @@ class _PendingBookingState extends State<PendingBooking> {
                               ),
                               Container(
                                 child: Text(
-                                    "${NumberFormat.currency(locale: 'vi').format(widget.order.total)}"),
+                                    "${NumberFormat.currency(locale: 'vi').format(widget.orderDetail.order.total)}"),
                               )
                             ],
                           ),
@@ -201,7 +195,8 @@ class _PendingBookingState extends State<PendingBooking> {
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
-                                child: Text("${customer!.fullName}"),
+                                child: Text(
+                                    "${widget.orderDetail.customer.fullName}"),
                               )
                             ],
                           ),
@@ -216,7 +211,8 @@ class _PendingBookingState extends State<PendingBooking> {
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
-                                child: Text("${customer!.phoneNumber}"),
+                                child: Text(
+                                    "${widget.orderDetail.customer.phoneNumber}"),
                               )
                             ],
                           ),
@@ -233,7 +229,8 @@ class _PendingBookingState extends State<PendingBooking> {
                               ),
                               Container(
                                 width: 300,
-                                child: Text("${widget.order.customerAddress}"),
+                                child: Text(
+                                    "${widget.orderDetail.order.customerAddress}"),
                               )
                             ],
                           ),
@@ -270,14 +267,6 @@ class _PendingBookingState extends State<PendingBooking> {
                           onPressed: _showMyDialog,
                           child: Text(
                             "SỬA TIẾP",
-                            style: TextStyle(color: kBackgroundColor),
-                          ),
-                        ),
-                        MaterialButton(
-                          color: CupertinoColors.systemRed,
-                          onPressed: () {},
-                          child: Text(
-                            "GỌI CHO KHÁCH ĐỂ HỦY",
                             style: TextStyle(color: kBackgroundColor),
                           ),
                         ),
