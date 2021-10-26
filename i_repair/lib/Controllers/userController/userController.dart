@@ -6,9 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserBloc with ChangeNotifier {
   UserProfile? currentUser;
-  UserBloc() {
-    getCurrentUser();
-  }
+  UserBloc() {}
   getCurrentUser() async {
     final prefs = await SharedPreferences.getInstance();
     final currentUserString = prefs.getString('currentUser') ?? null;
@@ -20,7 +18,7 @@ class UserBloc with ChangeNotifier {
     }
     notifyListeners();
   }
-
+  
   logout() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('currentUser');

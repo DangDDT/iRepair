@@ -141,43 +141,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 //Logo
                 child: Icon(CupertinoIcons.profile_circled, size: 120)),
         SizedBox(height: 20),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ElevatedButton.icon(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(kPrimaryLightColor),
-                ),
-                onPressed: () => {},
-                icon: Icon(
-                  CupertinoIcons.upload_circle,
-                  color: CupertinoColors.black,
-                  size: 28,
-                ),
-                label: Text('Cập nhật ảnh',
-                    style: TextStyle(
-                        color: CupertinoColors.black,
-                        fontWeight: FontWeight.bold))),
-            SizedBox(width: 25),
-            ElevatedButton.icon(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(kPrimaryLightColor),
-                ),
-                onPressed: () => {},
-                icon: Icon(
-                  CupertinoIcons.delete,
-                  color: CupertinoColors.black,
-                  size: 28,
-                ),
-                label: Text('Xóa ảnh',
-                    style: TextStyle(
-                        color: CupertinoColors.black,
-                        fontWeight: FontWeight.bold))),
-          ],
-        ),
         Container(
           height: 200,
           margin: EdgeInsets.all(20),

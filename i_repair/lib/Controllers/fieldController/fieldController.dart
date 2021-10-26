@@ -6,25 +6,9 @@
 
 // class FieldController extends GetxController {
 //   var isLoading = true.obs;
-//   var fieldList = List<Field>.empty().obs;
-//   @override
-//   void onInit() {
-//     fetchFields();
-//     super.onInit();
-//   }
+//   Field? field;
 
-//   void fetchFields() async {
-//     try {
-//       isLoading(true);
-//       var fields = await APIServices.fetchFields();
-//       fieldList.assignAll(fields);
-//       print("fetchFields() success");
-//     } finally {
-//       isLoading(false);
-//     }
-//   }
-
-//   void getFieldsByMajors(List<Major> majors) async {
+//   void getFieldsById(String id) async {
 //     try {
 //       isLoading(true);
 //       var fields = await APIServices.fetchFieldsByMajors(majors);

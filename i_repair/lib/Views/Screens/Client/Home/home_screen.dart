@@ -1,16 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i_repair/Controllers/orderController/orderController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/pending-booking.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/processing-booking.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/waiting-booking.dart';
+import 'package:location/location.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, required this.user}) : super(key: key);
   final UserProfile? user;
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<OrderBloc>(context, listen: false)
+        .getProcessingBookingList(widget.user!.id);
+    Provider.of<OrderBloc>(context, listen: false)
+        .getPendingBookingList(widget.user!.id);
+    Provider.of<OrderBloc>(context, listen: false)
+        .getWaitingBookingList(widget.user!.id);
+  }
+
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final orderBloc = Provider.of<OrderBloc>(context);
     return ListView(
       children: [
         Stack(children: [
@@ -35,7 +55,16 @@ class HomeScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     Container(
-                      child: Icon(CupertinoIcons.profile_circled, size: 50),
+                      child: (widget.user!.avatar == "none")
+                          ? Icon(CupertinoIcons.profile_circled, size: 50)
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.network(
+                                widget.user!.avatar,
+                                width: 70,
+                                height: 70,
+                              ),
+                            ),
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 10),
@@ -43,10 +72,42 @@ class HomeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Xin chào, ', style: TextStyle(fontSize: 16)),
-                          Text(user!.name,
+                          Text('Xin chào, một ngày tốt lành nhé !!! ',
+                              style: TextStyle(fontSize: 16)),
+                          Text(widget.user!.name,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 24)),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                width: 50,
+                                child: Text("Cấp 10:",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12)),
+                              ),
+                              Container(
+                                  width: 120,
+                                  height: 10,
+                                  alignment: Alignment.topCenter,
+                                  child: LinearProgressIndicator(
+                                    backgroundColor: kBackgroundColor,
+                                    color: kSecondaryColor,
+                                    minHeight: 10,
+                                    value: 0.7,
+                                  )),
+                              Container(
+                                margin: EdgeInsets.only(left: 10),
+                                child: Text("70/100 (ĐKN)",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12)),
+                              ),
+                            ],
+                          )
                         ],
                       ),
                     )
@@ -66,20 +127,23 @@ class HomeScreen extends StatelessWidget {
                   child: AppBar(
                     backgroundColor: kBackgroundColor,
                     centerTitle: true,
-                    title: Text("ĐƠN HÀNG TRONG NGÀY",
+                    title: Text("NHIỆM VỤ HÀNG NGÀY",
                         style: TextStyle(color: kTextColor)),
                     bottom: TabBar(
                       indicatorColor: kPrimaryColor,
                       labelColor: kTextColor,
                       tabs: [
                         Tab(
-                          text: 'Đang xử lý',
+                          text:
+                              'Đang xử lý (${orderBloc.processingList.length})',
                         ),
                         Tab(
-                          text: 'Đang trì hoãn',
+                          text:
+                              'Đang trì hoãn (${orderBloc.pendingList.length})',
                         ),
                         Tab(
-                          text: 'Đang chờ bạn',
+                          text:
+                              'Đang chờ bạn (${orderBloc.waitingList.length})',
                         )
                       ],
                     ),
@@ -88,9 +152,111 @@ class HomeScreen extends StatelessWidget {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      ListView(children: [ProcessingBooking()]),
-                      ListView(children: [PendingBooking()]),
-                      ListView(children: [WaitingBooking()]),
+                      (orderBloc.processingList.length == 0)
+                          ? Center(
+                              child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      color: kPrimaryLightColor,
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: ClipRRect(
+                                    child: Image.asset(
+                                      "assets/images/repairman.png",
+                                      width: 50,
+                                      height: 50,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                    child: Text(
+                                        "HIỆN TẠI BẠN CHƯA YÊU CẦU ĐANG XỬ LÝ")),
+                                Container(
+                                    child: Text(
+                                        "BẮT ĐẦU NHẬN ĐƠN THÔI NÀO. CỐ LÊN NHÉ !!!")),
+                              ],
+                            ))
+                          : ListView.builder(
+                              itemCount: orderBloc.processingList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return ProcessingBooking(
+                                    order: orderBloc.processingList[index]);
+                              },
+                            ),
+                      (orderBloc.pendingList.length == 0)
+                          ? Center(
+                              child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      color: kPrimaryLightColor,
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: ClipRRect(
+                                    child: Image.asset(
+                                      "assets/images/repairman.png",
+                                      width: 50,
+                                      height: 50,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                    child: Text(
+                                        "THẬT TỐT LÀNH, KHÔNG CÓ YÊU CẦU TRÌ HOÃN NÀO CẢ.")),
+                              ],
+                            ))
+                          : ListView.builder(
+                              itemCount: orderBloc.pendingList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return PendingBooking(
+                                    order: orderBloc.pendingList[index]);
+                              },
+                            ),
+                      (orderBloc.waitingList.length == 0)
+                          ? Center(
+                              child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      color: kPrimaryLightColor,
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: ClipRRect(
+                                    child: Image.asset(
+                                      "assets/images/repairman.png",
+                                      width: 50,
+                                      height: 50,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Container(
+                                    child: Text(
+                                        "ĐỪNG BUỒN, UỐNG MIẾNG TRÀ ĂN MIỄNG BÁNH ĐỢI ĐƠN HÀNG NHÉ.")),
+                              ],
+                            ))
+                          : ListView.builder(
+                              itemCount: orderBloc.waitingList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return WaitingBooking(
+                                    order: orderBloc.waitingList[index]);
+                              },
+                            ),
                     ],
                   ),
                 )

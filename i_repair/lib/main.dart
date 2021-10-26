@@ -5,6 +5,7 @@ import 'package:i_repair/Controllers/placeController/placeController.dart';
 import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:provider/provider.dart';
+import 'Controllers/orderController/orderController.dart';
 import 'Services/auth/auth.dart';
 import 'Views/Screens/app.dart';
 import 'views/Screens/Welcome/Login/login-screen.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
                 ChangeNotifierProvider<AuthService>.value(value: AuthService()),
                 // ChangeNotifierProvider(create: (context) => PlaceBloc()),
                 ChangeNotifierProvider(create: (context) => UserBloc()),
+                ChangeNotifierProvider(create: (context) => OrderBloc()),
                 StreamProvider.value(
                     value: AuthService().user, initialData: null),
               ],
@@ -47,7 +49,6 @@ class MyApp extends StatelessWidget {
                 routes: {
                   '/': (context) => LoginPage(),
                   '/client_app': (context) => App(),
-                  // '/create_booking': (context) => CreateBookingScreen(),
                 },
               ),
             );

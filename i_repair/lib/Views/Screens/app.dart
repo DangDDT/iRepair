@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart.';
 import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
-import 'package:i_repair/Models/User/user.dart';
 import 'package:provider/provider.dart';
 import 'Client/Home/home_screen.dart';
 import 'Client/Profile/profile.dart';
@@ -99,8 +98,8 @@ class _AppState extends State<App> {
               color: Colors.black,
               tabs: [
                 GButton(
-                  icon: CupertinoIcons.home,
-                  text: 'Trang chủ',
+                  icon: CupertinoIcons.book,
+                  text: 'Nhiệm vụ',
                 ),
                 GButton(
                   icon: CupertinoIcons.profile_circled,

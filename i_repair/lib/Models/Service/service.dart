@@ -1,10 +1,8 @@
 import 'dart:convert';
 
-List<Service> serviceFromJson(String str) =>
-    List<Service>.from(json.decode(str).map((x) => Service.fromJson(x)));
+Service serviceFromJson(String str) => Service.fromJson(json.decode(str));
 
-String serviceToJson(List<Service> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String serviceToJson(Service data) => json.encode(data.toJson());
 
 class Service {
   Service({

@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:i_repair/Models/Customer/customer.dart';
 import 'package:i_repair/Models/Field/field.dart';
-import 'package:i_repair/Models/Major/major.dart';
+import 'package:i_repair/Models/Order/order.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
 import 'package:i_repair/Models/Service/service.dart';
 import 'package:i_repair/Models/User/user.dart';
@@ -46,6 +47,59 @@ class APIServices {
     }
   }
 
+  static Future<List<Order>> fetchOrders(
+      String? repairmanId, int status) async {
+    String token = await getToken();
+    final response = await http.get(
+        Uri.parse(
+            "$endpoint/api/v1.0/orders?RepairmanId=$repairmanId&Status=$status"),
+        headers: {
+          "Authorization": 'Bearer $token',
+          "content-type": "application/json"
+        });
+    if (response.statusCode == 200) {
+      print("API fetchOrdersAPI() success");
+      return orderFromJson(response.body);
+    } else {
+      throw Exception(
+          'Failed to load orders and ${response.statusCode} and ${response.reasonPhrase}');
+    }
+  }
+
+  static Future<Customer> fetchCustomerById(String customerId) async {
+    String token = await getToken();
+    final response = await http.get(
+      Uri.parse("$endpoint/api/v1.0/customers/$customerId"),
+      headers: {
+        "Authorization": 'Bearer $token',
+        "content-type": "application/json"
+      },
+    );
+    if (response.statusCode == 200) {
+      print("API fetchServicesByFieldAPI() success");
+      return customerFromJson(response.body);
+    } else {
+      throw Exception('Failed to load customer');
+    }
+  }
+
+  static Future<Service> fetchServiceById(Field field) async {
+    String token = await getToken();
+    final response = await http.get(
+      Uri.parse("$endpoint/api/v1.0/services/${field.id}"),
+      headers: {
+        "Authorization": 'Bearer $token',
+        "content-type": "application/json"
+      },
+    );
+    if (response.statusCode == 200) {
+      print("API fetchServiceByFieldAPI() success");
+      return serviceFromJson(response.body);
+    } else {
+      throw Exception('Failed to load service');
+    }
+  }
+
   // static Future<List<Major>> fetchMajors() async {
   //   String token = await getToken();
   //   final response = await http
@@ -61,7 +115,7 @@ class APIServices {
   //   }
   // }
 
-  // static Future<List<Field>> fetchFields() async {
+  // static Future<List<Field>> fetchFieldById() async {
   //   String token = await getToken();
   //   final response = await http
   //       .get(Uri.parse("$endpoint/api/v1.0/major-fields?status=1"), headers: {
@@ -93,25 +147,6 @@ class APIServices {
   //     return fieldFromJson(response.body);
   //   } else {
   //     throw Exception('Failed to load field');
-  //   }
-  // }
-
-  // static Future<List<Service>> fetchServicesByFieldAndLocation(
-  //     Field field, double lat, double lng) async {
-  //   String token = await getToken();
-  //   String qParamString = "?FieldId=${field.id}&lat=$lat&lng=$lng";
-  //   final response = await http.get(
-  //     Uri.parse("$endpoint/api/v1.0/services/$qParamString"),
-  //     headers: {
-  //       "Authorization": 'Bearer $token',
-  //       "content-type": "application/json"
-  //     },
-  //   );
-  //   if (response.statusCode == 200) {
-  //     print("API fetchServicesByFieldAPI() success");
-  //     return serviceFromJson(response.body);
-  //   } else {
-  //     throw Exception('Failed to load service');
   //   }
   // }
 
