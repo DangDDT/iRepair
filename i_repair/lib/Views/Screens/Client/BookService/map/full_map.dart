@@ -134,7 +134,7 @@ class FullMapState extends State<FullMap> {
                           Row(
                             children: [
                               Text('Vấn đề:  '),
-                              Text("Tủ lạnh đóng tuyết nhiều ngăn đông",
+                              Text("Tủ lạnh đóng tuyết ngăn đông",
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600)),

@@ -165,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Row(
                                     children: [
                                       Text('Đồ cần sửa:  '),
-                                      Text("Máy giặt",
+                                      Text("Tủ lạnh",
                                           style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600)),
@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Row(
                                     children: [
                                       Text('Vấn đề:  '),
-                                      Text("Cửa bị chênh hoặc không kín",
+                                      Text("Tủ lạnh đóng tuyết ngăn đông",
                                           style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.w600)),
@@ -301,7 +301,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   fontSize: 14,
                                                   color: kTextColor,
                                                   fontWeight: FontWeight.bold)),
-                                          Text('Máy giặt',
+                                          Text('Tủ lạnh',
                                               style: TextStyle(
                                                   fontSize: 14,
                                                   color: kTextColor)),
@@ -321,7 +321,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   fontWeight: FontWeight.bold)),
                                           Container(
                                             child: Text(
-                                                'Cửa bị chênh hoặc không kín',
+                                                'Tủ lạnh đóng tuyết ngăn đông',
                                                 style: TextStyle(
                                                     fontSize: 14,
                                                     color: kTextColor)),
@@ -346,7 +346,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         onTap: () =>
                                             {Get.offAndToNamed("/map")},
                                         child: Text(
-                                          "ĐÓNG Ý",
+                                          "ĐỒNG Ý",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: kBackgroundColor,
