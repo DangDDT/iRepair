@@ -45,6 +45,7 @@ dependencies:
   google_sign_in: "^5.1.0"
   shared_preferences: ^2.0.7
   google_maps_flutter: ^2.0.9
+  location: ^4.3.0
   # geolocator: ^7.6.2
 dev_dependencies:
   flutter_test:

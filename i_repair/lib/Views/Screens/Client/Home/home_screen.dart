@@ -1,16 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i_repair/Controllers/orderController/orderController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/gridview-buttons.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/pending-booking.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/processing-booking.dart';
 import 'package:i_repair/Views/common/card/icon-card.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key, required this.user}) : super(key: key);
   final UserProfile? user;
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<OrderDetailBloc>(context, listen: false)
+        .getProcessingBookingList(widget.user!.id);
+    Provider.of<OrderDetailBloc>(context, listen: false)
+        .getPendingBookingList(widget.user!.id);
+  }
+
   Widget build(BuildContext context) {
+    final orderBloc = Provider.of<OrderDetailBloc>(context);
     Size size = MediaQuery.of(context).size;
     return ListView(
       children: [
@@ -48,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text('Xin chào, ', style: TextStyle(fontSize: 16)),
-                          Text(user!.fullName,
+                          Text(widget.user!.fullName,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 24)),
                         ],
@@ -130,8 +148,43 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     child: TabBarView(
                       children: [
-                        ListView(children: [ProcessingBooking()]),
-                        ListView(children: [PendingBooking()]),
+                        (orderBloc.processingList.length == 0)
+                            ? Center(
+                                child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                      child: Text(
+                                          "HIỆN TẠI BẠN CHƯA YÊU CẦU ĐANG XỬ LÝ")),
+                                ],
+                              ))
+                            : ListView.builder(
+                                itemCount: orderBloc.processingList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return ProcessingBooking(
+                                      orderDetail:
+                                          orderBloc.processingList[index]);
+                                },
+                              ),
+                        (orderBloc.pendingList.length == 0)
+                            ? Center(
+                                child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                      child: Text(
+                                          "KHÔNG CÓ YÊU CẦU TRÌ HOÃN NÀO CẢ.")),
+                                ],
+                              ))
+                            : ListView.builder(
+                                itemCount: orderBloc.pendingList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  print(orderBloc.pendingList[index].toJson());
+                                  return PendingBooking(
+                                      orderDetail:
+                                          orderBloc.pendingList[index]);
+                                },
+                              ),
                       ],
                     ),
                   )

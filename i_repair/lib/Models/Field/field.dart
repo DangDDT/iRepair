@@ -10,24 +10,24 @@ class Field {
   Field({
     required this.id,
     required this.name,
-    this.description,
+    required this.description,
     required this.majorId,
-    this.imageUrl,
+    required this.imageUrl,
     required this.status,
   });
 
   String id;
   String name;
-  String? description;
+  String description;
   String majorId;
-  String? imageUrl;
+  String imageUrl;
   int status;
 
   factory Field.fromJson(Map<String, dynamic> json) => Field(
         id: json["Id"],
         name: json["Name"],
         description: json["Description"],
-        majorId: json["MajorId"] ?? '', // bug MajorId required not null
+        majorId: json["MajorId"],
         imageUrl: json["ImageUrl"],
         status: json["Status"],
       );

@@ -29,4 +29,9 @@ class UserBloc with ChangeNotifier {
     currentUser = await APIServices.updateProfileUser(editedUser);
     notifyListeners();
   }
+
+  logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('currentUser');
+  }
 }

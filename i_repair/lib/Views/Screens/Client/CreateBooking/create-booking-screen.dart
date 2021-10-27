@@ -7,18 +7,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:i_repair/Controllers/fieldController/fieldController.dart';
 import 'package:i_repair/Controllers/majorController/majorController.dart';
+import 'package:i_repair/Controllers/orderController/orderController.dart';
 import 'package:i_repair/Controllers/placeController/placeController.dart';
 import 'package:i_repair/Controllers/serviceController/serviceController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
-import 'package:i_repair/Models/Field/field.dart';
+import 'package:i_repair/Models/Field/field.dart' as field;
 import 'package:i_repair/Models/Major/major.dart';
-import 'package:i_repair/Models/Service/service.dart';
+import 'package:i_repair/Models/Order/order.dart';
+import 'package:i_repair/Models/Service/serviceDetail.dart';
 import 'package:i_repair/Models/User/user.dart';
 import 'package:i_repair/Views/Screens/Client/CreateBooking/widgets/debounce.dart';
 import 'package:i_repair/Views/common/appbar/common-appbar.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
 
 const kGoogleApiKey = "AIzaSyBkE1pdgaevKBiWqziMQiHfpTp36lU1w68";
 enum Payment { COD, BANKING }
@@ -36,13 +39,11 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
 
   //TextController
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameController = new TextEditingController();
   final TextEditingController _addressController = new TextEditingController();
-  final TextEditingController _phoneController = new TextEditingController();
   late bool useDefaultProfile;
 
   //Stepper
-  int upperBound = 4;
+  int upperBound = 3;
   int activeStep = 0;
 
   //Paymentf
@@ -84,14 +85,13 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
   void dispose() {
     // Clean up the controller when the widget is removed from the widget tree.
     // This also removes the _printLatestValue listener.
-    _nameController.dispose();
     _addressController.dispose();
-    _phoneController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final orderBloc = Provider.of<OrderDetailBloc>(context);
     final placeBloc = Provider.of<PlaceBloc>(context);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -145,11 +145,10 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                         activeStep, 0, Icon(CupertinoIcons.wrench_fill)),
                     checkCompleteIcon(
                         activeStep, 1, Icon(Icons.home_repair_service)),
-                    checkCompleteIcon(activeStep, 2, Icon(Icons.person)),
-                    checkCompleteIcon(activeStep, 3, Icon(Icons.payment)),
-                    checkCompleteIcon(activeStep, 4, Icon(Icons.check_circle)),
+                    checkCompleteIcon(activeStep, 2, Icon(Icons.payment)),
+                    checkCompleteIcon(activeStep, 3, Icon(Icons.check_circle)),
                   ],
-                  lineLength: 26.5,
+                  lineLength: 50,
                   scrollingDisabled: true,
                   enableStepTapping: false,
                   enableNextPreviousButtons: false,
@@ -174,17 +173,16 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                   width: size.width,
                   child: GridView(
                     padding: EdgeInsets.only(
-                      left: 21,
+                      left: 20,
                     ),
                     physics: NeverScrollableScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 5,
-                      crossAxisSpacing: 12,
+                      crossAxisCount: 4,
+                      crossAxisSpacing: 27,
                     ),
                     children: [
                       Text('Đồ dùng'),
                       Text(' Dịch vụ'),
-                      Text('Thông tin'),
                       Text('Thanh toán'),
                       Text('  Chốt đơn'),
                     ],
@@ -202,7 +200,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     if (activeStep != 0) previousButton(),
-                    if (activeStep == 2)
+                    if (activeStep == 1)
                       MaterialButton(
                         color: kSecondaryLightColor,
                         shape: OutlineInputBorder(
@@ -219,7 +217,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                         },
                         child: Text('Tiếp theo'),
                       ),
-                    if (activeStep == 3)
+                    if (activeStep == 2)
                       MaterialButton(
                         color: kSecondaryLightColor,
                         shape: OutlineInputBorder(
@@ -233,7 +231,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                         },
                         child: Text('Tiếp theo'),
                       ),
-                    if (activeStep == 4)
+                    if (activeStep == 3)
                       MaterialButton(
                         color: kSecondaryLightColor,
                         shape: OutlineInputBorder(
@@ -242,7 +240,18 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                         onPressed: () {
                           // Decrement activeStep, when the previous button is tapped. However, check for lower bound i.e., must be greater than 0.
                           if (activeStep > 0) {
-                            nextButton();
+                            orderBloc.createOrder(new Order(
+                                serviceId: selectedService!.service.id,
+                                customerId: user!.id,
+                                total: selectedService!.service.price,
+                                customerAddress: placeBloc.selectedPlace!.name +
+                                    ', ' +
+                                    placeBloc.selectedPlace!.addressDetail,
+                                lng: placeBloc
+                                    .selectedPlace!.geometry.location.lng,
+                                lat: placeBloc
+                                    .selectedPlace!.geometry.location.lat));
+                            // nextButton();
                           }
                         },
                         child: Text('Chốt đơn'),
@@ -345,11 +354,10 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
 
   //Selected
   List<Major>? selectedMajorList = List<Major>.empty().obs;
-  Service? selectedService;
-  Field? selectedField;
+  ServiceDetail? selectedService;
+  field.Field? selectedField;
 
   //Display
-  List<Service> displayServiceList = [];
 
   void _openFilterDialog() async {
     await FilterListDialog.display<Major>(
@@ -436,17 +444,17 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                 elevation: 5,
                                 child: InkWell(
                                     onTap: () {
-                                      setState(() {
-                                        selectedField =
-                                            fieldController.fieldList[index];
-                                        serviceController.getServicesByField(
-                                            selectedField!,
-                                            placeBloc.selectedPlace!.geometry
-                                                .location.lat,
-                                            placeBloc.selectedPlace!.geometry
-                                                .location.lng);
-                                      });
                                       if (_formKey.currentState!.validate()) {
+                                        setState(() {
+                                          selectedField =
+                                              fieldController.fieldList[index];
+                                          serviceController.getServicesByField(
+                                              selectedField!,
+                                              placeBloc.selectedPlace!.geometry
+                                                  .location.lat,
+                                              placeBloc.selectedPlace!.geometry
+                                                  .location.lng);
+                                        });
                                         nextButton();
                                       }
                                     },
@@ -475,7 +483,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                                     : Image.network(
                                                         fieldController
                                                             .fieldList[index]
-                                                            .imageUrl!,
+                                                            .imageUrl,
                                                         height: 50,
                                                       ),
                                               )
@@ -522,6 +530,8 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                       ? Center(child: Text('No service with this major'))
                       : ListView.separated(
                           itemBuilder: (context, index) {
+                            final ServiceDetail serviceDetail =
+                                serviceController.serviceList[index];
                             return Container(
                               height: 250,
                               child: Card(
@@ -532,46 +542,144 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                 child: InkWell(
                                     onTap: () {
                                       setState(() {
-                                        selectedService = serviceController
-                                            .serviceList[index];
+                                        selectedService = serviceDetail;
                                       });
                                       nextButton();
                                     },
-                                    child: Row(
+                                    child: Column(
                                       children: [
-                                        Container(
-                                          width: 60,
-                                          height: 60,
-                                          margin: EdgeInsets.only(left: 20),
-                                          decoration: BoxDecoration(
-                                              color: kSecondaryLightColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(34)),
-                                          child: Stack(
-                                            children: [
-                                              Positioned(
-                                                left: 10,
-                                                child: SvgPicture.asset(
-                                                  'assets/images/default-icon.svg',
-                                                  height: 50,
-                                                ),
-                                              )
-                                            ],
-                                          ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              width: 60,
+                                              height: 60,
+                                              margin: EdgeInsets.only(
+                                                  top: 25, left: 20),
+                                              decoration: BoxDecoration(
+                                                  color: kSecondaryLightColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          34)),
+                                              child: Stack(
+                                                children: [
+                                                  Positioned(
+                                                    left: 10,
+                                                    child: SvgPicture.asset(
+                                                      'assets/images/default-icon.svg',
+                                                      height: 50,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.all(20),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                        child: Text(
+                                                          "Tên dịch vụ: ",
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        child: Text(
+                                                          serviceDetail.service
+                                                              .serviceName,
+                                                          style: TextStyle(
+                                                              fontSize: 16),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                        child: Text(
+                                                          "Phí dịch vụ: ",
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        child: Text(
+                                                          "${NumberFormat.currency(locale: 'vi').format(serviceDetail.service.price)}",
+                                                          style: TextStyle(
+                                                              fontSize: 16),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        Container(
-                                          margin: EdgeInsets.only(left: 20),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 10.0, left: 20),
+                                          child: Row(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                serviceController
-                                                    .serviceList[index]
-                                                    .serviceName,
-                                                style: TextStyle(fontSize: 16),
+                                              Container(
+                                                child: Text(
+                                                  "Tên công ty cung cấp: ",
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 200,
+                                                child: Text(
+                                                  "${serviceDetail.company.companyName}",
+                                                  style:
+                                                      TextStyle(fontSize: 14),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 5, left: 20.0),
+                                          child: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                child: Text(
+                                                  "Địa chỉ: ",
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 200,
+                                                child: Text(
+                                                  "${serviceDetail.company.address}",
+                                                  style:
+                                                      TextStyle(fontSize: 14),
+                                                ),
                                               ),
                                             ],
                                           ),
@@ -588,86 +696,6 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
           ]);
         });
       case 2:
-        print(_nameController.text);
-        print(_addressController.text);
-        print(_phoneController.text);
-        return Form(
-          key: _formKey,
-          child: Container(
-            alignment: Alignment.centerLeft,
-            margin: EdgeInsets.all(5),
-            child: ListView(children: [
-              (useDefaultProfile && user!.name != null)
-                  ? TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Họ và tên',
-                      ),
-                      initialValue: _nameController.text,
-                      enabled: !useDefaultProfile,
-                    )
-                  : TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Họ và tên',
-                      ),
-                      controller: _nameController,
-                      enabled: (!useDefaultProfile || user!.name == null),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Vui lòng nhập họ và tên';
-                        }
-                        return null;
-                      },
-                    ),
-              SizedBox(
-                height: 30,
-              ),
-              (useDefaultProfile && user!.phoneNumber != null)
-                  ? TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Số điện thoại',
-                      ),
-                      initialValue: _phoneController.text,
-                      enabled: !useDefaultProfile)
-                  : TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Số điện thoại',
-                      ),
-                      controller: _phoneController,
-                      enabled:
-                          (!useDefaultProfile || user!.phoneNumber == null),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Vui lòng nhập số điện thoại';
-                        }
-                        return null;
-                      },
-                    ),
-              Container(
-                child: CheckboxListTile(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                  title: Text("Dùng thông tin tài khoản"),
-                  value: useDefaultProfile,
-                  onChanged: (newValue) {
-                    setState(() {
-                      useDefaultProfile = newValue!;
-                      _nameController.text =
-                          (useDefaultProfile) ? user!.name : '';
-                      _phoneController.text =
-                          (useDefaultProfile) ? user!.phoneNumber : '';
-                    });
-                  },
-                  controlAffinity:
-                      ListTileControlAffinity.leading, //  <-- leading Checkbox
-                ),
-              ),
-            ]),
-          ),
-        );
-      case 3:
         // print(_payment);
         return Container(
           child: Column(
@@ -702,8 +730,230 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
             ],
           ),
         );
-      case 4:
-        return Container();
+      case 3:
+        final placeBloc = Provider.of<PlaceBloc>(context);
+        return Container(
+          height: 400,
+          child: Card(
+            shape: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(25)),
+            elevation: 5,
+            child: InkWell(
+                onTap: () {},
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 20.0, top: 20, right: 10, bottom: 5),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                child: Text(
+                                  "Tên người đặt: ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  user!.name,
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                child: Text(
+                                  "Số điện thoại: ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  user!.phoneNumber,
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: Text(
+                                  "Địa chỉ sửa: ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Container(
+                                width: 270,
+                                child: Text(
+                                  "${placeBloc.selectedPlace!.name + ', ' + placeBloc.selectedPlace!.addressDetail}",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider(
+                      height: 0,
+                      thickness: 1,
+                      indent: 20,
+                      endIndent: 20,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 60,
+                          height: 60,
+                          margin: EdgeInsets.only(top: 10, left: 20),
+                          decoration: BoxDecoration(
+                              color: kSecondaryLightColor,
+                              borderRadius: BorderRadius.circular(34)),
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                left: 10,
+                                child: SvgPicture.asset(
+                                  'assets/images/default-icon.svg',
+                                  height: 50,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 5, left: 20, right: 20),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      "Đồ bạn cần sửa: ",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      selectedField!.name,
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      "Tên dịch vụ: ",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      selectedService!.service.serviceName,
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      "Phí dịch vụ: ",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      "${NumberFormat.currency(locale: 'vi').format(selectedService!.service.price)}",
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Divider(
+                      height: 20,
+                      thickness: 1,
+                      indent: 20,
+                      endIndent: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: .0, left: 20),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            child: Text(
+                              "Tên công ty cung cấp: ",
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Container(
+                            width: 200,
+                            child: Text(
+                              "${selectedService!.company.companyName}",
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5, left: 20.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            child: Text(
+                              "Địa chỉ công ty: ",
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Container(
+                            width: 265,
+                            child: Text(
+                              "${selectedService!.company.address}",
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )),
+          ),
+        );
       default:
         return Text('$activeStep');
     }
@@ -716,12 +966,9 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
         return 'Chọn dịch vụ bạn mong muốn';
 
       case 2:
-        return 'Vui lòng điền thông tin của bạn';
-
-      case 3:
         return 'Mời bạn chọn phương thức thanh toán';
 
-      case 4:
+      case 3:
         return 'Mời bạn xác nhận thông tin đơn hàng';
 
       default:

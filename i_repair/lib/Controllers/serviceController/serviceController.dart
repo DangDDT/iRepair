@@ -1,14 +1,12 @@
 import 'package:get/get.dart';
-import 'package:i_repair/Models/Field/field.dart';
-import 'package:i_repair/Models/Service/service.dart';
+import 'package:i_repair/Models/Service/serviceDetail.dart';
+import 'package:i_repair/Models/Field/field.dart' as field;
 import 'package:i_repair/Services/api.services.dart';
 
 class ServiceController extends GetxController {
   var isLoading = true.obs;
-  var serviceList = List<Service>.empty().obs;
-
+  var serviceList = List<ServiceDetail>.empty().obs;
   @override
-  // ignore: must_call_super
   void onInit() {
     fetchService();
     super.onInit();
@@ -17,7 +15,7 @@ class ServiceController extends GetxController {
   void fetchService() async {
     try {
       isLoading(true);
-      var services = List<Service>.empty().obs;
+      var services = List<ServiceDetail>.empty().obs;
       serviceList.assignAll(services);
       print("fetchService() success");
     } finally {
@@ -25,7 +23,7 @@ class ServiceController extends GetxController {
     }
   }
 
-  void getServicesByField(Field field, double lat, double lng) async {
+  void getServicesByField(field.Field field, double lat, double lng) async {
     try {
       isLoading(true);
       var services =

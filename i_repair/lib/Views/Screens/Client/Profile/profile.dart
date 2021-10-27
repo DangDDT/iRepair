@@ -97,6 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               borderSide: BorderSide.none),
                           onPressed: () async {
                             await loginProvider.logout(context: context);
+                            await userBloc.logout();
                             Get.offAllNamed("/");
                           },
                           child: Icon(

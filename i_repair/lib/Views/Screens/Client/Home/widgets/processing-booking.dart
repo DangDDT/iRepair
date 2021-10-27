@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Models/Order/orderDetail.dart';
 
 class ProcessingBooking extends StatelessWidget {
+  final OrderDetail orderDetail;
   const ProcessingBooking({
     Key? key,
+    required this.orderDetail,
   }) : super(key: key);
 
   @override
@@ -15,7 +18,7 @@ class ProcessingBooking extends StatelessWidget {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0), side: BorderSide.none),
         child: Container(
-          height: 300.0,
+          height: 350.0,
           child: Column(
             children: [
               Container(
@@ -32,7 +35,7 @@ class ProcessingBooking extends StatelessWidget {
                               style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         Container(
-                          child: Text("13:56:00 24/10/2021"),
+                          child: Text("${orderDetail.order.createTime}"),
                         )
                       ],
                     ),
@@ -42,9 +45,6 @@ class ProcessingBooking extends StatelessWidget {
                       indent: 0,
                       endIndent: 20,
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
                     Row(
                       children: [
                         Container(
@@ -52,7 +52,7 @@ class ProcessingBooking extends StatelessWidget {
                               style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         Container(
-                          child: Text("Tủ lạnh"),
+                          child: Text("${orderDetail.field.name}"),
                         )
                       ],
                     ),
@@ -66,7 +66,7 @@ class ProcessingBooking extends StatelessWidget {
                               style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         Container(
-                          child: Text("Kiểm tra và sửa chữa toàn bộ lốc máy"),
+                          child: Text("${orderDetail.service.serviceName}"),
                         )
                       ],
                     ),
@@ -89,7 +89,7 @@ class ProcessingBooking extends StatelessWidget {
                                           fontWeight: FontWeight.bold)),
                                 ),
                                 Container(
-                                  child: Text("Phạm Hữu Nghĩa"),
+                                  child: Text("${orderDetail.repairman.name}"),
                                 )
                               ],
                             ),
@@ -104,7 +104,8 @@ class ProcessingBooking extends StatelessWidget {
                                           fontWeight: FontWeight.bold)),
                                 ),
                                 Container(
-                                  child: Text("0123456789"),
+                                  child: Text(
+                                      "${orderDetail.repairman.phoneNumber}"),
                                 )
                               ],
                             ),
@@ -114,27 +115,57 @@ class ProcessingBooking extends StatelessWidget {
                             Row(
                               children: [
                                 Container(
-                                  child: Text("KHOẢNG CÁCH: ",
+                                  child: Text("CÔNG TY: ",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold)),
                                 ),
                                 Container(
-                                  child: Text("0.3km"),
+                                  child: Text(
+                                      "${orderDetail.company.companyName}"),
                                 )
                               ],
+                            ),
+                            SizedBox(
+                              height: 5,
                             ),
                           ],
                         ),
                         SizedBox(
-                          width: 50,
+                          width: 70,
                         ),
                         Column(
                           children: [
-                            Icon(CupertinoIcons.profile_circled, size: 100)
+                            (orderDetail.repairman.avatar == 'none')
+                                ? Icon(CupertinoIcons.profile_circled,
+                                    size: 100)
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: Image.network(
+                                      orderDetail.repairman.avatar,
+                                      height: 70,
+                                      width: 70,
+                                    ),
+                                  )
                           ],
                         )
                       ],
                     ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 30),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 110,
+                      child: Text("ĐỊA CHỈ CÔNG TY: ",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    Container(
+                      width: 200,
+                      child: Text("${orderDetail.company.address}"),
+                    )
                   ],
                 ),
               ),

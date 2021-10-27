@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:i_repair/Models/Company/company.dart';
 import 'package:i_repair/Models/Field/field.dart';
 import 'package:i_repair/Models/Major/major.dart';
+import 'package:i_repair/Models/Order/order.dart';
+import 'package:i_repair/Models/Order/orderDetail.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
-import 'package:i_repair/Models/Service/service.dart';
+import 'package:i_repair/Models/Service/serviceDetail.dart' as serviceDetail;
 import 'package:i_repair/Models/User/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -60,10 +63,29 @@ class APIServices {
     }
   }
 
+  static Future<List<OrderDetail>> fetchOrders(
+      String? customerId, int status) async {
+    String token = await getToken();
+    final response = await http.get(
+        Uri.parse(
+            "$endpoint/api/v1.0/orders?CustomerId=$customerId&Status=$status"),
+        headers: {
+          "Authorization": 'Bearer $token',
+          "content-type": "application/json"
+        });
+    if (response.statusCode == 200) {
+      print("API fetchOrdersAPI() success");
+      return orderDetailFromJson(response.body);
+    } else {
+      throw Exception(
+          'Failed to load orders and ${response.statusCode} and ${response.reasonPhrase}');
+    }
+  }
+
   static Future<List<Field>> fetchFields() async {
     String token = await getToken();
     final response = await http
-        .get(Uri.parse("$endpoint/api/v1.0/major-fields?status=1"), headers: {
+        .get(Uri.parse("$endpoint/api/v1.0/major-fields?status=0"), headers: {
       "Authorization": 'Bearer $token',
       "content-type": "application/json"
     });
@@ -95,8 +117,9 @@ class APIServices {
     }
   }
 
-  static Future<List<Service>> fetchServicesByFieldAndLocation(
-      Field field, double lat, double lng) async {
+  static Future<List<serviceDetail.ServiceDetail>>
+      fetchServicesByFieldAndLocation(
+          Field field, double lat, double lng) async {
     String token = await getToken();
     String qParamString = "?FieldId=${field.id}&lat=$lat&lng=$lng";
     final response = await http.get(
@@ -108,7 +131,7 @@ class APIServices {
     );
     if (response.statusCode == 200) {
       print("API fetchServicesByFieldAPI() success");
-      return serviceFromJson(response.body);
+      return serviceDetail.serviceDetailFromJson(response.body);
     } else {
       throw Exception('Failed to load service');
     }
@@ -116,7 +139,6 @@ class APIServices {
 
   static Future<UserProfile> updateProfileUser(UserProfile user) async {
     String token = await getToken();
-    print(user.toJson());
     final body = jsonEncode({
       "id": "${user.id}",
       "avatar": "${user.avatar}",
@@ -141,6 +163,48 @@ class APIServices {
     } else {
       throw Exception(
           'Failed to put user and ${response.statusCode} and ${response.reasonPhrase}');
+    }
+  }
+
+  static Future<Company> getCompanyById(String id) async {
+    String token = await getToken();
+    final response = await http
+        .get(Uri.parse("$endpoint/api/v1.0/companies/${id.trim()}"), headers: {
+      "Authorization": 'Bearer $token',
+      "content-type": "application/json"
+    });
+    if (response.statusCode == 200) {
+      print("API company success");
+      return companyFromJson(response.body);
+    } else {
+      throw Exception(
+          'Failed to load company and ${response.statusCode} and ${response.reasonPhrase}');
+    }
+  }
+
+  static Future<void> createOrder(Order order) async {
+    String token = await getToken();
+    final body = jsonEncode({
+      "serviceId": "${order.serviceId.toUpperCase()}",
+      "customerId": "${order.customerId}",
+      "lng": order.lng,
+      "lat": order.lat,
+      "total": order.total,
+      "customerAddress": "${order.customerAddress}"
+    });
+    final response = await http.post(
+      Uri.parse("$endpoint/api/v1.0/orders"),
+      headers: {
+        "Authorization": 'Bearer $token',
+        "content-type": "application/json"
+      },
+      body: body,
+    );
+    if (response.statusCode == 200) {
+      print("API createOrder() success");
+    } else {
+      throw Exception(
+          'Failed to create order and ${response.statusCode} and ${response.reasonPhrase}');
     }
   }
 
