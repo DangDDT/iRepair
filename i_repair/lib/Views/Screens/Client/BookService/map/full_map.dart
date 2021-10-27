@@ -102,13 +102,13 @@ class FullMapState extends State<FullMap> {
                     title: Text('CHI TIẾT YÊU CẦU',
                         style: TextStyle(fontWeight: FontWeight.bold)),
                     content: Container(
-                      height: 350,
+                      height: 500,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Divider(
-                            height: 30,
+                            height: 5,
                             thickness: 1,
                             indent: 0,
                             endIndent: 0,
@@ -195,6 +195,37 @@ class FullMapState extends State<FullMap> {
                             indent: 0,
                             endIndent: 0,
                           ),
+                          Row(
+                            children: [
+                              Text('Hình ảnh đính kèm: '),
+                            ],
+                          ),
+                          Container(
+                            height: 120,
+                            width: 300,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                Container(
+                                  child: Image.asset(
+                                    "assets/images/20191008102441-1188.jpg",
+                                    height: 120,
+                                    width: 120,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Container(
+                                  child: Image.asset(
+                                    "assets/images/problem-1.jpg",
+                                    height: 140,
+                                    width: 140,
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -354,22 +385,32 @@ class FullMapState extends State<FullMap> {
             left: 20,
             child: Container(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
                     child: MaterialButton(
                       elevation: 8,
                       color: kSecondaryLightColor,
                       onPressed: () => {Get.offAndToNamed("/client_app")},
-                      child: Text("QUAY LẠI TRANG CHỦ"),
+                      child: Text("TRANG CHỦ"),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 100),
+                    margin: EdgeInsets.only(left: 30),
+                    child: MaterialButton(
+                      elevation: 8,
+                      color: Colors.green,
+                      onPressed: () => {Get.toNamed('/rating')},
+                      child: Text("ĐÃ SỬA XONG"),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 50),
                     child: MaterialButton(
                       elevation: 8,
                       color: Colors.red,
                       onPressed: () => {Get.toNamed('/cancel_page')},
-                      child: Text("HỦY YÊU CẦU"),
+                      child: Text("HỦY"),
                     ),
                   )
                 ],

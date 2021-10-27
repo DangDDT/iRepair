@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_material_pickers/flutter_material_pickers.dart';
 import 'package:get/get.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Models/MajorModel/majorModel.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
@@ -13,6 +15,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  List<MajorModel> selectedMajor = [majorList[0], majorList[1]];
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -242,6 +245,57 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 20, left: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        child: Text('Thiết bị bạn chuyên sửa: ',
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.bold)),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Container(
+                margin: EdgeInsets.only(left: 100),
+                padding: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    color: kBackgroundColor,
+                    borderRadius: BorderRadius.circular(35)),
+                child: InkWell(
+                    onTap: () => {
+                          showMaterialCheckboxPicker<MajorModel>(
+                            context: context,
+                            title: 'Chọn thiết bị',
+                            items: majorList,
+                            selectedItems: selectedMajor,
+                            onChanged: (value) =>
+                                setState(() => selectedMajor = value),
+                          )
+                        },
+                    child: Icon(Icons.edit)))
+          ],
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 5, left: 20),
+          width: 250,
+          child: Text('${selectedMajor}',
+              style: TextStyle(
+                fontSize: 14,
+              )),
+        ),
         Container(
           margin: EdgeInsets.all(20),
           decoration: BoxDecoration(
@@ -273,14 +327,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               Text("Họ và tên : "),
                               Container(
-                                padding:
-                                    EdgeInsets.only(left: 30, right: 30, top: 10),
+                                padding: EdgeInsets.only(
+                                    left: 10, right: 10, top: 10),
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
-                                    hintStyle: TextStyle(color: Colors.grey[800]),
+                                    hintStyle:
+                                        TextStyle(color: Colors.grey[800]),
                                     fillColor: Colors.white70,
                                     contentPadding: EdgeInsets.only(left: 15),
                                   ),
@@ -292,14 +347,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               Text("Địa chỉ : "),
                               Container(
-                                padding:
-                                    EdgeInsets.only(left: 30, right: 30, top: 10),
+                                padding: EdgeInsets.only(
+                                    left: 10, right: 10, top: 10),
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
-                                    hintStyle: TextStyle(color: Colors.grey[800]),
+                                    hintStyle:
+                                        TextStyle(color: Colors.grey[800]),
                                     fillColor: Colors.white70,
                                     contentPadding: EdgeInsets.only(left: 15),
                                   ),
@@ -312,12 +368,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               Text("Số điện thoại : "),
                               Container(
-                                padding:
-                                    EdgeInsets.only(left: 30, right: 30, top: 10),
+                                padding: EdgeInsets.only(
+                                    left: 10, right: 10, top: 10),
                                 child: TextFormField(
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
                                       ),
                                       hintStyle:
                                           TextStyle(color: Colors.grey[800]),

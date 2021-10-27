@@ -58,16 +58,6 @@ List _elements = [
     'createdAt': '27-09-2021'
   },
   {
-    'id': 'A120',
-    'majorModel': 'Ống nước',
-    'brand': 'Khác: Thái Long',
-    'customer': 'Lưu Thy Huyền',
-    'problem': 'Vỡ ống nước nhà tắm',
-    'group': 'Đang trì hoãn',
-    'status': 'Đang đợi vật tư',
-    'createdAt': '29-09-2021'
-  },
-  {
     'id': 'A121',
     'majorModel': 'Tủ lạnh',
     'brand': 'Panasonic',
@@ -179,7 +169,7 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                                     fontWeight:
                                                         FontWeight.bold)),
                                             content: Container(
-                                              height: 320,
+                                              height: 400,
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -371,17 +361,34 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                                                 ),
                                                   if (element["status"] ==
                                                       "Đã hoàn thành")
-                                                    Row(
+                                                    Column(
                                                       children: [
-                                                        Text(
-                                                            'Phản hồi chi tiết:  '),
-                                                        Text(
-                                                            "Thợ sửa nhanh, chu đáo.",
-                                                            style: TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600)),
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                                'Phản hồi chi tiết:  '),
+                                                            Text(
+                                                                "Thợ sửa nhanh, chu đáo.",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600)),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Text('Chi phí:  '),
+                                                            Text("127.000VMĐ",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600)),
+                                                          ],
+                                                        ),
                                                       ],
                                                     ),
                                                   Row(
@@ -407,14 +414,16 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                                                     'Đang xử lý')
                                                                 ? CupertinoColors
                                                                     .activeOrange
-                                                                : (element['group'] == 'Đang trì hoãn')
-                                                                    ?  Colors.brown
+                                                                : (element['group'] ==
+                                                                        'Đang trì hoãn')
+                                                                    ? Colors
+                                                                        .brown
                                                                     : (element['status'] ==
-                                                                        'Đã hoàn thành')
-                                                                      ? CupertinoColors
-                                                                        .activeGreen
-                                                                      : CupertinoColors
-                                                                        .systemRed,
+                                                                            'Đã hoàn thành')
+                                                                        ? CupertinoColors
+                                                                            .activeGreen
+                                                                        : CupertinoColors
+                                                                            .systemRed,
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold),
@@ -445,10 +454,10 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                           color: (element['group'] == 'Đang xử lý')
                               ? CupertinoColors.activeOrange
                               : (element['group'] == 'Đang trì hoãn')
-                                ? Colors.brown
-                                : (element['status'] == 'Đã hoàn thành')
-                                  ? CupertinoColors.activeGreen
-                                  : CupertinoColors.systemRed),
+                                  ? Colors.brown
+                                  : (element['status'] == 'Đã hoàn thành')
+                                      ? CupertinoColors.activeGreen
+                                      : CupertinoColors.systemRed),
                       SizedBox(height: 10.0),
                       Text(element['createdAt'], style: TextStyle(fontSize: 12))
                     ],
@@ -483,10 +492,10 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                 color: (element['group'] == 'Đang xử lý')
                                     ? CupertinoColors.activeOrange
                                     : (element['group'] == 'Đang trì hoãn')
-                                      ? Colors.brown
-                                      : (element['status'] == 'Đã hoàn thành')
-                                        ? CupertinoColors.activeGreen
-                                        : CupertinoColors.systemRed,
+                                        ? Colors.brown
+                                        : (element['status'] == 'Đã hoàn thành')
+                                            ? CupertinoColors.activeGreen
+                                            : CupertinoColors.systemRed,
                                 fontWeight: FontWeight.bold),
                           ),
                         ],
