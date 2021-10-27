@@ -16,7 +16,6 @@ class Company {
     required this.hotline,
     required this.imageUrl,
     required this.status,
-    this.uid,
   });
 
   String id;
@@ -29,33 +28,30 @@ class Company {
   String hotline;
   String imageUrl;
   int status;
-  dynamic uid;
 
   factory Company.fromJson(Map<String, dynamic> json) => Company(
-        id: json["id"],
-        companyName: json["companyName"],
-        address: json["address"],
+        id: json["Id"],
+        companyName: json["CompanyName"],
+        address: json["Address"],
         lng: json["lng"].toDouble(),
         lat: json["lat"].toDouble(),
-        description: json["description"],
-        email: json["email"],
-        hotline: json["hotline"],
-        imageUrl: json["imageUrl"],
-        status: json["status"],
-        uid: json["uid"],
+        description: json["Description"],
+        email: json["Email"],
+        hotline: json["Hotline"],
+        imageUrl: json["ImageUrl"],
+        status: json["Status"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "companyName": companyName,
-        "address": address,
+        "Id": id,
+        "CompanyName": companyName,
+        "Address": address,
         "lng": lng,
         "lat": lat,
-        "description": description,
-        "email": email,
-        "hotline": hotline,
-        "imageUrl": imageUrl,
-        "status": status,
-        "uid": uid,
+        "Description": description,
+        "Email": email,
+        "Hotline": hotline,
+        "ImageUrl": imageUrl,
+        "Status": status,
       };
 }

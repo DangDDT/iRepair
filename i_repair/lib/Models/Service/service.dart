@@ -9,9 +9,6 @@ class Service {
     required this.imageUrl,
     required this.status,
     required this.company,
-    required this.field,
-    required this.orders,
-    required this.workOns,
   });
 
   String id;
@@ -23,37 +20,28 @@ class Service {
   String imageUrl;
   int status;
   dynamic company;
-  dynamic field;
-  List<dynamic> orders;
-  List<dynamic> workOns;
 
   factory Service.fromJson(Map<String, dynamic> json) => Service(
-        id: json["id"],
-        companyId: json["companyId"],
-        fieldId: json["fieldId"],
-        serviceName: json["serviceName"],
-        description: json["description"],
-        price: json["price"],
-        imageUrl: json["imageUrl"],
-        status: json["status"],
-        company: json["company"],
-        field: json["field"],
-        orders: List<dynamic>.from(json["orders"].map((x) => x)),
-        workOns: List<dynamic>.from(json["workOns"].map((x) => x)),
+        id: json["Id"],
+        companyId: json["CompanyId"],
+        fieldId: json["FieldId"],
+        serviceName: json["ServiceName"],
+        description: json["Description"],
+        price: json["Price"],
+        imageUrl: json["ImageUrl"],
+        status: json["Status"],
+        company: json["Company"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "companyId": companyId,
-        "fieldId": fieldId,
-        "serviceName": serviceName,
-        "description": description,
-        "price": price,
-        "imageUrl": imageUrl,
-        "status": status,
-        "company": company,
-        "field": field,
-        "orders": List<dynamic>.from(orders.map((x) => x)),
-        "workOns": List<dynamic>.from(workOns.map((x) => x)),
+        "Id": id,
+        "CompanyId": companyId,
+        "FieldId": fieldId,
+        "ServiceName": serviceName,
+        "Description": description,
+        "Price": price,
+        "ImageUrl": imageUrl,
+        "Status": status,
+        "Company": company,
       };
 }

@@ -1,6 +1,7 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:i_repair/Models/Company/company.dart';
+import 'package:i_repair/Models/Company/company2.dart';
 import 'package:i_repair/Models/Order/orderDetail.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
 import 'package:i_repair/Models/User/user.dart';
@@ -62,7 +63,7 @@ class APIServices {
     }
   }
 
-  static Future<Company> getCompanyById(String id) async {
+  static Future<Company2> getCompanyById(String id) async {
     String token = await getToken();
     final response = await http
         .get(Uri.parse("$endpoint/api/v1.0/companies/${id.trim()}"), headers: {
@@ -71,7 +72,7 @@ class APIServices {
     });
     if (response.statusCode == 200) {
       print("API company success");
-      return companyFromJson(response.body);
+      return company2FromJson(response.body);
     } else {
       throw Exception(
           'Failed to load company and ${response.statusCode} and ${response.reasonPhrase}');

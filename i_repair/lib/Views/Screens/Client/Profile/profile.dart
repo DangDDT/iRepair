@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
-import 'package:i_repair/Models/User/user.dart';
 import 'package:i_repair/Services/auth/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -98,7 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               borderSide: BorderSide.none),
                           onPressed: () async {
                             await loginProvider.logout(context: context);
-                            userBloc.logout();
+                            await userBloc.logout();
                             Get.offAllNamed("/");
                           },
                           child: Icon(

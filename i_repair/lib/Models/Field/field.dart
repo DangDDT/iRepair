@@ -6,8 +6,6 @@ class Field {
     required this.majorId,
     required this.imageUrl,
     required this.status,
-    required this.major,
-    required this.services,
   });
 
   String id;
@@ -16,18 +14,14 @@ class Field {
   String majorId;
   String imageUrl;
   int status;
-  dynamic major;
-  List<dynamic> services;
 
   factory Field.fromJson(Map<String, dynamic> json) => Field(
-        id: json["id"],
-        name: json["name"],
-        description: json["description"],
-        majorId: json["majorId"],
-        imageUrl: json["imageUrl"],
-        status: json["status"],
-        major: json["major"],
-        services: List<dynamic>.from(json["services"].map((x) => x)),
+        id: json["Id"],
+        name: json["Name"],
+        description: json["Description"],
+        majorId: json["MajorId"],
+        imageUrl: json["ImageUrl"],
+        status: json["Status"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,7 +31,5 @@ class Field {
         "majorId": majorId,
         "imageUrl": imageUrl,
         "status": status,
-        "major": major,
-        "services": List<dynamic>.from(services.map((x) => x)),
       };
 }

@@ -13,10 +13,6 @@ class Order {
     required this.lng,
     required this.lat,
     required this.status,
-    this.customer,
-    this.repairman,
-    this.service,
-    required this.orderHistories,
   });
 
   String id;
@@ -32,49 +28,36 @@ class Order {
   double lng;
   double lat;
   int status;
-  dynamic customer;
-  dynamic repairman;
-  dynamic service;
-  List<dynamic> orderHistories;
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
-        id: json["id"],
-        serviceId: json["serviceId"],
-        repairmanId: json["repairmanId"],
-        customerId: json["customerId"],
-        createTime: DateTime.parse(json["createTime"]),
-        paymentTime: json["paymentTime"],
-        total: json["total"],
-        customerAddress: json["customerAddress"],
-        feedbackPoint: json["feedbackPoint"],
-        feedbackMessage: json["feedbackMessage"],
+        id: json["Id"],
+        serviceId: json["ServiceId"],
+        repairmanId: json["RepairmanId"],
+        customerId: json["CustomerId"],
+        createTime: DateTime.parse(json["CreateTime"]),
+        paymentTime: json["PaymentTime"],
+        total: json["Total"],
+        customerAddress: json["CustomerAddress"],
+        feedbackPoint: json["FeedbackPoint"],
+        feedbackMessage: json["FeedbackMessage"],
         lng: json["lng"].toDouble(),
         lat: json["lat"].toDouble(),
-        status: json["status"],
-        customer: json["customer"],
-        repairman: json["repairman"],
-        service: json["service"],
-        orderHistories:
-            List<dynamic>.from(json["orderHistories"].map((x) => x)),
+        status: json["Status"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "serviceId": serviceId,
-        "repairmanId": repairmanId,
-        "customerId": customerId,
-        "createTime": createTime.toIso8601String(),
-        "paymentTime": paymentTime,
-        "total": total,
-        "customerAddress": customerAddress,
-        "feedbackPoint": feedbackPoint,
-        "feedbackMessage": feedbackMessage,
+        "Id": id,
+        "ServiceId": serviceId,
+        "RepairmanId": repairmanId,
+        "CustomerId": customerId,
+        "CreateTime": createTime.toIso8601String(),
+        "PaymentTime": paymentTime,
+        "Total": total,
+        "CustomerAddress": customerAddress,
+        "FeedbackPoint": feedbackPoint,
+        "FeedbackMessage": feedbackMessage,
         "lng": lng,
         "lat": lat,
-        "status": status,
-        "customer": customer,
-        "repairman": repairman,
-        "service": service,
-        "orderHistories": List<dynamic>.from(orderHistories.map((x) => x)),
+        "Status": status,
       };
 }

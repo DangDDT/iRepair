@@ -14,9 +14,6 @@ class OrderDetailBloc with ChangeNotifier {
   List<OrderDetail> _pendingList = <OrderDetail>[];
   UnmodifiableListView<OrderDetail> get pendingList =>
       UnmodifiableListView(_pendingList);
-  List<OrderDetail> _waitingList = <OrderDetail>[];
-  UnmodifiableListView<OrderDetail> get waitingList =>
-      UnmodifiableListView(_waitingList);
   Location location = new Location();
 
   bool _serviceEnabled = false;
