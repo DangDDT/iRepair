@@ -409,8 +409,8 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                                                     .activeOrange
                                                                 : (element['group'] == 'Đang trì hoãn')
                                                                     ?  Colors.brown
-                                                                    : (element['group'] ==
-                                                                        'Đã xử lý')
+                                                                    : (element['status'] ==
+                                                                        'Đã hoàn thành')
                                                                       ? CupertinoColors
                                                                         .activeGreen
                                                                       : CupertinoColors
@@ -446,7 +446,7 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                               ? CupertinoColors.activeOrange
                               : (element['group'] == 'Đang trì hoãn')
                                 ? Colors.brown
-                                : (element['group'] == 'Đã xữ lý')
+                                : (element['status'] == 'Đã hoàn thành')
                                   ? CupertinoColors.activeGreen
                                   : CupertinoColors.systemRed),
                       SizedBox(height: 10.0),
@@ -484,7 +484,7 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
                                     ? CupertinoColors.activeOrange
                                     : (element['group'] == 'Đang trì hoãn')
                                       ? Colors.brown
-                                      : (element['group'] == 'Đã xữ lý')
+                                      : (element['status'] == 'Đã hoàn thành')
                                         ? CupertinoColors.activeGreen
                                         : CupertinoColors.systemRed,
                                 fontWeight: FontWeight.bold),
