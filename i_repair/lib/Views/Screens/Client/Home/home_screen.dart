@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: kBackgroundColor,
               ),
               width: size.width,
-              height: 35,
+              height: 10,
               child: SizedBox(
                 height: 10,
               ),
@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             )),
-        Container(width: 150, height: 150, child: GridViewButtons()),
+        Container(width: 150, height: 230, child: GridViewButtons()),
         Container(
             height: 500,
             child: DefaultTabController(
@@ -147,6 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Expanded(
                     child: TabBarView(
+                      physics: NeverScrollableScrollPhysics(),
                       children: [
                         (orderBloc.processingList.length == 0)
                             ? Center(

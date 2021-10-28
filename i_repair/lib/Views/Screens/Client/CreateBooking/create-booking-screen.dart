@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:filter_list/filter_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,7 +13,7 @@ import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Field/field.dart' as field;
 import 'package:i_repair/Models/Major/major.dart';
 import 'package:i_repair/Models/Order/order.dart';
-import 'package:i_repair/Models/Service/serviceDetail.dart';
+import 'package:i_repair/Models/Service/service.dart';
 import 'package:i_repair/Models/User/user.dart';
 import 'package:i_repair/Views/Screens/Client/CreateBooking/widgets/debounce.dart';
 import 'package:i_repair/Views/common/appbar/common-appbar.dart';
@@ -37,6 +36,9 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
   ServiceController serviceController = Get.put(ServiceController());
   FieldController fieldController = Get.put(FieldController());
 
+  //Arguments
+  final Major data = Get.arguments;
+
   //TextController
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _addressController = new TextEditingController();
@@ -56,6 +58,8 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
   @override
   void initState() {
     useDefaultProfile = false;
+    print(data.id);
+    fieldController.getFieldsByMajors(data);
     getCurrentUser();
     super.initState();
   }
@@ -181,7 +185,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                       crossAxisSpacing: 27,
                     ),
                     children: [
-                      Text('Đồ dùng'),
+                      Text('Thiết bị'),
                       Text(' Dịch vụ'),
                       Text('Thanh toán'),
                       Text('  Chốt đơn'),
@@ -240,17 +244,17 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                         onPressed: () {
                           // Decrement activeStep, when the previous button is tapped. However, check for lower bound i.e., must be greater than 0.
                           if (activeStep > 0) {
-                            orderBloc.createOrder(new Order(
-                                serviceId: selectedService!.service.id,
-                                customerId: user!.id,
-                                total: selectedService!.service.price,
-                                customerAddress: placeBloc.selectedPlace!.name +
-                                    ', ' +
-                                    placeBloc.selectedPlace!.addressDetail,
-                                lng: placeBloc
-                                    .selectedPlace!.geometry.location.lng,
-                                lat: placeBloc
-                                    .selectedPlace!.geometry.location.lat));
+                            // orderBloc.createOrder(new Order(
+                            //     serviceId: selectedService!.id,
+                            //     customerId: user!.id,
+                            //     total: selectedService.price,
+                            //     customerAddress: placeBloc.selectedPlace!.name +
+                            //         ', ' +
+                            //         placeBloc.selectedPlace!.addressDetail,
+                            //     lng: placeBloc
+                            //         .selectedPlace!.geometry.location.lng,
+                            //     lat: placeBloc
+                            //         .selectedPlace!.geometry.location.lat));
                             // nextButton();
                           }
                         },
@@ -354,76 +358,16 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
 
   //Selected
   List<Major>? selectedMajorList = List<Major>.empty().obs;
-  ServiceDetail? selectedService;
+  Service? selectedService;
   field.Field? selectedField;
 
   //Display
-
-  void _openFilterDialog() async {
-    await FilterListDialog.display<Major>(
-      context,
-      allButtonText: 'Tất cả',
-      resetButtonText: 'Mặc định',
-      applyButtonText: 'Lọc',
-      applyButonTextBackgroundColor: kSecondaryLightColor,
-      selectedTextBackgroundColor: kSecondaryLightColor,
-      selectedItemsText: 'lĩnh vực được chọn',
-      listData: majorController.majorList,
-      selectedListData: selectedMajorList,
-      height: 480,
-      headlineText: "Lĩnh vực",
-      searchFieldHintText: "Tìm lĩnh vực",
-      choiceChipLabel: (item) {
-        return item!.name;
-      },
-      validateSelectedItem: (list, val) {
-        return list!.contains(val);
-      },
-      onItemSearch: (list, text) {
-        if (list != null) {
-          if (list.any((element) =>
-              element.name.toLowerCase().contains(text.toLowerCase()))) {
-            /// return list which contains matches
-            return list
-                .where((element) =>
-                    element.name.toLowerCase().contains(text.toLowerCase()))
-                .toList();
-          }
-        }
-
-        return [];
-      },
-      onApplyButtonClick: (list) {
-        setState(() {
-          selectedMajorList = List.from(list!);
-          if (selectedMajorList!.isEmpty) {
-            fieldController.fetchFields();
-          } else {
-            fieldController.getFieldsByMajors(selectedMajorList!);
-          }
-        });
-        Navigator.pop(context);
-      },
-    );
-  }
 
   Widget bodyWidget(value) {
     switch (value) {
       case 0:
         return Obx(() {
           return Column(children: [
-            Container(
-              margin: EdgeInsets.only(right: 10),
-              alignment: Alignment.centerRight,
-              child: MaterialButton(
-                  onPressed: _openFilterDialog,
-                  child: Text('Lọc theo lĩnh vực'),
-                  color: kBackgroundColor,
-                  elevation: 5,
-                  shape: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(35),
-                      borderSide: BorderSide(width: 2))),
-            ),
             Expanded(
                 child: SizedBox(
               height: 250,
@@ -431,10 +375,31 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                   ? Center(child: CircularProgressIndicator())
                   : (fieldController.fieldList.length == 0 &&
                           fieldController.isLoading.isFalse)
-                      ? Center(child: Text('No field with this major'))
+                      ? Padding(
+                          padding: const EdgeInsets.all(100.0),
+                          child: Center(
+                              child: Column(
+                            children: [
+                              Container(
+                                  child: ClipRRect(
+                                child: Image.asset(
+                                  "assets/images/handyman.png",
+                                  height: 50,
+                                  width: 50,
+                                ),
+                              )),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                  child: Text(
+                                      'Chưa có thiết bị cho lĩnh vực này !!!')),
+                            ],
+                          )),
+                        )
                       : ListView.separated(
                           itemBuilder: (context, index) {
-                            final placeBloc = Provider.of<PlaceBloc>(context);
+                            final field = fieldController.fieldList[index];
                             return Container(
                               height: 100,
                               child: Card(
@@ -444,19 +409,15 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                 elevation: 5,
                                 child: InkWell(
                                     onTap: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        setState(() {
-                                          selectedField =
-                                              fieldController.fieldList[index];
-                                          serviceController.getServicesByField(
-                                              selectedField!,
-                                              placeBloc.selectedPlace!.geometry
-                                                  .location.lat,
-                                              placeBloc.selectedPlace!.geometry
-                                                  .location.lng);
-                                        });
-                                        nextButton();
-                                      }
+                                      setState(() {
+                                        selectedField =
+                                            fieldController.fieldList[index];
+                                        serviceController.getServicesByField(
+                                          selectedField!,
+                                        );
+                                      });
+                                      print(selectedField!.id);
+                                      nextButton();
                                     },
                                     child: Row(
                                       children: [
@@ -472,20 +433,16 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                             children: [
                                               Positioned(
                                                 left: 5,
-                                                child: (fieldController
-                                                            .fieldList[index]
-                                                            .imageUrl ==
-                                                        'none')
-                                                    ? SvgPicture.asset(
-                                                        'assets/images/default-icon.svg',
-                                                        height: 50,
-                                                      )
-                                                    : Image.network(
-                                                        fieldController
-                                                            .fieldList[index]
-                                                            .imageUrl,
-                                                        height: 50,
-                                                      ),
+                                                child:
+                                                    (field.imageUrl == 'none')
+                                                        ? SvgPicture.asset(
+                                                            'assets/images/default-icon.svg',
+                                                            height: 50,
+                                                          )
+                                                        : Image.network(
+                                                            field.imageUrl,
+                                                            height: 50,
+                                                          ),
                                               )
                                             ],
                                           ),
@@ -499,8 +456,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                fieldController
-                                                    .fieldList[index].name,
+                                                field.name,
                                                 style: TextStyle(fontSize: 24),
                                               ),
                                             ],
@@ -530,7 +486,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                       ? Center(child: Text('No service with this major'))
                       : ListView.separated(
                           itemBuilder: (context, index) {
-                            final ServiceDetail serviceDetail =
+                            final Service service =
                                 serviceController.serviceList[index];
                             return Container(
                               height: 250,
@@ -542,7 +498,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                 child: InkWell(
                                     onTap: () {
                                       setState(() {
-                                        selectedService = serviceDetail;
+                                        selectedService = service;
                                       });
                                       nextButton();
                                     },
@@ -596,29 +552,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                                       ),
                                                       Container(
                                                         child: Text(
-                                                          serviceDetail.service
-                                                              .serviceName,
-                                                          style: TextStyle(
-                                                              fontSize: 16),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Container(
-                                                        child: Text(
-                                                          "Phí dịch vụ: ",
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        child: Text(
-                                                          "${NumberFormat.currency(locale: 'vi').format(serviceDetail.service.price)}",
+                                                          service.serviceName,
                                                           style: TextStyle(
                                                               fontSize: 16),
                                                         ),
@@ -629,60 +563,6 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                               ),
                                             ),
                                           ],
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 10.0, left: 20),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                child: Text(
-                                                  "Tên công ty cung cấp: ",
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: 200,
-                                                child: Text(
-                                                  "${serviceDetail.company.companyName}",
-                                                  style:
-                                                      TextStyle(fontSize: 14),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 5, left: 20.0),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                child: Text(
-                                                  "Địa chỉ: ",
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: 200,
-                                                child: Text(
-                                                  "${serviceDetail.company.address}",
-                                                  style:
-                                                      TextStyle(fontSize: 14),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
                                         ),
                                       ],
                                     )),
@@ -871,25 +751,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                   ),
                                   Container(
                                     child: Text(
-                                      selectedService!.service.serviceName,
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      "Phí dịch vụ: ",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Text(
-                                      "${NumberFormat.currency(locale: 'vi').format(selectedService!.service.price)}",
+                                      selectedService!.serviceName,
                                       style: TextStyle(fontSize: 16),
                                     ),
                                   ),
@@ -905,50 +767,6 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                       thickness: 1,
                       indent: 20,
                       endIndent: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: .0, left: 20),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            child: Text(
-                              "Tên công ty cung cấp: ",
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Container(
-                            width: 200,
-                            child: Text(
-                              "${selectedService!.company.companyName}",
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5, left: 20.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            child: Text(
-                              "Địa chỉ công ty: ",
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Container(
-                            width: 265,
-                            child: Text(
-                              "${selectedService!.company.address}",
-                              style: TextStyle(fontSize: 14),
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
                   ],
                 )),
@@ -972,7 +790,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
         return 'Mời bạn xác nhận thông tin đơn hàng';
 
       default:
-        return 'Chọn vật dụng bạn muốn sửa chữa';
+        return 'Chọn thiết bị bạn muốn sửa chữa';
     }
   }
 }

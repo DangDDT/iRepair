@@ -34,21 +34,21 @@ class Order {
   dynamic cancelReason;
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
-        id: json["Id"],
-        serviceId: json["ServiceId"],
-        repairmanId: json["RepairmanId"],
-        customerId: json["CustomerId"],
+        id: json["Id"] ?? json["id"],
+        serviceId: json["ServiceId"] ?? json["serviceId"],
+        repairmanId: json["RepairmanId"] ?? json["repairmanId"],
+        customerId: json["CustomerId"] ?? json["customerId"],
         createTime: DateTime.parse(json["CreateTime"]),
-        paymentTime: json["PaymentTime"],
-        total: json["Total"],
-        customerAddress: json["CustomerAddress"],
-        feedbackPoint: json["FeedbackPoint"],
-        feedbackMessage: json["FeedbackMessage"],
+        paymentTime: json["PaymentTime"] ?? json["paymentTime"],
+        total: json["Total"] ?? json["total"],
+        customerAddress: json["CustomerAddress"] ?? json["customerAddress"],
+        feedbackPoint: json["FeedbackPoint"] ?? json["feedbackPoint"],
+        feedbackMessage: json["FeedbackMessage"] ?? json["feedbackMessage"],
         lng: json["lng"].toDouble(),
         lat: json["lat"].toDouble(),
-        status: json["Status"],
-        pendingReason: json["PendingReason"],
-        cancelReason: json["CancelReason"],
+        status: json["Status"] ?? json["status"],
+        pendingReason: json["PendingReason"] ?? json["pendingReason"],
+        cancelReason: json["CancelReason"] ?? json["cancelReason"],
       );
 
   Map<String, dynamic> toJson() => {

@@ -1,105 +1,53 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:i_repair/Controllers/majorController/majorController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Models/Major/major.dart';
 
 class GridViewButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GridView(
-      physics: NeverScrollableScrollPhysics(),
+    MajorController majorController = Get.put(MajorController());
+    return GridView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: majorController.majorList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, crossAxisSpacing: 16, mainAxisSpacing: 16),
+          crossAxisCount: 2, crossAxisSpacing: 15, mainAxisSpacing: 16),
       padding: EdgeInsets.only(top: 20, left: 15, right: 15),
-      children: [
-        GestureDetector(
-          onTap: () => {Get.toNamed('/create_booking')},
+      itemBuilder: (BuildContext context, int index) {
+        Major major = majorController.majorList[index];
+        return GestureDetector(
+          onTap: () => {Get.toNamed('/create_booking', arguments: major)},
           child: Card(
-            color: kSecondaryLightColor,
+            color: Colors.white,
             shape: OutlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.circular(25)),
-            elevation: 10,
+            elevation: 5,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(
-                  CupertinoIcons.add_circled,
-                  size: 50,
-                  color: kBackgroundColor,
+                Container(
+                  child: ClipRRect(
+                    child: Image.network(
+                      major.imageUrl,
+                      height: 40,
+                      width: 40,
+                    ),
+                  ),
                 ),
-                Text('TÌM THỢ',
+                Text('${major.name}',
                     style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.bold,
-                        color: kBackgroundColor))
+                        color: kTextColor))
               ],
             ),
           ),
-        ),
-        GestureDetector(
-          onTap: () => {Navigator.pushNamed(context, '/my_booking')},
-          child: Card(
-            shape: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(25)),
-            elevation: 10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  CupertinoIcons.bookmark,
-                  size: 50,
-                  color: kSecondaryColor,
-                ),
-                Text('LỊCH SỬ',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
-              ],
-            ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () => {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: Text('PHẢN HỒI'),
-                    content:
-                        Text('Chức năng này đang phát triển, vui lòng đợi !!!'),
-                    actions: <Widget>[
-                      TextButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          child: Text('Đóng')),
-                    ],
-                  );
-                })
-          },
-          child: Card(
-            shape: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.circular(25)),
-            elevation: 10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  CupertinoIcons.chat_bubble,
-                  size: 50,
-                  color: kSecondaryColor,
-                ),
-                Text('PHẢN HỒI',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))
-              ],
-            ),
-          ),
-        ),
-      ],
+        );
+      },
     );
   }
 }

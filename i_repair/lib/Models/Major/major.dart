@@ -11,14 +11,14 @@ class Major {
     required this.id,
     required this.name,
     this.description,
-    this.imageUrl,
+    required this.imageUrl,
     required this.status,
   });
 
   String id;
   String name;
   String? description;
-  String? imageUrl;
+  String imageUrl;
   int status;
 
   factory Major.fromJson(Map<String, dynamic> json) => Major(

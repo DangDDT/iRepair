@@ -24,12 +24,12 @@ class Field {
   int status;
 
   factory Field.fromJson(Map<String, dynamic> json) => Field(
-        id: json["Id"],
-        name: json["Name"],
-        description: json["Description"],
-        majorId: json["MajorId"],
-        imageUrl: json["ImageUrl"],
-        status: json["Status"],
+        id: json["Id"] ?? json["id"],
+        name: json["Name"] ?? json["name"],
+        description: json["Description"] ?? json["description"],
+        majorId: json["MajorId"] ?? json["majorId"],
+        imageUrl: json["ImageUrl"] ?? json["imageUrl"],
+        status: json["Status"] ?? json["status"],
       );
 
   Map<String, dynamic> toJson() => {

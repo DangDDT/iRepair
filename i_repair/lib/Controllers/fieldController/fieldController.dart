@@ -9,22 +9,10 @@ class FieldController extends GetxController {
   var fieldList = List<Field>.empty().obs;
   @override
   void onInit() {
-    fetchFields();
     super.onInit();
   }
 
-  void fetchFields() async {
-    try {
-      isLoading(true);
-      var fields = await APIServices.fetchFields();
-      fieldList.assignAll(fields);
-      print("fetchFields() success");
-    } finally {
-      isLoading(false);
-    }
-  }
-
-  void getFieldsByMajors(List<Major> majors) async {
+  void getFieldsByMajors(Major majors) async {
     try {
       isLoading(true);
       var fields = await APIServices.fetchFieldsByMajors(majors);

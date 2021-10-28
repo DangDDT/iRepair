@@ -30,16 +30,16 @@ class Company {
   int status;
 
   factory Company.fromJson(Map<String, dynamic> json) => Company(
-        id: json["Id"],
-        companyName: json["CompanyName"],
-        address: json["Address"],
+        id: json["Id"] ?? json["id"],
+        companyName: json["CompanyName"] ?? json["companyName"],
+        address: json["Address"] ?? json["address"],
         lng: json["lng"].toDouble(),
         lat: json["lat"].toDouble(),
-        description: json["Description"],
-        email: json["Email"],
-        hotline: json["Hotline"],
-        imageUrl: json["ImageUrl"],
-        status: json["Status"],
+        description: json["Description"] ?? json["description"],
+        email: json["Email"] ?? json["email"],
+        hotline: json["Hotline"] ?? json["hotline"],
+        imageUrl: json["ImageUrl"] ?? json["imageUrl"],
+        status: json["Status"] ?? json["status"],
       );
 
   Map<String, dynamic> toJson() => {

@@ -8,7 +8,7 @@ import 'package:i_repair/Models/Major/major.dart';
 import 'package:i_repair/Models/Order/order.dart';
 import 'package:i_repair/Models/Order/orderDetail.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
-import 'package:i_repair/Models/Service/serviceDetail.dart' as serviceDetail;
+import 'package:i_repair/Models/Service/service.dart';
 import 'package:i_repair/Models/User/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -98,11 +98,10 @@ class APIServices {
     }
   }
 
-  static Future<List<Field>> fetchFieldsByMajors(List<Major> majors) async {
+  static Future<List<Field>> fetchFieldsByMajors(Major majors) async {
     String token = await getToken();
     String qParamString = '?';
-    majors.forEach((element) => {qParamString += 'listMajorId=${element.id}&'});
-    qParamString += qParamString.substring(0, qParamString.lastIndexOf('&'));
+    qParamString += 'listMajorId=${majors.id}';
     final response = await http.get(
         Uri.parse("$endpoint/api/v1.0/major-fields$qParamString"),
         headers: {
@@ -117,11 +116,9 @@ class APIServices {
     }
   }
 
-  static Future<List<serviceDetail.ServiceDetail>>
-      fetchServicesByFieldAndLocation(
-          Field field, double lat, double lng) async {
+  static Future<List<Service>> fetchServicesByField(Field field) async {
     String token = await getToken();
-    String qParamString = "?FieldId=${field.id}&lat=$lat&lng=$lng";
+    String qParamString = "?FieldId=${field.id}";
     final response = await http.get(
       Uri.parse("$endpoint/api/v1.0/services/$qParamString"),
       headers: {
@@ -131,7 +128,7 @@ class APIServices {
     );
     if (response.statusCode == 200) {
       print("API fetchServicesByFieldAPI() success");
-      return serviceDetail.serviceDetailFromJson(response.body);
+      return serviceFromJson(response.body);
     } else {
       throw Exception('Failed to load service');
     }

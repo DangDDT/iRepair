@@ -9,6 +9,7 @@ import 'package:i_repair/Models/User/user.dart';
 import 'package:i_repair/Views/Screens/Client/Explore/explore.dart';
 import 'package:provider/provider.dart';
 import 'Client/Home/home_screen.dart';
+import 'Client/MyBooking/booking.dart';
 import 'Client/Profile/profile.dart';
 
 class App extends StatefulWidget {
@@ -66,6 +67,7 @@ class _AppState extends State<App> {
               controller: _pageController,
               children: [
                 HomeScreen(user: currentUser),
+                BookingScreen(),
                 ProfileScreen(user: currentUser)
               ],
               onPageChanged: (page) {
@@ -94,7 +96,7 @@ class _AppState extends State<App> {
               gap: 8,
               activeColor: Colors.black,
               iconSize: 24,
-              padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
               duration: Duration(milliseconds: 400),
               tabBackgroundColor: kSecondaryLightColor,
               color: Colors.black,
@@ -102,6 +104,10 @@ class _AppState extends State<App> {
                 GButton(
                   icon: CupertinoIcons.home,
                   text: 'Trang chủ',
+                ),
+                GButton(
+                  icon: CupertinoIcons.book,
+                  text: 'Lịch sử',
                 ),
                 GButton(
                   icon: CupertinoIcons.profile_circled,
