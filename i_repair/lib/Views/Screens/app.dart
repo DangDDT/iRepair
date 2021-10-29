@@ -5,8 +5,6 @@ import 'package:flutter/cupertino.dart.';
 import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
-import 'package:i_repair/Models/User/user.dart';
-import 'package:i_repair/Views/Screens/Client/Explore/explore.dart';
 import 'package:provider/provider.dart';
 import 'Client/Home/home_screen.dart';
 import 'Client/MyBooking/booking.dart';
@@ -24,6 +22,7 @@ class _AppState extends State<App> {
   PageController _pageController = PageController();
   @override
   void initState() {
+    Provider.of<UserBloc>(context, listen: false).getCurrentUser();
     _pageController.addListener(() {
       if (_pageController.page!.round() != _selectedIndex) {
         setState(() {
@@ -31,13 +30,13 @@ class _AppState extends State<App> {
         });
       }
     });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final userBloc = Provider.of<UserBloc>(context);
-    UserProfile? currentUser = userBloc.currentUser;
+    final userBloc = Provider.of<UserBloc>(context, listen: true);
     return Scaffold(
       // appBar: BaseAppBar(
       //     key: null,
@@ -45,7 +44,7 @@ class _AppState extends State<App> {
       //     title: 'Xin chào, Đỗ Dương Tâm Đăng',
       //     content: 'Sky 9, Liên Phường, Phú Hữu, Thủ Đức, TPHCM',
       //     haveBackSpace: false),
-      body: (currentUser == null)
+      body: (userBloc.currentUser == null)
           ? Padding(
               padding: EdgeInsets.only(left: 100, right: 100, top: 300),
               child: Column(
@@ -66,9 +65,9 @@ class _AppState extends State<App> {
           : PageView(
               controller: _pageController,
               children: [
-                HomeScreen(user: currentUser),
+                HomeScreen(user: userBloc.currentUser),
                 BookingScreen(),
-                ProfileScreen(user: currentUser)
+                ProfileScreen(user: userBloc.currentUser),
               ],
               onPageChanged: (page) {
                 setState(() {

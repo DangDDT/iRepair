@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:i_repair/Controllers/majorController/majorController.dart';
 import 'package:i_repair/Controllers/orderController/orderController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
@@ -18,9 +20,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  MajorController majorController = Get.put(MajorController());
   @override
   void initState() {
     super.initState();
+    majorController.fetchMajors();
     Provider.of<OrderDetailBloc>(context, listen: false)
         .getProcessingBookingList(widget.user!.id);
     Provider.of<OrderDetailBloc>(context, listen: false)
@@ -113,7 +117,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             )),
-        Container(width: 150, height: 230, child: GridViewButtons()),
+        if (majorController.majorList.isEmpty)
+          Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(child: CircularProgressIndicator()),
+            ],
+          ))
+        else
+          Container(
+              width: 150,
+              height: 230,
+              child: GridViewButtons(majors: majorController.majorList)),
         Container(
             height: 500,
             child: DefaultTabController(
@@ -136,10 +152,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         labelColor: kTextColor,
                         tabs: [
                           Tab(
-                            text: 'Đang xử lý',
+                            text:
+                                'Đang xử lý (${orderBloc.processingList!.length})',
                           ),
                           Tab(
-                            text: 'Đang trì hoãn',
+                            text:
+                                'Đang trì hoãn (${orderBloc.pendingList!.length})',
                           ),
                         ],
                       ),
@@ -149,43 +167,60 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: TabBarView(
                       physics: NeverScrollableScrollPhysics(),
                       children: [
-                        (orderBloc.processingList.length == 0)
-                            ? Center(
-                                child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      child: Text(
-                                          "HIỆN TẠI BẠN CHƯA YÊU CẦU ĐANG XỬ LÝ")),
-                                ],
-                              ))
-                            : ListView.builder(
-                                itemCount: orderBloc.processingList.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return ProcessingBooking(
-                                      orderDetail:
-                                          orderBloc.processingList[index]);
-                                },
-                              ),
-                        (orderBloc.pendingList.length == 0)
-                            ? Center(
-                                child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                      child: Text(
-                                          "KHÔNG CÓ YÊU CẦU TRÌ HOÃN NÀO CẢ.")),
-                                ],
-                              ))
-                            : ListView.builder(
-                                itemCount: orderBloc.pendingList.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  print(orderBloc.pendingList[index].toJson());
-                                  return PendingBooking(
-                                      orderDetail:
-                                          orderBloc.pendingList[index]);
-                                },
-                              ),
+                        if (orderBloc.processingList == null)
+                          Center(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(child: CircularProgressIndicator()),
+                            ],
+                          ))
+                        else if (orderBloc.processingList!.length == 0)
+                          Center(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                  child: Text(
+                                      "HIỆN TẠI BẠN CHƯA YÊU CẦU ĐANG XỬ LÝ")),
+                            ],
+                          ))
+                        else
+                          ListView.builder(
+                            itemCount: orderBloc.processingList!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ProcessingBooking(
+                                  orderDetail:
+                                      orderBloc.processingList![index]);
+                            },
+                          ),
+                        if (orderBloc.pendingList == null)
+                          Center(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(child: CircularProgressIndicator()),
+                            ],
+                          ))
+                        else if (orderBloc.pendingList!.length == 0)
+                          Center(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                  child: Text(
+                                      "KHÔNG CÓ YÊU CẦU TRÌ HOÃN NÀO CẢ.")),
+                            ],
+                          ))
+                        else
+                          ListView.builder(
+                            itemCount: orderBloc.pendingList!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              print(orderBloc.pendingList![index].toJson());
+                              return PendingBooking(
+                                  orderDetail: orderBloc.pendingList![index]);
+                            },
+                          ),
                       ],
                     ),
                   )

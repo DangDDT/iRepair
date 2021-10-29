@@ -32,8 +32,9 @@ class APIServices {
     }
   }
 
-  static Future<UserProfile> getUserProfile(String id) async {
-    String token = await getToken();
+  static Future<UserProfile?> getUserProfile(String id) async {
+    String? token = await getToken();
+    if (token == null) return null;
     final response = await http
         .get(Uri.parse("$endpoint/api/v1.0/customers/${id.trim()}"), headers: {
       "Authorization": 'Bearer $token',
@@ -48,8 +49,9 @@ class APIServices {
     }
   }
 
-  static Future<List<Major>> fetchMajors() async {
-    String token = await getToken();
+  static Future<List<Major>?> fetchMajors() async {
+    String? token = await getToken();
+    if (token == null) return null;
     final response = await http
         .get(Uri.parse("$endpoint/api/v1.0/majors?status=1"), headers: {
       "Authorization": 'Bearer $token',
@@ -63,9 +65,10 @@ class APIServices {
     }
   }
 
-  static Future<List<OrderDetail>> fetchOrders(
+  static Future<List<OrderDetail>?> fetchOrders(
       String? customerId, int status) async {
-    String token = await getToken();
+    String? token = await getToken();
+    if (token == null) return null;
     final response = await http.get(
         Uri.parse(
             "$endpoint/api/v1.0/orders?CustomerId=$customerId&Status=$status"),
@@ -75,6 +78,7 @@ class APIServices {
         });
     if (response.statusCode == 200) {
       print("API fetchOrdersAPI() success");
+      print(response.body);
       return orderDetailFromJson(response.body);
     } else {
       throw Exception(
@@ -82,8 +86,9 @@ class APIServices {
     }
   }
 
-  static Future<List<Field>> fetchFields() async {
-    String token = await getToken();
+  static Future<List<Field>?> fetchFields() async {
+    String? token = await getToken();
+    if (token == null) return null;
     final response = await http
         .get(Uri.parse("$endpoint/api/v1.0/major-fields?status=0"), headers: {
       "Authorization": 'Bearer $token',
@@ -98,8 +103,9 @@ class APIServices {
     }
   }
 
-  static Future<List<Field>> fetchFieldsByMajors(Major majors) async {
-    String token = await getToken();
+  static Future<List<Field>?> fetchFieldsByMajors(Major majors) async {
+    String? token = await getToken();
+    if (token == null) return null;
     String qParamString = '?';
     qParamString += 'listMajorId=${majors.id}';
     final response = await http.get(
@@ -116,8 +122,9 @@ class APIServices {
     }
   }
 
-  static Future<List<Service>> fetchServicesByField(Field field) async {
-    String token = await getToken();
+  static Future<List<Service>?> fetchServicesByField(Field field) async {
+    String? token = await getToken();
+    if (token == null) return null;
     String qParamString = "?FieldId=${field.id}";
     final response = await http.get(
       Uri.parse("$endpoint/api/v1.0/services/$qParamString"),
@@ -134,8 +141,29 @@ class APIServices {
     }
   }
 
-  static Future<UserProfile> updateProfileUser(UserProfile user) async {
-    String token = await getToken();
+  static Future<List<Company>?> fetchCompanyByService(
+      Service service, double lat, double lng) async {
+    String? token = await getToken();
+    if (token == null) return null;
+    String qParamString = "?ServiceId=${service.id}&lat=$lat&lng=$lng";
+    final response = await http.get(
+      Uri.parse("$endpoint/api/v1.0/companies$qParamString"),
+      headers: {
+        "Authorization": 'Bearer $token',
+        "content-type": "application/json"
+      },
+    );
+    if (response.statusCode == 200) {
+      print("API fetchServicesByFieldAPI() success");
+      return companyFromJson(response.body);
+    } else {
+      throw Exception('Failed to load company');
+    }
+  }
+
+  static Future<UserProfile?> updateProfileUser(UserProfile user) async {
+    String? token = await getToken();
+    if (token == null) return null;
     final body = jsonEncode({
       "id": "${user.id}",
       "avatar": "${user.avatar}",
@@ -143,8 +171,11 @@ class APIServices {
       "email": "${user.email}",
       "username": null,
       "createDate": "2021-10-15T01:59:29.015Z",
+      "address": "${user.address}",
       "fullName": "${user.fullName}",
-      "uid": "${user.uid}"
+      "uid": "${user.uid}",
+      "lat": user.lat,
+      "lng": user.lng
     });
     final response = await http.put(
       Uri.parse("$endpoint/api/v1.0/customers"),
@@ -163,24 +194,9 @@ class APIServices {
     }
   }
 
-  static Future<Company> getCompanyById(String id) async {
-    String token = await getToken();
-    final response = await http
-        .get(Uri.parse("$endpoint/api/v1.0/companies/${id.trim()}"), headers: {
-      "Authorization": 'Bearer $token',
-      "content-type": "application/json"
-    });
-    if (response.statusCode == 200) {
-      print("API company success");
-      return companyFromJson(response.body);
-    } else {
-      throw Exception(
-          'Failed to load company and ${response.statusCode} and ${response.reasonPhrase}');
-    }
-  }
-
   static Future<void> createOrder(Order order) async {
-    String token = await getToken();
+    String? token = await getToken();
+    if (token == null) return null;
     final body = jsonEncode({
       "serviceId": "${order.serviceId.toUpperCase()}",
       "customerId": "${order.customerId}",
@@ -205,9 +221,35 @@ class APIServices {
     }
   }
 
-  static Future<String> getToken() async {
+  static Future<void> cancelOrder(String id, String cancelReason) async {
+    String? token = await getToken();
+    if (token == null) return null;
+    final body = jsonEncode({
+      "id": id,
+      "cancelReason": cancelReason,
+    });
+    final response = await http.put(
+      Uri.parse("$endpoint/api/v1.0/orders"),
+      headers: {
+        "Authorization": 'Bearer $token',
+        "content-type": "application/json"
+      },
+      body: body,
+    );
+    if (response.statusCode == 200) {
+      print("API cancelOrder() success");
+    } else {
+      throw Exception(
+          'Failed to cancel order and ${response.statusCode} and ${response.reasonPhrase}');
+    }
+  }
+
+  static Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
-    final currentUserString = prefs.getString('currentUser') ?? null;
-    return userFromJson(currentUserString!).token;
+    final currentUserString = prefs.getString('currentUser');
+    if (currentUserString == null || currentUserString.isEmpty) {
+      return null;
+    }
+    return userFromJson(currentUserString).token;
   }
 }

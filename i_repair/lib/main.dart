@@ -6,6 +6,8 @@ import 'package:i_repair/Controllers/placeController/placeController.dart';
 import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Views/Screens/Client/CreateBooking/widgets/success-screen.dart';
+import 'package:i_repair/Views/Screens/Client/Home/widgets/cancel-page.dart';
+import 'package:i_repair/Views/Screens/Client/Profile/widgets/choose-address.dart';
 import 'package:provider/provider.dart';
 import 'Services/auth/auth.dart';
 import 'Views/Screens/Client/CreateBooking/create-booking-screen.dart';
@@ -54,7 +56,9 @@ class MyApp extends StatelessWidget {
                   '/client_app': (context) => App(),
                   '/my_booking': (context) => BookingScreen(),
                   '/create_booking': (context) => CreateBookingScreen(),
-                  '/success_screen': (context) => SuccessScreen()
+                  '/success_screen': (context) => SuccessScreen(),
+                  '/choose_address': (context) => ChooseAddressWidget(),
+                  '/cancel_page': (context) => CancelRequestPage(),
                 },
               ),
             );

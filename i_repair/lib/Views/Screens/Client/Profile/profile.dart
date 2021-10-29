@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
-import 'package:i_repair/Models/User/user.dart';
 import 'package:i_repair/Services/auth/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     final loginProvider = Provider.of<AuthService>(context);
     final userBloc = Provider.of<UserBloc>(context);
+
     Size size = MediaQuery.of(context).size;
     return ListView(
       children: [
@@ -221,19 +221,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               var focusNode = FocusNode();
                               return AlertDialog(
                                 title: Text('Chỉnh sửa họ và tên'),
-                                content: Form(
-                                  key: _formKey,
-                                  child: TextFormField(
-                                    focusNode: focusNode,
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.all(5),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25)),
-                                      labelText: 'Họ và tên',
-                                      prefixIcon: Icon(Icons.person),
+                                content: Container(
+                                  width: 300,
+                                  child: Form(
+                                    key: _formKey,
+                                    child: TextFormField(
+                                      focusNode: focusNode,
+                                      decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.all(5),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        labelText: 'Họ và tên',
+                                        prefixIcon: Icon(Icons.person),
+                                      ),
+                                      controller: _nameController,
                                     ),
-                                    controller: _nameController,
                                   ),
                                 ),
                                 actions: <Widget>[
@@ -245,7 +248,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   TextButton(
                                       onPressed: () {
                                         userBloc.setCurrentUserProfile(
-                                            "FULLNAME", _nameController.text);
+                                            "FULLNAME",
+                                            _nameController.text,
+                                            null,
+                                            null);
                                         Get.back();
                                       },
                                       child: Text('Lưu')),
@@ -287,7 +293,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     width: 210,
                     child: Text(
                       // CHƯA CÓ ĐỊA CHỈ TRONG API
-                      '< Chưa có địa chỉ >',
+                      (widget.user!.address == null)
+                          ? '< Chưa có địa chỉ >'
+                          : '${widget.user!.address}',
                       style: TextStyle(fontSize: 15),
                     ),
                   ),
@@ -301,41 +309,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           borderRadius: BorderRadius.circular(50),
                           borderSide: BorderSide.none),
                       onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              final _formKey = GlobalKey<FormState>();
-                              var focusNode = FocusNode();
-                              return AlertDialog(
-                                title: Text('Chỉnh sửa địa chỉ'),
-                                content: Form(
-                                  key: _formKey,
-                                  child: TextFormField(
-                                    focusNode: focusNode,
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.all(5),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25)),
-                                      labelText: 'Địa chỉ',
-                                      prefixIcon: Icon(CupertinoIcons.location),
-                                    ),
-                                  ),
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                      onPressed: () {
-                                        Get.back();
-                                      },
-                                      child: Text('Đóng')),
-                                  TextButton(
-                                      onPressed: () {
-                                        Get.back();
-                                      },
-                                      child: Text('Lưu')),
-                                ],
-                              );
-                            });
+                        Get.toNamed("/choose_address");
                       },
                       child: Icon(
                         Icons.edit,
@@ -393,19 +367,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               var focusNode = FocusNode();
                               return AlertDialog(
                                 title: Text('Chỉnh sửa số điện thoại'),
-                                content: Form(
-                                  key: _formKey,
-                                  child: TextFormField(
-                                    focusNode: focusNode,
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.all(5),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(25)),
-                                      labelText: 'Số điện thoại',
-                                      prefixIcon: Icon(Icons.phone),
+                                content: Container(
+                                  width: 300,
+                                  child: Form(
+                                    key: _formKey,
+                                    child: TextFormField(
+                                      focusNode: focusNode,
+                                      decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.all(5),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        labelText: 'Số điện thoại',
+                                        prefixIcon: Icon(Icons.phone),
+                                      ),
+                                      controller: _phoneController,
                                     ),
-                                    controller: _phoneController,
                                   ),
                                 ),
                                 actions: <Widget>[
@@ -418,7 +395,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       onPressed: () {
                                         userBloc.setCurrentUserProfile(
                                             "PHONE_NUMBER",
-                                            _phoneController.text);
+                                            _phoneController.text,
+                                            null,
+                                            null);
                                         Get.back();
                                       },
                                       child: Text('Lưu')),

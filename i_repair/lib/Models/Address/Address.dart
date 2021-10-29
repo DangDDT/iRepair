@@ -11,9 +11,9 @@ class Address {
     required this.name,
   });
 
-  String addressDetail;
+  String? addressDetail;
   Geometry geometry;
-  String name;
+  String? name;
 
   factory Address.fromJson(Map<String, dynamic> json) => Address(
         addressDetail: json["formatted_address"],
@@ -50,8 +50,8 @@ class Location {
     required this.lng,
   });
 
-  double lat;
-  double lng;
+  double? lat;
+  double? lng;
 
   factory Location.fromJson(Map<String, dynamic> json) => Location(
         lat: json["lat"].toDouble(),

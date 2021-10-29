@@ -12,7 +12,6 @@ class PendingBooking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(orderDetail.toJson());
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
@@ -71,6 +70,7 @@ class PendingBooking extends StatelessWidget {
                         )
                       ],
                     ),
+                    
                     Divider(
                       height: 20,
                       thickness: 1,

@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
-import 'package:i_repair/Services/auth/auth.dart';
-import 'package:provider/provider.dart';
 import 'widgets/login-form.dart';
 
 class LoginPage extends StatefulWidget {

@@ -15,7 +15,7 @@ class ServiceController extends GetxController {
     try {
       isLoading(true);
       var services = await APIServices.fetchServicesByField(field);
-      serviceList.assignAll(services);
+      if (services != null) serviceList.assignAll(services);
       print("getServicesByField() success");
     } finally {
       isLoading(false);

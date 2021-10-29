@@ -8,23 +8,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserBloc with ChangeNotifier {
   UserProfile? currentUser;
-  UserBloc() {
-    getCurrentUser();
-  }
+  UserBloc() {}
   getCurrentUser() async {
     final prefs = await SharedPreferences.getInstance();
-    final currentUserString = prefs.getString('currentUser') ?? null;
-    String id = userFromJson(currentUserString!).id;
-    currentUser = await APIServices.getUserProfile(id);
+    final currentUserString = prefs.getString('currentUser');
+    if (currentUserString != null) {
+      String id = userFromJson(currentUserString).id;
+      currentUser = await APIServices.getUserProfile(id);
+    }
     notifyListeners();
   }
 
-  setCurrentUserProfile(String field, String value) async {
+  setCurrentUserProfile(
+      String field, String value, double? lat, double? lng) async {
     UserProfile editedUser = currentUser!;
     if (field == "FULLNAME") {
       editedUser.fullName = value;
     } else if (field == "PHONE_NUMBER") {
       editedUser.phoneNumber = value;
+    } else if (field == "ADDRESS") {
+      editedUser.address = value;
+      editedUser.lat = lat;
+      editedUser.lng = lng;
     }
     currentUser = await APIServices.updateProfileUser(editedUser);
     notifyListeners();
@@ -33,5 +38,7 @@ class UserBloc with ChangeNotifier {
   logout() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('currentUser');
+    currentUser = null;
+    notifyListeners();
   }
 }

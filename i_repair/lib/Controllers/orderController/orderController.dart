@@ -7,12 +7,12 @@ import 'package:i_repair/Services/api.services.dart';
 
 class OrderDetailBloc with ChangeNotifier {
   bool isLoading = true;
-  List<OrderDetail> _processingList = <OrderDetail>[];
-  UnmodifiableListView<OrderDetail> get processingList =>
-      UnmodifiableListView(_processingList);
-  List<OrderDetail> _pendingList = <OrderDetail>[];
-  UnmodifiableListView<OrderDetail> get pendingList =>
-      UnmodifiableListView(_pendingList);
+  List<OrderDetail>? _processingList = <OrderDetail>[];
+  UnmodifiableListView<OrderDetail>? get processingList =>
+      UnmodifiableListView(_processingList!);
+  List<OrderDetail>? _pendingList = <OrderDetail>[];
+  UnmodifiableListView<OrderDetail>? get pendingList =>
+      UnmodifiableListView(_pendingList!);
 
   OrderBloc() {}
 
@@ -32,6 +32,11 @@ class OrderDetailBloc with ChangeNotifier {
 
   createOrder(Order order) async {
     await APIServices.createOrder(order);
+    notifyListeners();
+  }
+
+  cancelOrder(String id, String cancelReason) async {
+    await APIServices.cancelOrder(id, cancelReason);
     notifyListeners();
   }
   // void setLoading(val) {

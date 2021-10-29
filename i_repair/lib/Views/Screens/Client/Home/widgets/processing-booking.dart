@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Order/orderDetail.dart';
+import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProcessingBooking extends StatelessWidget {
   final OrderDetail orderDetail;
@@ -18,7 +21,7 @@ class ProcessingBooking extends StatelessWidget {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0), side: BorderSide.none),
         child: Container(
-          height: 350.0,
+          height: 370.0,
           child: Column(
             children: [
               Container(
@@ -70,6 +73,21 @@ class ProcessingBooking extends StatelessWidget {
                         )
                       ],
                     ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          child: Text("CHI PHÍ: ",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                        Container(
+                          child: Text(
+                              "${NumberFormat.currency(locale: 'vi').format(orderDetail.order.total)}"),
+                        )
+                      ],
+                    ),
                     Divider(
                       height: 20,
                       thickness: 1,
@@ -113,6 +131,7 @@ class ProcessingBooking extends StatelessWidget {
                               height: 5,
                             ),
                             Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Container(
                                   child: Text("CÔNG TY: ",
@@ -120,6 +139,7 @@ class ProcessingBooking extends StatelessWidget {
                                           fontWeight: FontWeight.bold)),
                                 ),
                                 Container(
+                                  width: 150,
                                   child: Text(
                                       "${orderDetail.company.companyName}"),
                                 )
@@ -131,13 +151,12 @@ class ProcessingBooking extends StatelessWidget {
                           ],
                         ),
                         SizedBox(
-                          width: 70,
+                          width: 50,
                         ),
                         Column(
                           children: [
                             (orderDetail.repairman.avatar == 'none')
-                                ? Icon(CupertinoIcons.profile_circled,
-                                    size: 100)
+                                ? Icon(CupertinoIcons.profile_circled, size: 70)
                                 : ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
                                     child: Image.network(
@@ -156,6 +175,7 @@ class ProcessingBooking extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(left: 30),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       width: 110,
@@ -180,16 +200,32 @@ class ProcessingBooking extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   MaterialButton(
-                    color: CupertinoColors.systemGrey,
-                    onPressed: () {},
-                    child: Text(
-                      " ĐÁNH GIÁ",
-                      style: TextStyle(color: kBackgroundColor),
+                    color: CupertinoColors.systemGreen,
+                    onPressed: () => {
+                      launch("tel://${orderDetail.repairman.phoneNumber}"),
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.phone,
+                          color: kBackgroundColor,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "GỌI ĐIỆN CHO THỢ",
+                          style: TextStyle(color: kBackgroundColor),
+                        ),
+                      ],
                     ),
                   ),
                   MaterialButton(
                     color: CupertinoColors.systemRed,
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed("/cancel_page",
+                          arguments: orderDetail.order.id);
+                    },
                     child: Text(
                       "HỦY YÊU CẦU",
                       style: TextStyle(color: kBackgroundColor),

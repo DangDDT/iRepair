@@ -10,7 +10,6 @@ class MajorController extends GetxController {
   @override
   // ignore: must_call_super
   void onInit() {
-    fetchMajors();
     super.onInit();
   }
 
@@ -18,7 +17,9 @@ class MajorController extends GetxController {
     try {
       isLoading(true);
       var majors = await APIServices.fetchMajors();
-      majorList.assignAll(majors);
+      if (majors != null) {
+        majorList.assignAll(majors);
+      }
       print("fetchMajors() success");
     } finally {
       isLoading(false);

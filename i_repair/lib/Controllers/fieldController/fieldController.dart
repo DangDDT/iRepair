@@ -16,7 +16,7 @@ class FieldController extends GetxController {
     try {
       isLoading(true);
       var fields = await APIServices.fetchFieldsByMajors(majors);
-      fieldList.assignAll(fields);
+      if (fields != null) fieldList.assignAll(fields);
       print("fetchFieldsByMajors() success");
     } finally {
       isLoading(false);

@@ -13,6 +13,9 @@ class UserProfile {
     required this.email,
     required this.username,
     required this.createDate,
+    this.address,
+    this.lng,
+    this.lat,
     required this.fullName,
     required this.uid,
   });
@@ -24,6 +27,9 @@ class UserProfile {
   String username;
   DateTime createDate;
   String fullName;
+  String? address;
+  double? lat;
+  double? lng;
   String uid;
 
   factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
@@ -34,6 +40,9 @@ class UserProfile {
         username: json["username"],
         createDate: DateTime.parse(json["createDate"]),
         fullName: json["fullName"],
+        address: json["address"],
+        lat: json["lat"],
+        lng: json["lng"],
         uid: json["uid"],
       );
 
@@ -45,6 +54,9 @@ class UserProfile {
         "username": username,
         "createDate": createDate.toIso8601String(),
         "fullName": fullName,
+        "address": address,
+        "lat": lat,
+        "lng": lng,
         "uid": uid,
       };
 }
