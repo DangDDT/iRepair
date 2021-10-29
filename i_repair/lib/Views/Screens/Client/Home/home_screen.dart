@@ -140,299 +140,619 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               )
-            : Container(
-                height: 190,
-                padding: EdgeInsets.all(5),
-                width: size.width,
-                child: InkWell(
-                  onTap: () => {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Text('CHI TIẾT YÊU CẦU',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                          content: Container(
-                            height: 500,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Divider(
-                                  height: 5,
-                                  thickness: 1,
-                                  indent: 0,
-                                  endIndent: 0,
-                                ),
-                                Row(
-                                  children: [
-                                    Text('Đồ cần sửa:  '),
-                                    Text("Tủ lạnh",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600)),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text('Hãng:  '),
-                                    Text("Panasonic",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600)),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text('Vấn đề:  '),
-                                    Text("Tủ lạnh đóng tuyết ngăn đông",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600)),
-                                  ],
-                                ),
-                                Divider(
-                                  height: 30,
-                                  thickness: 1,
-                                  indent: 0,
-                                  endIndent: 0,
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(left: 100),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: Image.asset(
-                                        "assets/images/avatar.jpg",
-                                        height: 70,
-                                        width: 70),
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    Text('Khách hàng: '),
-                                    Text("Đỗ Dương Tâm Đăng",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600)),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                  ],
-                                ),
-                                Row(
+            : Column(
+                children: [
+                  Container(
+                    height: 190,
+                    padding: EdgeInsets.all(5),
+                    width: size.width,
+                    child: InkWell(
+                      onTap: () => {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('CHI TIẾT YÊU CẦU',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              content: Container(
+                                height: 500,
+                                child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Container(
-                                        width: 75, child: Text('Địa chỉ: ')),
-                                    Container(
-                                      width: 200,
-                                      child: Text(
-                                          "Chung cư Sky9, đường Liên Phường, quận 9, TPHCM.",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w600)),
+                                    Divider(
+                                      height: 5,
+                                      thickness: 1,
+                                      indent: 0,
+                                      endIndent: 0,
                                     ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text('Số điện thoại: '),
-                                    Text("0774839222",
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600)),
-                                  ],
-                                ),
-                                Divider(
-                                  height: 20,
-                                  thickness: 1,
-                                  indent: 0,
-                                  endIndent: 0,
-                                ),
-                                Row(
-                                  children: [
-                                    Text('Hình ảnh đính kèm: '),
-                                  ],
-                                ),
-                                Container(
-                                  height: 120,
-                                  width: 300,
-                                  child: ListView(
-                                    scrollDirection: Axis.horizontal,
-                                    children: [
-                                      Container(
+                                    Row(
+                                      children: [
+                                        Text('Đồ cần sửa:  '),
+                                        Text("Tủ lạnh",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600)),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Hãng:  '),
+                                        Text("Panasonic",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600)),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Vấn đề:  '),
+                                        Text("Tủ lạnh đóng tuyết ngăn đông",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600)),
+                                      ],
+                                    ),
+                                    Divider(
+                                      height: 30,
+                                      thickness: 1,
+                                      indent: 0,
+                                      endIndent: 0,
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 100),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
                                         child: Image.asset(
-                                          "assets/images/20191008102441-1188.jpg",
-                                          height: 120,
-                                          width: 120,
+                                            "assets/images/avatar.jpg",
+                                            height: 70,
+                                            width: 70),
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Khách hàng: '),
+                                        Text("Đỗ Dương Tâm Đăng",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600)),
+                                        SizedBox(
+                                          width: 10,
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      Container(
-                                        child: Image.asset(
-                                          "assets/images/problem-1.jpg",
-                                          height: 140,
-                                          width: 140,
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                            width: 75,
+                                            child: Text('Địa chỉ: ')),
+                                        Container(
+                                          width: 200,
+                                          child: Text(
+                                              "Chung cư Sky9, đường Liên Phường, quận 9, TPHCM.",
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600)),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                                onPressed: () {
-                                  Get.back();
-                                },
-                                child: Text('Đóng')),
-                          ],
-                        );
-                      },
-                    ),
-                  },
-                  child: Card(
-                    elevation: 5,
-                    shape: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.circular(25)),
-                    child: ListView(
-                      physics: NeverScrollableScrollPhysics(),
-                      children: [
-                        Row(
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                    margin: EdgeInsets.only(left: 20, top: 20),
-                                    child: Text('MÃ YÊU CẦU: A121',
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            letterSpacing: 0.5,
-                                            color: kSecondaryLightColor))),
-                                Container(
-                                    margin: EdgeInsets.only(left: 20, top: 5),
-                                    child: IntrinsicHeight(
-                                      child: Row(
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Số điện thoại: '),
+                                        Text("0774839222",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600)),
+                                      ],
+                                    ),
+                                    Divider(
+                                      height: 20,
+                                      thickness: 1,
+                                      indent: 0,
+                                      endIndent: 0,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Hình ảnh đính kèm: '),
+                                      ],
+                                    ),
+                                    Container(
+                                      height: 120,
+                                      width: 300,
+                                      child: ListView(
+                                        scrollDirection: Axis.horizontal,
                                         children: [
-                                          Text('ĐỒ CẦN SỬA: ',
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: kTextColor,
-                                                  fontWeight: FontWeight.bold)),
-                                          Text('Tủ lạnh',
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: kTextColor)),
-                                        ],
-                                      ),
-                                    )),
-                                SizedBox(height: 5),
-                                Container(
-                                    margin: EdgeInsets.only(left: 20, top: 0),
-                                    child: IntrinsicHeight(
-                                      child: Row(
-                                        children: [
-                                          Text('VẤN ĐỀ GẶP PHẢI: ',
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: kTextColor,
-                                                  fontWeight: FontWeight.bold)),
                                           Container(
-                                            child: Text(
-                                                'Tủ lạnh đóng tuyết ngăn đông',
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: kTextColor)),
+                                            child: Image.asset(
+                                              "assets/images/20191008102441-1188.jpg",
+                                              height: 120,
+                                              width: 120,
+                                            ),
                                           ),
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Container(
+                                            child: Image.asset(
+                                              "assets/images/problem-1.jpg",
+                                              height: 140,
+                                              width: 140,
+                                            ),
+                                          )
                                         ],
                                       ),
-                                    )),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                    child: Text('Đóng')),
                               ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.end,
+                            );
+                          },
+                        ),
+                      },
+                      child: Card(
+                        elevation: 5,
+                        shape: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(25)),
+                        child: ListView(
+                          physics: NeverScrollableScrollPhysics(),
+                          children: [
+                            Row(
                               children: [
-                                Container(
-                                    margin: EdgeInsets.only(left: 45, top: 10),
-                                    padding: EdgeInsets.all(6),
-                                    decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: InkWell(
-                                        onTap: () =>
-                                            {Get.offAndToNamed("/map")},
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                        margin:
+                                            EdgeInsets.only(left: 20, top: 20),
+                                        child: Text('MÃ YÊU CẦU: A121',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                letterSpacing: 0.5,
+                                                color: kSecondaryLightColor))),
+                                    Container(
+                                        margin:
+                                            EdgeInsets.only(left: 20, top: 5),
+                                        child: IntrinsicHeight(
+                                          child: Row(
+                                            children: [
+                                              Text('ĐỒ CẦN SỬA: ',
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: kTextColor,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              Text('Tủ lạnh',
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: kTextColor)),
+                                            ],
+                                          ),
+                                        )),
+                                    SizedBox(height: 5),
+                                    Container(
+                                        margin:
+                                            EdgeInsets.only(left: 20, top: 0),
+                                        child: IntrinsicHeight(
+                                          child: Row(
+                                            children: [
+                                              Text('VẤN ĐỀ GẶP PHẢI: ',
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: kTextColor,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              Container(
+                                                child: Text(
+                                                    'Tủ lạnh đóng tuyết ngăn đông',
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: kTextColor)),
+                                              ),
+                                            ],
+                                          ),
+                                        )),
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                        margin:
+                                            EdgeInsets.only(left: 45, top: 10),
+                                        padding: EdgeInsets.all(6),
+                                        decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: InkWell(
+                                            onTap: () =>
+                                                {Get.offAndToNamed("/map")},
+                                            child: Text(
+                                              "ĐỒNG Ý",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: kBackgroundColor,
+                                                  fontSize: 12),
+                                            ))),
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                        left: 20,
+                                        top: 5,
+                                      ),
+                                      padding: EdgeInsets.all(6),
+                                      decoration: BoxDecoration(
+                                          color: Colors.red,
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: InkWell(
+                                        onTap: () => {},
                                         child: Text(
-                                          "ĐỒNG Ý",
+                                          "TỪ CHỐI",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: kBackgroundColor,
-                                              fontSize: 12),
-                                        ))),
-                                Container(
-                                  margin: EdgeInsets.only(
-                                    left: 20,
-                                    top: 5,
-                                  ),
-                                  padding: EdgeInsets.all(6),
-                                  decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: InkWell(
-                                    onTap: () => {},
-                                    child: Text(
-                                      "TỪ CHỐI",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: kBackgroundColor,
-                                          fontSize: 11),
+                                              fontSize: 11),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
+                                  ],
+                                )
                               ],
+                            ),
+                            SizedBox(height: 5),
+                            Divider(
+                              height: 20,
+                              thickness: 1,
+                              indent: 0,
+                              endIndent: 0,
+                            ),
+                            IntrinsicHeight(
+                              child: Row(
+                                children: [
+                                  Container(
+                                      margin: EdgeInsets.only(left: 20),
+                                      child: Icon(Icons.person)),
+                                  Container(
+                                      margin: EdgeInsets.only(left: 10),
+                                      child: Text('Đỗ Dương Tâm Đăng')),
+                                  VerticalDivider(
+                                    width: 90,
+                                    thickness: 1,
+                                    indent: 0,
+                                    endIndent: 0,
+                                  ),
+                                  Container(
+                                      margin:
+                                          EdgeInsets.only(left: 5, right: 5),
+                                      child: Text('Ngày 30/09/2021')),
+                                ],
+                              ),
                             )
                           ],
                         ),
-                        SizedBox(height: 5),
-                        Divider(
-                          height: 20,
-                          thickness: 1,
-                          indent: 0,
-                          endIndent: 0,
-                        ),
-                        IntrinsicHeight(
-                          child: Row(
-                            children: [
-                              Container(
-                                  margin: EdgeInsets.only(left: 20),
-                                  child: Icon(Icons.person)),
-                              Container(
-                                  margin: EdgeInsets.only(left: 10),
-                                  child: Text('Đỗ Dương Tâm Đăng')),
-                              VerticalDivider(
-                                width: 90,
-                                thickness: 1,
-                                indent: 0,
-                                endIndent: 0,
-                              ),
-                              Container(
-                                  margin: EdgeInsets.only(left: 5, right: 5),
-                                  child: Text('Ngày 30/09/2021')),
-                            ],
-                          ),
-                        )
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                  Container(
+                    height: 190,
+                    padding: EdgeInsets.all(5),
+                    width: size.width,
+                    child: InkWell(
+                      onTap: () => {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('CHI TIẾT YÊU CẦU',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              content: Container(
+                                height: 500,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Divider(
+                                      height: 5,
+                                      thickness: 1,
+                                      indent: 0,
+                                      endIndent: 0,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Đồ cần sửa:  '),
+                                        Text("Tủ lạnh",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600)),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Hãng:  '),
+                                        Text("Panasonic",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600)),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Vấn đề:  '),
+                                        Text("Tủ lạnh đóng tuyết ngăn đông",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600)),
+                                      ],
+                                    ),
+                                    Divider(
+                                      height: 30,
+                                      thickness: 1,
+                                      indent: 0,
+                                      endIndent: 0,
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 100),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: Image.asset(
+                                            "assets/images/avatar.jpg",
+                                            height: 70,
+                                            width: 70),
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Khách hàng: '),
+                                        Text("Đỗ Dương Tâm Đăng",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600)),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                            width: 75,
+                                            child: Text('Địa chỉ: ')),
+                                        Container(
+                                          width: 200,
+                                          child: Text(
+                                              "Chung cư Sky9, đường Liên Phường, quận 9, TPHCM.",
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w600)),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Số điện thoại: '),
+                                        Text("0774839222",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600)),
+                                      ],
+                                    ),
+                                    Divider(
+                                      height: 20,
+                                      thickness: 1,
+                                      indent: 0,
+                                      endIndent: 0,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Hình ảnh đính kèm: '),
+                                      ],
+                                    ),
+                                    Container(
+                                      height: 120,
+                                      width: 300,
+                                      child: ListView(
+                                        scrollDirection: Axis.horizontal,
+                                        children: [
+                                          Container(
+                                            child: Image.asset(
+                                              "assets/images/20191008102441-1188.jpg",
+                                              height: 120,
+                                              width: 120,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Container(
+                                            child: Image.asset(
+                                              "assets/images/problem-1.jpg",
+                                              height: 140,
+                                              width: 140,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                    child: Text('Đóng')),
+                              ],
+                            );
+                          },
+                        ),
+                      },
+                      child: Card(
+                        elevation: 5,
+                        shape: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(25)),
+                        child: ListView(
+                          physics: NeverScrollableScrollPhysics(),
+                          children: [
+                            Row(
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                        margin:
+                                            EdgeInsets.only(left: 20, top: 20),
+                                        child: Text('MÃ YÊU CẦU: A121',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                letterSpacing: 0.5,
+                                                color: kSecondaryLightColor))),
+                                    Container(
+                                        margin:
+                                            EdgeInsets.only(left: 20, top: 5),
+                                        child: IntrinsicHeight(
+                                          child: Row(
+                                            children: [
+                                              Text('ĐỒ CẦN SỬA: ',
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: kTextColor,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              Text('Tủ lạnh',
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: kTextColor)),
+                                            ],
+                                          ),
+                                        )),
+                                    SizedBox(height: 5),
+                                    Container(
+                                        margin:
+                                            EdgeInsets.only(left: 20, top: 0),
+                                        child: IntrinsicHeight(
+                                          child: Row(
+                                            children: [
+                                              Text('VẤN ĐỀ GẶP PHẢI: ',
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: kTextColor,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              Container(
+                                                child: Text(
+                                                    'Tủ lạnh đóng tuyết ngăn đông',
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: kTextColor)),
+                                              ),
+                                            ],
+                                          ),
+                                        )),
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                        margin:
+                                            EdgeInsets.only(left: 45, top: 10),
+                                        padding: EdgeInsets.all(6),
+                                        decoration: BoxDecoration(
+                                            color: Colors.green,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: InkWell(
+                                            onTap: () =>
+                                                {Get.offAndToNamed("/map")},
+                                            child: Text(
+                                              "ĐỒNG Ý",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: kBackgroundColor,
+                                                  fontSize: 12),
+                                            ))),
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                        left: 20,
+                                        top: 5,
+                                      ),
+                                      padding: EdgeInsets.all(6),
+                                      decoration: BoxDecoration(
+                                          color: Colors.red,
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: InkWell(
+                                        onTap: () => {},
+                                        child: Text(
+                                          "TỪ CHỐI",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: kBackgroundColor,
+                                              fontSize: 11),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 5),
+                            Divider(
+                              height: 20,
+                              thickness: 1,
+                              indent: 0,
+                              endIndent: 0,
+                            ),
+                            IntrinsicHeight(
+                              child: Row(
+                                children: [
+                                  Container(
+                                      margin: EdgeInsets.only(left: 20),
+                                      child: Icon(Icons.person)),
+                                  Container(
+                                      margin: EdgeInsets.only(left: 10),
+                                      child: Text('Đỗ Dương Tâm Đăng')),
+                                  VerticalDivider(
+                                    width: 90,
+                                    thickness: 1,
+                                    indent: 0,
+                                    endIndent: 0,
+                                  ),
+                                  Container(
+                                      margin:
+                                          EdgeInsets.only(left: 5, right: 5),
+                                      child: Text('Ngày 30/09/2021')),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
       ],
     );
