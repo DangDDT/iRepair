@@ -14,17 +14,17 @@ class Customer {
   String phoneNumber;
   String email;
   dynamic username;
-  DateTime createDate;
+  String createDate;
   String fullName;
 
   factory Customer.fromJson(Map<String, dynamic> json) => Customer(
-        id: json["Id"],
-        avatar: json["Avatar"],
-        phoneNumber: json["PhoneNumber"],
-        email: json["Email"],
-        username: json["Username"],
-        createDate: DateTime.parse(json["CreateDate"]),
-        fullName: json["FullName"],
+        id: json["Id"] ?? json["id"],
+        avatar: json["Avatar"] ?? json["avatar"],
+        phoneNumber: json["PhoneNumber"] ?? json["phoneNumber"],
+        email: json["Email"] ?? json["email"],
+        username: json["Username"] ?? json["username"],
+        createDate: json["CreateDate"] ?? json["createDate"],
+        fullName: json["FullName"] ?? json["fullName"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,7 +33,7 @@ class Customer {
         "PhoneNumber": phoneNumber,
         "Email": email,
         "Username": username,
-        "CreateDate": createDate.toIso8601String(),
+        "CreateDate": createDate,
         "FullName": fullName,
       };
 }

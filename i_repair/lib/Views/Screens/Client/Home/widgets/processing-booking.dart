@@ -231,7 +231,7 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         MaterialButton(
-                          color: CupertinoColors.activeGreen,
+                          color: CupertinoColors.systemGrey,
                           onPressed: () {},
                           child: Text(
                             "BẢN ĐỒ",

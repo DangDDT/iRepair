@@ -1,7 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:i_repair/Models/Company/company.dart';
-import 'package:i_repair/Models/Company/company2.dart';
 import 'package:i_repair/Models/Order/orderDetail.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
 import 'package:i_repair/Models/User/user.dart';
@@ -28,8 +29,9 @@ class APIServices {
     }
   }
 
-  static Future<UserProfile> getUserProfile(String id) async {
-    String token = await getToken();
+  static Future<UserProfile?> getUserProfile(String id) async {
+    String? token = await getToken();
+    if (token == null) return null;
     final response = await http
         .get(Uri.parse("$endpoint/api/v1.0/repairmans/${id.trim()}"), headers: {
       "Authorization": 'Bearer $token',
@@ -44,9 +46,10 @@ class APIServices {
     }
   }
 
-  static Future<List<OrderDetail>> fetchOrders(
+  static Future<List<OrderDetail>?> fetchOrders(
       String? repairmanId, int status) async {
-    String token = await getToken();
+    String? token = await getToken();
+    if (token == null) return null;
     final response = await http.get(
         Uri.parse(
             "$endpoint/api/v1.0/orders?RepairmanId=$repairmanId&Status=$status"),
@@ -63,8 +66,9 @@ class APIServices {
     }
   }
 
-  static Future<Company2> getCompanyById(String id) async {
-    String token = await getToken();
+  static Future<Company?> getCompanyById(String id) async {
+    String? token = await getToken();
+    if (token == null) return null;
     final response = await http
         .get(Uri.parse("$endpoint/api/v1.0/companies/${id.trim()}"), headers: {
       "Authorization": 'Bearer $token',
@@ -72,65 +76,64 @@ class APIServices {
     });
     if (response.statusCode == 200) {
       print("API company success");
-      return company2FromJson(response.body);
+      return companyFromJson(response.body);
     } else {
       throw Exception(
           'Failed to load company and ${response.statusCode} and ${response.reasonPhrase}');
     }
   }
-  // static Future<List<Major>> fetchMajors() async {
-  //   String token = await getToken();
-  //   final response = await http
-  //       .get(Uri.parse("$endpoint/api/v1.0/majors?status=1"), headers: {
-  //     "Authorization": 'Bearer $token',
-  //     "content-type": "application/json"
-  //   });
-  //   if (response.statusCode == 200) {
-  //     print("API fetchMajorsAPI() success");
-  //     return majorFromJson(response.body);
-  //   } else {
-  //     throw Exception('Failed to load major');
-  //   }
-  // }
 
-  // static Future<List<Field>> fetchFieldById() async {
-  //   String token = await getToken();
-  //   final response = await http
-  //       .get(Uri.parse("$endpoint/api/v1.0/major-fields?status=1"), headers: {
-  //     "Authorization": 'Bearer $token',
-  //     "content-type": "application/json"
-  //   });
-  //   if (response.statusCode == 200) {
-  //     await Future.delayed(Duration(seconds: 1));
-  //     print("API fetchFieldsAPI() success");
-  //     return fieldFromJson(response.body);
-  //   } else {
-  //     throw Exception('Failed to load field');
-  //   }
-  // }
+  static Future<void> completeOrder(String id) async {
+    String? token = await getToken();
+    if (token == null) return null;
+    final body = jsonEncode({
+      "id": id,
+    });
+    final response = await http.put(
+      Uri.parse("$endpoint/api/v1.0/orders"),
+      headers: {
+        "Authorization": 'Bearer $token',
+        "content-type": "application/json"
+      },
+      body: body,
+    );
+    if (response.statusCode == 200) {
+      print("API complete Order() success");
+    } else {
+      throw Exception(
+          'Failed to complete order and ${response.statusCode} and ${response.reasonPhrase}');
+    }
+  }
 
-  // static Future<List<Field>> fetchFieldsByMajors(List<Major> majors) async {
-  //   String token = await getToken();
-  //   String qParamString = '?';
-  //   majors.forEach((element) => {qParamString += 'listMajorId=${element.id}&'});
-  //   qParamString += qParamString.substring(0, qParamString.lastIndexOf('&'));
-  //   final response = await http.get(
-  //       Uri.parse("$endpoint/api/v1.0/major-fields$qParamString"),
-  //       headers: {
-  //         "Authorization": 'Bearer $token',
-  //         "content-type": "application/json"
-  //       });
-  //   if (response.statusCode == 200) {
-  //     print("API fetchFieldsByMajorsAPI() success");
-  //     return fieldFromJson(response.body);
-  //   } else {
-  //     throw Exception('Failed to load field');
-  //   }
-  // }
+  static Future<void> cancelOrder(String id, String cancelReason) async {
+    String? token = await getToken();
+    if (token == null) return null;
+    final body = jsonEncode({
+      "id": id,
+      "cancelReason": cancelReason,
+    });
+    final response = await http.put(
+      Uri.parse("$endpoint/api/v1.0/orders"),
+      headers: {
+        "Authorization": 'Bearer $token',
+        "content-type": "application/json"
+      },
+      body: body,
+    );
+    if (response.statusCode == 200) {
+      print("API cancelOrder() success");
+    } else {
+      throw Exception(
+          'Failed to cancel order and ${response.statusCode} and ${response.reasonPhrase}');
+    }
+  }
 
-  static Future<String> getToken() async {
+  static Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
     final currentUserString = prefs.getString('currentUser') ?? null;
-    return userFromJson(currentUserString!).token;
+    if (currentUserString != null)
+      return userFromJson(currentUserString).token;
+    else
+      return null;
   }
 }

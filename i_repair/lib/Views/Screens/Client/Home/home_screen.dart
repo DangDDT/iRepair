@@ -76,34 +76,34 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             height: 5,
                           ),
-                          Row(
-                            children: [
-                              Container(
-                                width: 50,
-                                child: Text("Cấp 10:",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12)),
-                              ),
-                              Container(
-                                  width: 120,
-                                  height: 10,
-                                  alignment: Alignment.topCenter,
-                                  child: LinearProgressIndicator(
-                                    backgroundColor: kBackgroundColor,
-                                    color: kSecondaryColor,
-                                    minHeight: 10,
-                                    value: 0.7,
-                                  )),
-                              Container(
-                                margin: EdgeInsets.only(left: 10),
-                                child: Text("70/100 (ĐKN)",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12)),
-                              ),
-                            ],
-                          )
+                          // Row(
+                          //   children: [
+                          //     Container(
+                          //       width: 50,
+                          //       child: Text("Cấp 10:",
+                          //           style: TextStyle(
+                          //               fontWeight: FontWeight.bold,
+                          //               fontSize: 12)),
+                          //     ),
+                          //     Container(
+                          //         width: 120,
+                          //         height: 10,
+                          //         alignment: Alignment.topCenter,
+                          //         child: LinearProgressIndicator(
+                          //           backgroundColor: kBackgroundColor,
+                          //           color: kSecondaryColor,
+                          //           minHeight: 10,
+                          //           value: 0.7,
+                          //         )),
+                          //     Container(
+                          //       margin: EdgeInsets.only(left: 10),
+                          //       child: Text("70/100 (ĐKN)",
+                          //           style: TextStyle(
+                          //               fontWeight: FontWeight.bold,
+                          //               fontSize: 12)),
+                          //     ),
+                          //   ],
+                          // )
                         ],
                       ),
                     )

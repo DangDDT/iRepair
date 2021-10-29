@@ -22,11 +22,11 @@ class Major {
   int status;
 
   factory Major.fromJson(Map<String, dynamic> json) => Major(
-        id: json["Id"],
-        name: json["Name"],
-        description: json["Description"],
-        imageUrl: json["ImageUrl"],
-        status: json["Status"],
+        id: json["Id"] ?? json["id"],
+        name: json["Name"] ?? json["name"],
+        description: json["Description"] ?? json["description"],
+        imageUrl: json["ImageUrl"] ?? json["imageUrl"],
+        status: json["Status"] ?? json["status"],
       );
 
   Map<String, dynamic> toJson() => {

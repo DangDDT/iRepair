@@ -19,30 +19,30 @@ class Order {
   String serviceId;
   String repairmanId;
   String customerId;
-  DateTime createTime;
+  String createTime;
   dynamic paymentTime;
   int total;
   String customerAddress;
   int feedbackPoint;
   dynamic feedbackMessage;
-  double lng;
-  double lat;
+  double? lng;
+  double? lat;
   int status;
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
-        id: json["Id"],
-        serviceId: json["ServiceId"],
-        repairmanId: json["RepairmanId"],
-        customerId: json["CustomerId"],
-        createTime: DateTime.parse(json["CreateTime"]),
-        paymentTime: json["PaymentTime"],
-        total: json["Total"],
-        customerAddress: json["CustomerAddress"],
-        feedbackPoint: json["FeedbackPoint"],
-        feedbackMessage: json["FeedbackMessage"],
-        lng: json["lng"].toDouble(),
-        lat: json["lat"].toDouble(),
-        status: json["Status"],
+        id: json["Id"] ?? json["id"],
+        serviceId: json["ServiceId"] ?? json["serviceId"],
+        repairmanId: json["RepairmanId"] ?? json["repairmanId"],
+        customerId: json["CustomerId"] ?? json["customerId"],
+        createTime: json["CreateTime"] ?? json["createTime"],
+        paymentTime: json["PaymentTime"] ?? json["paymentTime"],
+        total: json["Total"] ?? json["total"],
+        customerAddress: json["CustomerAddress"] ?? json["customerAddress"],
+        feedbackPoint: json["FeedbackPoint"] ?? json["feedbackPoint"],
+        feedbackMessage: json["FeedbackMessage"] ?? json["feedbackMessage"],
+        lng: json["Lng"] ?? json["lng"],
+        lat: json["Lat"] ?? json["lat"],
+        status: json["Status"] ?? json["status"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -50,7 +50,7 @@ class Order {
         "ServiceId": serviceId,
         "RepairmanId": repairmanId,
         "CustomerId": customerId,
-        "CreateTime": createTime.toIso8601String(),
+        "CreateTime": createTime,
         "PaymentTime": paymentTime,
         "Total": total,
         "CustomerAddress": customerAddress,

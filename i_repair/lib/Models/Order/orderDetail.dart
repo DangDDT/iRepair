@@ -19,21 +19,21 @@ class OrderDetail {
     required this.service,
     required this.customer,
     required this.field,
-    required this.company,
+    // required this.company,
   });
 
   Order order;
   Service service;
   Customer customer;
   Field field;
-  Company company;
+  // Company company;
 
   factory OrderDetail.fromJson(Map<String, dynamic> json) => OrderDetail(
         order: Order.fromJson(json["Order"]),
         service: Service.fromJson(json["Service"]),
         customer: Customer.fromJson(json["Customer"]),
         field: Field.fromJson(json["Field"]),
-        company: Company.fromJson(json["Company"]),
+        // company: Company.fromJson(json["Company"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -41,6 +41,6 @@ class OrderDetail {
         "Service": service.toJson(),
         "Customer": customer.toJson(),
         "Field": field.toJson(),
-        "Company": company.toJson(),
+        // "Company": company.toJson(),
       };
 }

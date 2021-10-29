@@ -8,12 +8,12 @@ import 'package:location/location.dart';
 
 class OrderDetailBloc with ChangeNotifier {
   bool isLoading = true;
-  List<OrderDetail> _processingList = <OrderDetail>[];
+  List<OrderDetail>? _processingList = <OrderDetail>[];
   UnmodifiableListView<OrderDetail> get processingList =>
-      UnmodifiableListView(_processingList);
-  List<OrderDetail> _pendingList = <OrderDetail>[];
+      UnmodifiableListView(_processingList!);
+  List<OrderDetail>? _pendingList = <OrderDetail>[];
   UnmodifiableListView<OrderDetail> get pendingList =>
-      UnmodifiableListView(_pendingList);
+      UnmodifiableListView(_pendingList!);
   Location location = new Location();
 
   bool _serviceEnabled = false;
