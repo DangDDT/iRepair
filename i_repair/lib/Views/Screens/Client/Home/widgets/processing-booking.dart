@@ -200,6 +200,17 @@ class ProcessingBooking extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   MaterialButton(
+                    color: CupertinoColors.systemRed,
+                    onPressed: () {
+                      Get.toNamed("/cancel_page",
+                          arguments: orderDetail.order.id);
+                    },
+                    child: Text(
+                      "HỦY YÊU CẦU",
+                      style: TextStyle(color: kBackgroundColor),
+                    ),
+                  ),
+                  MaterialButton(
                     color: CupertinoColors.systemGreen,
                     onPressed: () => {
                       launch("tel://${orderDetail.repairman.phoneNumber}"),
@@ -218,17 +229,6 @@ class ProcessingBooking extends StatelessWidget {
                           style: TextStyle(color: kBackgroundColor),
                         ),
                       ],
-                    ),
-                  ),
-                  MaterialButton(
-                    color: CupertinoColors.systemRed,
-                    onPressed: () {
-                      Get.toNamed("/cancel_page",
-                          arguments: orderDetail.order.id);
-                    },
-                    child: Text(
-                      "HỦY YÊU CẦU",
-                      style: TextStyle(color: kBackgroundColor),
                     ),
                   ),
                 ],
