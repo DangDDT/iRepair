@@ -69,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     Container(
-                        margin: EdgeInsets.only(left: 50),
+                        margin: EdgeInsets.only(left: 90),
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             color: kBackgroundColor,
@@ -113,43 +113,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           // Icon(CupertinoIcons.profile_circled, size: 120),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ElevatedButton.icon(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(kPrimaryLightColor),
-                ),
-                onPressed: () => {},
-                icon: Icon(
-                  CupertinoIcons.upload_circle,
-                  color: CupertinoColors.black,
-                  size: 28,
-                ),
-                label: Text('Upload Avatar',
-                    style: TextStyle(
-                        color: CupertinoColors.black,
-                        fontWeight: FontWeight.bold))),
-            SizedBox(width: 25),
-            ElevatedButton.icon(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(kPrimaryLightColor),
-                ),
-                onPressed: () => {},
-                icon: Icon(
-                  CupertinoIcons.delete,
-                  color: CupertinoColors.black,
-                  size: 28,
-                ),
-                label: Text('Delete Avatar',
-                    style: TextStyle(
-                        color: CupertinoColors.black,
-                        fontWeight: FontWeight.bold))),
-          ],
         ),
         Container(
           margin: EdgeInsets.only(top: 20, left: 20),
@@ -289,13 +252,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         ),
         Container(
-          margin: EdgeInsets.only(top: 5, left: 20),
-          width: 250,
-          child: Text('${selectedMajor}',
-              style: TextStyle(
-                fontSize: 14,
-              )),
-        ),
+            margin: EdgeInsets.only(top: 5, left: 20),
+            height: 30,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: selectedMajor.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  width: 70,
+                  child: Card(
+                    elevation: 5,
+                    child: Center(
+                      child: Text('${selectedMajor[index]}',
+                          style: TextStyle(
+                            fontSize: 14,
+                          )),
+                    ),
+                  ),
+                );
+              },
+            )),
         Container(
           margin: EdgeInsets.all(20),
           decoration: BoxDecoration(
@@ -321,27 +297,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: AlertDialog(
                         title: Text('Cập nhật thông tin'),
                         content: Container(
-                          height: 270,
+                          height: 200,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Họ và tên : "),
-                              Container(
-                                padding: EdgeInsets.only(
-                                    left: 10, right: 10, top: 10),
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    hintStyle:
-                                        TextStyle(color: Colors.grey[800]),
-                                    fillColor: Colors.white70,
-                                    contentPadding: EdgeInsets.only(left: 15),
-                                  ),
-                                  initialValue: "Phạm Hữu Nghĩa",
-                                ),
-                              ),
                               SizedBox(
                                 height: 10,
                               ),

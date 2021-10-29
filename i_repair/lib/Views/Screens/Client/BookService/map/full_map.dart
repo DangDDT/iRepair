@@ -27,13 +27,20 @@ class FullMap extends StatefulWidget {
 
 class FullMapState extends State<FullMap> {
   MapboxMapController? mapController;
+  bool? isCame;
+  @override
+  void initState() {
+    isCame = false;
+    super.initState();
+  }
 
   void _onMapCreated(MapboxMapController controller) {
     mapController = controller;
-    controller.addSymbol(SymbolOptions(
+
+    mapController!.addSymbol(SymbolOptions(
       geometry: LatLng(10.80457, 106.79079),
     ));
-    controller.addLine(
+    mapController!.addLine(
       LineOptions(
         geometry: [
           LatLng(10.80606, 106.78953),
@@ -52,8 +59,7 @@ class FullMapState extends State<FullMap> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
-    return new Scaffold(
+    return Scaffold(
       appBar: BaseAppBar(
         appBar: AppBar(),
         haveBackSpace: false,
@@ -72,8 +78,8 @@ class FullMapState extends State<FullMap> {
               "https://tiles.goong.io/assets/goong_map_web.json?api_key=vRN7UdpxfAGDGSf2Np3GT4L99itmOuaZ6dfncWt8",
         ),
         Positioned(
-          top: 280,
-          left: 180,
+          top: !isCame! ? 280 : 370,
+          left: !isCame! ? 180 : 250,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(50),
             child: Image.asset(
@@ -395,17 +401,30 @@ class FullMapState extends State<FullMap> {
                       child: Text("TRANG CHỦ"),
                     ),
                   ),
+                  !isCame!
+                      ? Container(
+                          margin: EdgeInsets.only(left: 40),
+                          child: MaterialButton(
+                            elevation: 8,
+                            color: Colors.green,
+                            onPressed: () => {
+                              mapController!.clearLines(),
+                              setState(() => isCame = true)
+                            },
+                            child: Text("ĐÃ ĐẾN NƠI"),
+                          ),
+                        )
+                      : Container(
+                          margin: EdgeInsets.only(left: 40),
+                          child: MaterialButton(
+                            elevation: 8,
+                            color: Colors.green,
+                            onPressed: () => {Get.toNamed("/rating")},
+                            child: Text("ĐÃ SỬA XONG"),
+                          ),
+                        ),
                   Container(
-                    margin: EdgeInsets.only(left: 30),
-                    child: MaterialButton(
-                      elevation: 8,
-                      color: Colors.green,
-                      onPressed: () => {Get.toNamed('/rating')},
-                      child: Text("ĐÃ SỬA XONG"),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 50),
+                    margin: EdgeInsets.only(left: 40),
                     child: MaterialButton(
                       elevation: 8,
                       color: Colors.red,

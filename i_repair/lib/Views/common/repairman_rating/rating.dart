@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Views/common/appbar/common-appbar.dart';
 
-enum RATING1 { r1, r2 }
+enum RATING1 { r1, r2, r3 }
 
 class RatingPage extends StatefulWidget {
   @override
@@ -58,7 +58,7 @@ class _RatingPageState extends State<RatingPage> {
             ListTile(
               title: const Text('Tôi không thể sửa được thiết bị.'),
               leading: Radio<RATING1>(
-                value: RATING1.r2,
+                value: RATING1.r3,
                 groupValue: _rating1,
                 onChanged: (value) => {
                   setState(() => {_rating1 = value!})

@@ -57,16 +57,6 @@ List _elements = [
     'status': 'Đã hoàn thành',
     'createdAt': '27-09-2021'
   },
-  {
-    'id': 'A121',
-    'majorModel': 'Tủ lạnh',
-    'brand': 'Panasonic',
-    'customer': 'Đ.D.Tâm Đăng',
-    'problem': 'Bị chảy nước',
-    'group': 'Đang xử lý',
-    'status': 'Đang đến',
-    'createdAt': '30-09-2021'
-  },
 ];
 
 class HistoryBookingScreen extends StatefulWidget {
@@ -134,17 +124,7 @@ class _HistoryBookingScreenState extends State<HistoryBookingScreen> {
               .compareTo(DateFormat('dd-MM-yyyy').parse(item1['createdAt'])),
           order: GroupedListOrder.ASC,
           // useStickyGroupSeparators: true,
-          groupSeparatorBuilder: (String value) => Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              margin: EdgeInsets.only(left: 10),
-              child: Text(
-                value,
-                textAlign: TextAlign.left,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
+          groupSeparatorBuilder: (String value) => SizedBox(),
           itemBuilder: (c, element) {
             return Card(
               elevation: 8.0,
