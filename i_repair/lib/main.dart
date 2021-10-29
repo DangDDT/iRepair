@@ -6,6 +6,7 @@ import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:provider/provider.dart';
 import 'Controllers/orderController/orderController.dart';
 import 'Services/auth/auth.dart';
+import 'Views/Screens/Client/Home/widgets/success-screen.dart';
 import 'Views/Screens/app.dart';
 import 'views/Screens/Welcome/Login/login-screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
                 routes: {
                   '/': (context) => LoginPage(),
                   '/client_app': (context) => App(),
+                  '/success_screen': (context) => SuccessScreen(),
                 },
               ),
             );

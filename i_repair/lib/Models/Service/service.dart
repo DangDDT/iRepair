@@ -22,15 +22,15 @@ class Service {
   dynamic company;
 
   factory Service.fromJson(Map<String, dynamic> json) => Service(
-        id: json["Id"],
-        companyId: json["CompanyId"],
-        fieldId: json["FieldId"],
-        serviceName: json["ServiceName"],
-        description: json["Description"],
-        price: json["Price"],
-        imageUrl: json["ImageUrl"],
-        status: json["Status"],
-        company: json["Company"],
+        id: json["Id"] ?? json["id"],
+        companyId: json["CompanyId"] ?? json["companyId"],
+        fieldId: json["FieldId"] ?? json["fieldId"],
+        serviceName: json["ServiceName"] ?? json["serviceName"],
+        description: json["Description"] ?? json["description"],
+        price: json["Price"] ?? json["price"],
+        imageUrl: json["ImageUrl"] ?? json["imageUrl"],
+        status: json["Status"] ?? json["status"],
+        company: json["Company"] ?? json["company"],
       );
 
   Map<String, dynamic> toJson() => {

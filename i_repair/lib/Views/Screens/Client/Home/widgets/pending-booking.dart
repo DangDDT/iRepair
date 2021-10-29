@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:i_repair/Controllers/orderController/orderController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Customer/customer.dart';
@@ -85,7 +86,10 @@ class _PendingBookingState extends State<PendingBooking> {
             actions: <Widget>[
               TextButton(
                 child: const Text('Xác nhận'),
-                onPressed: () {},
+                onPressed: () {
+                  orderBloc.continueOrder(widget.orderDetail.order.id);
+                  Get.offAndToNamed("/success_screen");
+                },
               ),
               TextButton(
                 child: const Text('Hủy'),

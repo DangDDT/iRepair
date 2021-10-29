@@ -66,6 +66,42 @@ class OrderDetailBloc with ChangeNotifier {
     notifyListeners();
   }
 
+  completeOrder(String orderId) async {
+    setLoading(true);
+    await APIServices.completeOrder(orderId)
+        .whenComplete(() async => await APIServices.cleanCache());
+    ;
+    setLoading(false);
+    notifyListeners();
+  }
+
+  pendingOrder(String orderId, String pendingReason) async {
+    setLoading(true);
+    await APIServices.pendingOrder(orderId, pendingReason)
+        .whenComplete(() async => await APIServices.cleanCache());
+    ;
+    setLoading(false);
+    notifyListeners();
+  }
+
+  continueOrder(String orderId) async {
+    setLoading(true);
+    await APIServices.continueOrder(orderId)
+        .whenComplete(() async => await APIServices.cleanCache());
+    ;
+    setLoading(false);
+    notifyListeners();
+  }
+
+  cancelOrder(String orderId, String cancelReason) async {
+    setLoading(true);
+    await APIServices.cancelOrder(orderId, cancelReason)
+        .whenComplete(() async => await APIServices.cleanCache());
+    ;
+    setLoading(false);
+    notifyListeners();
+  }
+
   void setLoading(val) {
     this.isLoading = val;
     notifyListeners();

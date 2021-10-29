@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:i_repair/Controllers/orderController/orderController.dart';
@@ -19,10 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<OrderDetailBloc>(context, listen: false)
-        .getProcessingBookingList(widget.user!.id);
-    Provider.of<OrderDetailBloc>(context, listen: false)
-        .getPendingBookingList(widget.user!.id);
+    _fetchData();
+  }
+
+  _fetchData() async {
+    final orderBloc = Provider.of<OrderDetailBloc>(context, listen: false);
+    orderBloc.getProcessingBookingList(widget.user!.id);
+    orderBloc.getPendingBookingList(widget.user!.id);
   }
 
   Widget build(BuildContext context) {
@@ -123,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: AppBar(
                     backgroundColor: kBackgroundColor,
                     centerTitle: true,
-                    title: Text("NHIỆM VỤ HÀNG NGÀY",
+                    title: Text("YÊU CẦU ĐANG CẦN BẠN",
                         style: TextStyle(color: kTextColor)),
                     bottom: TabBar(
                       indicatorColor: kPrimaryColor,
@@ -143,44 +148,54 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      (orderBloc.processingList.length == 0)
-                          ? Center(
-                              child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 60,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                      color: kPrimaryLightColor,
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: ClipRRect(
-                                    child: Image.asset(
-                                      "assets/images/repairman.png",
-                                      width: 50,
-                                      height: 50,
-                                    ),
-                                  ),
+                      RefreshIndicator(
+                        child: (orderBloc.processingList.length == 0)
+                            ? SingleChildScrollView(
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                child: Container(
+                                  padding: EdgeInsets.only(top: 100),
+                                  child: Center(
+                                      child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: 60,
+                                        height: 60,
+                                        decoration: BoxDecoration(
+                                            color: kPrimaryLightColor,
+                                            borderRadius:
+                                                BorderRadius.circular(30)),
+                                        child: ClipRRect(
+                                          child: Image.asset(
+                                            "assets/images/repairman.png",
+                                            width: 50,
+                                            height: 50,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                          child: Text(
+                                              "HIỆN TẠI BẠN CHƯA YÊU CẦU ĐANG XỬ LÝ")),
+                                      Container(
+                                          child: Text(
+                                              "BẮT ĐẦU NHẬN ĐƠN THÔI NÀO. CỐ LÊN NHÉ !!!")),
+                                    ],
+                                  )),
                                 ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
-                                    child: Text(
-                                        "HIỆN TẠI BẠN CHƯA YÊU CẦU ĐANG XỬ LÝ")),
-                                Container(
-                                    child: Text(
-                                        "BẮT ĐẦU NHẬN ĐƠN THÔI NÀO. CỐ LÊN NHÉ !!!")),
-                              ],
-                            ))
-                          : ListView.builder(
-                              itemCount: orderBloc.processingList.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return ProcessingBooking(
-                                    orderDetail:
-                                        orderBloc.processingList[index]);
-                              },
-                            ),
+                              )
+                            : ListView.builder(
+                                itemCount: orderBloc.processingList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return ProcessingBooking(
+                                      orderDetail:
+                                          orderBloc.processingList[index]);
+                                },
+                              ),
+                        onRefresh: () => _fetchData(),
+                      ),
                       (orderBloc.pendingList.length == 0)
                           ? Center(
                               child: Column(

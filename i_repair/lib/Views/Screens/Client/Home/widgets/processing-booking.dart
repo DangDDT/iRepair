@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:i_repair/Controllers/orderController/orderController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Order/orderDetail.dart';
+import 'package:i_repair/Views/Screens/Client/Home/widgets/reason-page.dart';
 import 'package:intl/intl.dart';
 import 'dart:math' show asin, cos, pow, sqrt;
 
@@ -58,6 +60,7 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
     }
   }
 
+  
   @override
   void dispose() {
     _timer!.cancel();
@@ -243,7 +246,11 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                           children: [
                             MaterialButton(
                               color: CupertinoColors.activeGreen,
-                              onPressed: () {},
+                              onPressed: () {
+                                orderBloc
+                                    .completeOrder(widget.orderDetail.order.id);
+                                Get.offAndToNamed('/success_screen');
+                              },
                               child: Text(
                                 "HOÀN THÀNH",
                                 style: TextStyle(color: kBackgroundColor),
@@ -256,7 +263,11 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                                   padding: const EdgeInsets.all(2.0),
                                   child: MaterialButton(
                                     color: CupertinoColors.activeOrange,
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Get.to(() => ReasonPage(type: 'PENDING'),
+                                          arguments:
+                                              widget.orderDetail.order.id);
+                                    },
                                     child: Text(
                                       "TRÌ HOÃN",
                                       style: TextStyle(color: kBackgroundColor),
@@ -267,7 +278,11 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                                   padding: const EdgeInsets.all(2.0),
                                   child: MaterialButton(
                                     color: CupertinoColors.systemRed,
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Get.to(() => ReasonPage(type: 'CANCEL'),
+                                          arguments:
+                                              widget.orderDetail.order.id);
+                                    },
                                     child: Text(
                                       "HỦY ĐƠN",
                                       style: TextStyle(color: kBackgroundColor),
