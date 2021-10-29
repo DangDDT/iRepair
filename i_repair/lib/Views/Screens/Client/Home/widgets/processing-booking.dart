@@ -21,7 +21,7 @@ class ProcessingBooking extends StatelessWidget {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0), side: BorderSide.none),
         child: Container(
-          height: 370.0,
+          height: 380.0,
           child: Column(
             children: [
               Container(

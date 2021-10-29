@@ -60,9 +60,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 alignment: Alignment.centerLeft,
                 child: Row(
                   children: [
-                    Container(
-                      child: Icon(CupertinoIcons.profile_circled, size: 50),
-                    ),
+                    (widget.user!.avatar == "none")
+                        ? Container(
+                            child:
+                                Icon(CupertinoIcons.profile_circled, size: 50),
+                          )
+                        : Container(
+                            child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Image.network(
+                              widget.user!.avatar,
+                              height: 70,
+                              width: 70,
+                            ),
+                          )),
                     Container(
                       margin: EdgeInsets.only(left: 10),
                       child: Column(

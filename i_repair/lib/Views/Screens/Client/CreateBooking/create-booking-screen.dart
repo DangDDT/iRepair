@@ -593,7 +593,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                                         child: Text(
                                                           service.serviceName,
                                                           style: TextStyle(
-                                                              fontSize: 16),
+                                                              fontSize: 14),
                                                         ),
                                                       ),
                                                     ],
@@ -609,7 +609,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                                         child: Text(
                                                           "Chi tiết: ",
                                                           style: TextStyle(
-                                                              fontSize: 16,
+                                                              fontSize: 14,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold),
@@ -847,7 +847,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
         final customerLocation = placeBloc.selectedPlace as Address;
         final company = companyController.selectedCompany as Company;
         return Container(
-            height: 400,
+            height: 500,
             child: Column(children: [
               Container(
                 height: 280,
@@ -862,7 +862,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 20.0, top: 20, right: 10, bottom: 5),
+                                left: 20.0, top: 10, right: 10, bottom: 5),
                             child: Column(
                               children: [
                                 Row(
@@ -871,14 +871,14 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                       child: Text(
                                         "Tên người đặt: ",
                                         style: TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                     Container(
                                       child: Text(
                                         customerInfo.fullName,
-                                        style: TextStyle(fontSize: 16),
+                                        style: TextStyle(fontSize: 14),
                                       ),
                                     ),
                                   ],
@@ -889,14 +889,14 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                       child: Text(
                                         "Số điện thoại: ",
                                         style: TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                     Container(
                                       child: Text(
                                         customerInfo.phoneNumber,
-                                        style: TextStyle(fontSize: 16),
+                                        style: TextStyle(fontSize: 14),
                                       ),
                                     ),
                                   ],
@@ -908,15 +908,15 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                       child: Text(
                                         "Địa chỉ sửa: ",
                                         style: TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                     Container(
-                                      width: 270,
+                                      width: 260,
                                       child: Text(
                                         "${customerLocation.name! + ', ' + customerLocation.addressDetail!}",
-                                        style: TextStyle(fontSize: 16),
+                                        style: TextStyle(fontSize: 14),
                                       ),
                                     ),
                                   ],
@@ -943,14 +943,14 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                       child: Text(
                                         "Đồ bạn cần sửa: ",
                                         style: TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                     Container(
                                       child: Text(
                                         selectedField!.name,
-                                        style: TextStyle(fontSize: 16),
+                                        style: TextStyle(fontSize: 14),
                                       ),
                                     ),
                                   ],
@@ -961,14 +961,14 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                       child: Text(
                                         "Tên dịch vụ: ",
                                         style: TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                     Container(
                                       child: Text(
                                         selectedService!.serviceName,
-                                        style: TextStyle(fontSize: 16),
+                                        style: TextStyle(fontSize: 14),
                                       ),
                                     ),
                                   ],
@@ -979,14 +979,14 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                       child: Text(
                                         "Chi phí sửa: ",
                                         style: TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                     Container(
                                       child: Text(
-                                        "${company.price}",
-                                        style: TextStyle(fontSize: 16),
+                                        "${NumberFormat.currency(locale: 'vi').format(company.price)}",
+                                        style: TextStyle(fontSize: 14),
                                       ),
                                     ),
                                   ],
@@ -1013,7 +1013,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                       child: Text(
                                         "Công ty cung cấp: ",
                                         style: TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold),
                                       ),
                                     ),

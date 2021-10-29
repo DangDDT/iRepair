@@ -69,18 +69,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.user!.fullName,
+                          Text("Thông tin cá nhân",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 18)),
-                          (widget.user!.phoneNumber != null)
-                              ? Text(widget.user!.phoneNumber,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                      letterSpacing: 0.5))
-                              : SizedBox(
-                                  height: 0,
-                                ),
                         ],
                       ),
                     ),
