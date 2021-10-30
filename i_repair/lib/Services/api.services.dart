@@ -224,10 +224,8 @@ class APIServices {
   static Future<void> cancelOrder(String id, String cancelReason) async {
     String? token = await getToken();
     if (token == null) return null;
-    final body = jsonEncode({
-      "id": id,
-      "cancelReason": cancelReason,
-    });
+    final body =
+        jsonEncode({"id": id, "cancelReason": cancelReason, "status": 2});
     final response = await http.put(
       Uri.parse("$endpoint/api/v1.0/orders"),
       headers: {
@@ -241,6 +239,24 @@ class APIServices {
     } else {
       throw Exception(
           'Failed to cancel order and ${response.statusCode} and ${response.reasonPhrase}');
+    }
+  }
+
+  static Future<void> cleanCache() async {
+    String? token = await getToken();
+    if (token == null) return null;
+    final response = await http.delete(
+      Uri.parse("$endpoint/api/v1.0/order-redis"),
+      headers: {
+        "Authorization": 'Bearer $token',
+        "content-type": "application/json"
+      },
+    );
+    if (response.statusCode == 200) {
+      print("API clean cache success");
+    } else {
+      throw Exception(
+          'Failed to clean cache and ${response.statusCode} and ${response.reasonPhrase}');
     }
   }
 

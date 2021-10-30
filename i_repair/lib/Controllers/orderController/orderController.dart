@@ -36,7 +36,8 @@ class OrderDetailBloc with ChangeNotifier {
   }
 
   cancelOrder(String id, String cancelReason) async {
-    await APIServices.cancelOrder(id, cancelReason);
+    await APIServices.cancelOrder(id, cancelReason)
+        .whenComplete(() => APIServices.cleanCache());
     notifyListeners();
   }
   // void setLoading(val) {

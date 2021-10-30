@@ -5,7 +5,7 @@ import 'package:i_repair/Controllers/orderController/orderController.dart';
 import 'package:i_repair/Controllers/placeController/placeController.dart';
 import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
-import 'package:i_repair/Views/Screens/Client/CreateBooking/widgets/success-screen.dart';
+import 'package:i_repair/Views/common/success-screen/success-screen.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/cancel-page.dart';
 import 'package:i_repair/Views/Screens/Client/Profile/widgets/choose-address.dart';
 import 'package:provider/provider.dart';

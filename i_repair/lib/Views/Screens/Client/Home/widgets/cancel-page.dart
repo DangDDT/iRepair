@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:i_repair/Controllers/orderController/orderController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Views/common/success-screen/success-screen.dart';
 import 'package:provider/provider.dart';
 
 final List<String> CancelReason = [
@@ -101,10 +102,10 @@ class _CancelRequestPageState extends State<CancelRequestPage> {
                         _formKey.currentState!.validate()) {
                       await orderBloc.cancelOrder(
                           orderId, _reasonController.text);
-                      Get.offAndToNamed('/client_app');
+                      Get.to(() => SuccessScreen());
                     } else {
                       await orderBloc.cancelOrder(orderId, _reason);
-                      Get.offAndToNamed('/client_app');
+                      Get.to(() => SuccessScreen());
                     }
                   },
                   child: Text('XÁC NHẬN HỦY'),

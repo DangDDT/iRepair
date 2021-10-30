@@ -696,7 +696,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                             final Company company =
                                 companyController.companyList[index];
                             return Container(
-                              height: 120,
+                              height: 140,
                               child: Card(
                                 shape: OutlineInputBorder(
                                     borderSide: BorderSide.none,
@@ -824,6 +824,68 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                                                   kSecondaryColor),
                                                         ),
                                                       ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Container(
+                                                        child: Text(
+                                                            'Đánh giá: ',
+                                                            style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold)),
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: (company
+                                                                        .rating! >=
+                                                                    1)
+                                                                ? kSecondaryColor
+                                                                : Colors.grey,
+                                                            size: 14,
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: (company
+                                                                        .rating! >=
+                                                                    2)
+                                                                ? kSecondaryColor
+                                                                : Colors.grey,
+                                                            size: 14,
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: (company
+                                                                        .rating! >=
+                                                                    3)
+                                                                ? kSecondaryColor
+                                                                : Colors.grey,
+                                                            size: 14,
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: (company
+                                                                        .rating! >=
+                                                                    4)
+                                                                ? kSecondaryColor
+                                                                : Colors.grey,
+                                                            size: 14,
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: (company
+                                                                        .rating! >=
+                                                                    5)
+                                                                ? kSecondaryColor
+                                                                : Colors.grey,
+                                                            size: 14,
+                                                          ),
+                                                        ],
+                                                      )
                                                     ],
                                                   ),
                                                 ],

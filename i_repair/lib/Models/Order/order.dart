@@ -15,6 +15,7 @@ class Order {
     this.status,
     this.pendingReason,
     this.cancelReason,
+    
   });
 
   String? id;
@@ -32,6 +33,7 @@ class Order {
   int? status;
   dynamic pendingReason;
   dynamic cancelReason;
+  
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
         id: json["Id"] ?? json["id"],
@@ -49,6 +51,7 @@ class Order {
         status: json["Status"] ?? json["status"],
         pendingReason: json["PendingReason"] ?? json["pendingReason"],
         cancelReason: json["CancelReason"] ?? json["cancelReason"],
+        
       );
 
   Map<String, dynamic> toJson() => {
@@ -67,5 +70,6 @@ class Order {
         "Status": status,
         "PendingReason": pendingReason,
         "CancelReason": cancelReason,
+        
       };
 }

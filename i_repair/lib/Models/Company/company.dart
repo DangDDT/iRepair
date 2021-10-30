@@ -19,6 +19,7 @@ class Company {
     required this.imageUrl,
     required this.status,
     this.price,
+    this.rating,
   });
 
   String id;
@@ -32,7 +33,7 @@ class Company {
   String imageUrl;
   int status;
   int? price;
-
+  int? rating;
   factory Company.fromJson(Map<String, dynamic> json) => Company(
         id: json["Id"] ?? json["id"],
         companyName: json["CompanyName"] ?? json["companyName"],
@@ -45,6 +46,7 @@ class Company {
         imageUrl: json["ImageUrl"] ?? json["imageUrl"],
         status: json["Status"] ?? json["status"],
         price: json["Price"] ?? json["price"],
+        rating: json["Rating"] ?? json["rating"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -59,5 +61,6 @@ class Company {
         "ImageUrl": imageUrl,
         "Status": status,
         "Price": price,
+        "Rating": rating
       };
 }

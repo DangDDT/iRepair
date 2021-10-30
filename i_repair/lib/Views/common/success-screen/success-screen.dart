@@ -16,7 +16,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
   }
 
   countdown() async {
-    await Future.delayed(Duration(seconds: 5));
+    await Future.delayed(Duration(seconds: 3));
     setState(() {
       isLoading = false;
     });
@@ -47,8 +47,9 @@ class _SuccessScreenState extends State<SuccessScreen> {
                 ? Text('Đang xử lý, vui lòng đợi một vài giây...')
                 : Column(
                     children: [
-                      Text('Chúc mừng bạn đã tạo đơn hàng thành công,'),
-                      Text('sau 3 giây sẽ chuyển về trang chủ.')
+                      Text('THÀNH CÔNG',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text('Sau 3 giây sẽ chuyển về trang chủ.')
                     ],
                   ),
           ],
