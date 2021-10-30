@@ -179,9 +179,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Container(
                                           child: Text(
                                               "HIỆN TẠI BẠN CHƯA YÊU CẦU ĐANG XỬ LÝ")),
-                                      Container(
-                                          child: Text(
-                                              "BẮT ĐẦU NHẬN ĐƠN THÔI NÀO. CỐ LÊN NHÉ !!!")),
                                     ],
                                   )),
                                 ),

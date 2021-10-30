@@ -10,6 +10,9 @@ class Order {
     required this.customerAddress,
     required this.feedbackPoint,
     this.feedbackMessage,
+    required this.cancelPerson,
+    this.cancelReason,
+    this.pendingReason,
     required this.lng,
     required this.lat,
     required this.status,
@@ -23,7 +26,10 @@ class Order {
   dynamic paymentTime;
   int total;
   String customerAddress;
-  int feedbackPoint;
+  int cancelPerson;
+  dynamic cancelReason;
+  dynamic pendingReason;
+  int? feedbackPoint;
   dynamic feedbackMessage;
   double? lng;
   double? lat;
@@ -40,6 +46,9 @@ class Order {
         customerAddress: json["CustomerAddress"] ?? json["customerAddress"],
         feedbackPoint: json["FeedbackPoint"] ?? json["feedbackPoint"],
         feedbackMessage: json["FeedbackMessage"] ?? json["feedbackMessage"],
+        cancelPerson: json["CancelPerson"] ?? json["cancelPerson"],
+        cancelReason: json["CancelReason"] ?? json["cancelReason"],
+        pendingReason: json["PendingReason"] ?? json["pendingReason"],
         lng: json["Lng"] ?? json["lng"],
         lat: json["Lat"] ?? json["lat"],
         status: json["Status"] ?? json["status"],

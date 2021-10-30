@@ -14,6 +14,12 @@ class OrderDetailBloc with ChangeNotifier {
   List<OrderDetail>? _pendingList = <OrderDetail>[];
   UnmodifiableListView<OrderDetail> get pendingList =>
       UnmodifiableListView(_pendingList!);
+  List<OrderDetail>? _completedList = <OrderDetail>[];
+  UnmodifiableListView<OrderDetail> get completedList =>
+      UnmodifiableListView(_completedList!);
+  List<OrderDetail>? _cancelList = <OrderDetail>[];
+  UnmodifiableListView<OrderDetail> get cancelList =>
+      UnmodifiableListView(_cancelList!);
   Location location = new Location();
 
   bool _serviceEnabled = false;
@@ -62,6 +68,20 @@ class OrderDetailBloc with ChangeNotifier {
   getPendingBookingList(String repairmanId) async {
     setLoading(true);
     this._pendingList = await APIServices.fetchOrders(repairmanId, 1);
+    setLoading(false);
+    notifyListeners();
+  }
+
+  getCompletedBookingList(String repairmanId) async {
+    setLoading(true);
+    this._completedList = await APIServices.fetchOrders(repairmanId, 3);
+    setLoading(false);
+    notifyListeners();
+  }
+
+  getCancelBookingList(String repairmanId) async {
+    setLoading(true);
+    this._cancelList = await APIServices.fetchOrders(repairmanId, 2);
     setLoading(false);
     notifyListeners();
   }

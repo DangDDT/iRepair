@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart.';
 import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
+import 'package:i_repair/Views/Screens/Client/History/history.dart';
 import 'package:provider/provider.dart';
 import 'Client/Home/home_screen.dart';
 import 'Client/Profile/profile.dart';
@@ -64,6 +65,7 @@ class _AppState extends State<App> {
               controller: _pageController,
               children: [
                 HomeScreen(user: currentUser),
+                HistoryScreen(user: currentUser),
                 ProfileScreen(user: currentUser)
               ],
               onPageChanged: (page) {
@@ -92,7 +94,7 @@ class _AppState extends State<App> {
               gap: 8,
               activeColor: Colors.black,
               iconSize: 24,
-              padding: EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
               duration: Duration(milliseconds: 400),
               tabBackgroundColor: kSecondaryLightColor,
               color: Colors.black,
@@ -100,6 +102,10 @@ class _AppState extends State<App> {
                 GButton(
                   icon: CupertinoIcons.book,
                   text: 'Nhiệm vụ',
+                ),
+                GButton(
+                  icon: CupertinoIcons.bookmark,
+                  text: 'Lịch sử',
                 ),
                 GButton(
                   icon: CupertinoIcons.profile_circled,

@@ -11,6 +11,7 @@ class UserBloc with ChangeNotifier {
   Company? userCompany;
   UserBloc() {}
   getCurrentUser() async {
+    setLoading(true);
     final prefs = await SharedPreferences.getInstance();
     final currentUserString = prefs.getString('currentUser') ?? null;
     if (currentUserString != null && !currentUserString.isEmpty) {
@@ -19,18 +20,28 @@ class UserBloc with ChangeNotifier {
     } else {
       currentUser = null;
     }
+    setLoading(false);
     notifyListeners();
   }
 
   getCompanyOfUser() async {
+    setLoading(true);
     if (this.currentUser != null) {
       userCompany =
           await APIServices.getCompanyById(this.currentUser!.companyId);
     }
+    if (userCompany != null) setLoading(false);
+    notifyListeners();
   }
 
   logout() async {
+    setLoading(true);
     final prefs = await SharedPreferences.getInstance();
     prefs.remove('currentUser');
+    setLoading(false);
+  }
+
+  setLoading(value) {
+    isLoading = value;
   }
 }
