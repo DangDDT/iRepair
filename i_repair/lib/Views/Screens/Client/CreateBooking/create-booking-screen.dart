@@ -785,7 +785,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                                     children: [
                                                       Container(
                                                         child: Text(
-                                                          "Chi tiết: ",
+                                                          "Địa chỉ: ",
                                                           style: TextStyle(
                                                               fontSize: 14,
                                                               fontWeight:
