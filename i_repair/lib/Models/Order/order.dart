@@ -1,22 +1,21 @@
 class Order {
-  Order({
-    this.id,
-    required this.serviceId,
-    this.repairmanId,
-    required this.customerId,
-    this.createTime,
-    this.paymentTime,
-    required this.total,
-    required this.customerAddress,
-    this.feedbackPoint,
-    this.feedbackMessage,
-    required this.lng,
-    required this.lat,
-    this.status,
-    this.pendingReason,
-    this.cancelReason,
-    
-  });
+  Order(
+      {this.id,
+      required this.serviceId,
+      this.repairmanId,
+      required this.customerId,
+      this.createTime,
+      this.paymentTime,
+      required this.total,
+      required this.customerAddress,
+      this.feedbackPoint,
+      this.feedbackMessage,
+      required this.lng,
+      required this.lat,
+      this.status,
+      this.pendingReason,
+      this.cancelReason,
+      this.cancelPerson});
 
   String? id;
   String serviceId;
@@ -33,7 +32,7 @@ class Order {
   int? status;
   dynamic pendingReason;
   dynamic cancelReason;
-  
+  int? cancelPerson;
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
         id: json["Id"] ?? json["id"],
@@ -51,7 +50,7 @@ class Order {
         status: json["Status"] ?? json["status"],
         pendingReason: json["PendingReason"] ?? json["pendingReason"],
         cancelReason: json["CancelReason"] ?? json["cancelReason"],
-        
+        cancelPerson: json["CancelPerson"] ?? json["cancelPerson"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -70,6 +69,6 @@ class Order {
         "Status": status,
         "PendingReason": pendingReason,
         "CancelReason": cancelReason,
-        
+        "CancelPerson": cancelPerson
       };
 }

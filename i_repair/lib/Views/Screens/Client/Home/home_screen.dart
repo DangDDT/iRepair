@@ -129,13 +129,16 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             )),
         if (majorController.majorList.isEmpty)
-          Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(child: CircularProgressIndicator()),
-            ],
-          ))
+          Container(
+            height: 200,
+            child: Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(child: CircularProgressIndicator()),
+              ],
+            )),
+          )
         else
           Container(
               width: 150,

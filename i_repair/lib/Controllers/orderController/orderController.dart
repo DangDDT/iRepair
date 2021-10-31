@@ -13,6 +13,12 @@ class OrderDetailBloc with ChangeNotifier {
   List<OrderDetail>? _pendingList = <OrderDetail>[];
   UnmodifiableListView<OrderDetail>? get pendingList =>
       UnmodifiableListView(_pendingList!);
+  List<OrderDetail> _historyList = <OrderDetail>[];
+  List<OrderDetail>? get historyList {
+    _historyList.sort((date1, date2) => DateTime.parse(date2.order.createTime!)
+        .compareTo(DateTime.parse(date1.order.createTime!)));
+    return _historyList;
+  }
 
   OrderBloc() {}
 
@@ -40,8 +46,28 @@ class OrderDetailBloc with ChangeNotifier {
         .whenComplete(() => APIServices.cleanCache());
     notifyListeners();
   }
-  // void setLoading(val) {
-  //   this.isLoading = val;
-  //   notifyListeners();
-  // }
+
+  getHistoryBookingList(String customerId) async {
+    setLoading(true);
+    this._historyList.clear();
+    final completedList = await APIServices.fetchOrders(customerId, 3);
+    final canceledList = await APIServices.fetchOrders(customerId, 2);
+    if (completedList != null && canceledList != null) {
+      this._historyList.addAll(completedList);
+      this._historyList.addAll(canceledList);
+    }
+    setLoading(false);
+    notifyListeners();
+  }
+
+  feedbackOrder(String id, int? feedbackPoint, String feedbackMessage) async {
+    await APIServices.feedbackOrder(id, feedbackPoint, feedbackMessage)
+        .whenComplete(() => APIServices.cleanCache());
+    notifyListeners();
+  }
+
+  void setLoading(val) {
+    this.isLoading = val;
+    notifyListeners();
+  }
 }

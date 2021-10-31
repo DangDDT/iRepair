@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,6 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
   @override
   void initState() {
     useDefaultAddress = false;
-    print(data.id);
     fieldController.getFieldsByMajors(data);
     super.initState();
   }
@@ -175,12 +175,11 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                   ),
                 IconStepper(
                   icons: [
-                    checkCompleteIcon(
-                        activeStep, 0, Icon(CupertinoIcons.wrench_fill)),
+                    checkCompleteIcon(activeStep, 0, Icon(Icons.devices)),
                     checkCompleteIcon(
                         activeStep, 1, Icon(Icons.home_repair_service)),
-                    checkCompleteIcon(activeStep, 2, Icon(Icons.payment)),
-                    checkCompleteIcon(activeStep, 3, Icon(Icons.check_circle)),
+                    checkCompleteIcon(activeStep, 2, Icon(Icons.home)),
+                    checkCompleteIcon(activeStep, 3, Icon(Icons.payment)),
                   ],
                   lineLength: 50,
                   scrollingDisabled: true,
@@ -643,6 +642,15 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
         });
       case 2:
         // print(_payment);
+        double calculateDistance(lat1, lon1, lat2, lon2) {
+          num mod = pow(10.0, 1);
+          var p = 0.017453292519943295;
+          var c = cos;
+          var a = 0.5 -
+              c((lat2 - lat1) * p) / 2 +
+              c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+          return ((12742 * asin(sqrt(a)) * mod).round().toDouble() / mod);
+        }
         return Obx(() {
           return Column(children: [
             Expanded(
@@ -661,7 +669,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                               alignment: Alignment.center,
                               width: 400,
                               child: Text(
-                                  'Đang quét các công ty cung cấp dịch gần bạn...')),
+                                  'Đang quét các công ty cung cấp dịch vụ gần bạn...')),
                         ],
                       ))
                   : (companyController.companyList.length == 0 &&
@@ -696,7 +704,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                             final Company company =
                                 companyController.companyList[index];
                             return Container(
-                              height: 140,
+                              height: 160,
                               child: Card(
                                 shape: OutlineInputBorder(
                                     borderSide: BorderSide.none,
@@ -708,8 +716,6 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                         companyController
                                             .setSelectedCompany(company);
                                       });
-                                      print(companyController.selectedCompany!
-                                          .toJson());
                                       nextButton();
                                     },
                                     child: Column(
@@ -722,7 +728,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                               width: 40,
                                               height: 40,
                                               margin: EdgeInsets.only(
-                                                  top: 25, left: 20),
+                                                  top: 15, left: 20),
                                               decoration: BoxDecoration(
                                                   color: kSecondaryLightColor,
                                                   borderRadius:
@@ -732,8 +738,8 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                                 children: [
                                                   Positioned(
                                                     left: 5,
-                                                    child: SvgPicture.asset(
-                                                      'assets/images/default-icon.svg',
+                                                    child: Image.asset(
+                                                      'assets/images/company.png',
                                                       height: 30,
                                                     ),
                                                   )
@@ -837,55 +843,106 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
                                                                     FontWeight
                                                                         .bold)),
                                                       ),
-                                                      Row(
-                                                        children: [
-                                                          Icon(
-                                                            Icons.star,
-                                                            color: (company
-                                                                        .rating! >=
-                                                                    1)
-                                                                ? kSecondaryColor
-                                                                : Colors.grey,
-                                                            size: 14,
-                                                          ),
-                                                          Icon(
-                                                            Icons.star,
-                                                            color: (company
-                                                                        .rating! >=
-                                                                    2)
-                                                                ? kSecondaryColor
-                                                                : Colors.grey,
-                                                            size: 14,
-                                                          ),
-                                                          Icon(
-                                                            Icons.star,
-                                                            color: (company
-                                                                        .rating! >=
-                                                                    3)
-                                                                ? kSecondaryColor
-                                                                : Colors.grey,
-                                                            size: 14,
-                                                          ),
-                                                          Icon(
-                                                            Icons.star,
-                                                            color: (company
-                                                                        .rating! >=
-                                                                    4)
-                                                                ? kSecondaryColor
-                                                                : Colors.grey,
-                                                            size: 14,
-                                                          ),
-                                                          Icon(
-                                                            Icons.star,
-                                                            color: (company
-                                                                        .rating! >=
-                                                                    5)
-                                                                ? kSecondaryColor
-                                                                : Colors.grey,
-                                                            size: 14,
-                                                          ),
-                                                        ],
-                                                      )
+                                                      (company.rating == null)
+                                                          ? Container(
+                                                              child: Text(
+                                                                  'Chưa có đánh giá',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                  )))
+                                                          : Row(
+                                                              children: [
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color: (company
+                                                                              .rating! >=
+                                                                          1)
+                                                                      ? kSecondaryColor
+                                                                      : Colors
+                                                                          .grey,
+                                                                  size: 14,
+                                                                ),
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color: (company
+                                                                              .rating! >=
+                                                                          2)
+                                                                      ? kSecondaryColor
+                                                                      : Colors
+                                                                          .grey,
+                                                                  size: 14,
+                                                                ),
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color: (company
+                                                                              .rating! >=
+                                                                          3)
+                                                                      ? kSecondaryColor
+                                                                      : Colors
+                                                                          .grey,
+                                                                  size: 14,
+                                                                ),
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color: (company
+                                                                              .rating! >=
+                                                                          4)
+                                                                      ? kSecondaryColor
+                                                                      : Colors
+                                                                          .grey,
+                                                                  size: 14,
+                                                                ),
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color: (company
+                                                                              .rating! >=
+                                                                          5)
+                                                                      ? kSecondaryColor
+                                                                      : Colors
+                                                                          .grey,
+                                                                  size: 14,
+                                                                ),
+                                                                Container(
+                                                                    child: Text(
+                                                                        ' (${company.times} đơn hàng đã sửa thành công)',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontSize:
+                                                                              14,
+                                                                        )))
+                                                              ],
+                                                            ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Container(
+                                                        child: Text(
+                                                          "Khoảng cách: ",
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width: 200,
+                                                        child: Text(
+                                                          "${calculateDistance(placeBloc.selectedPlace!.geometry.location.lat, placeBloc.selectedPlace!.geometry.location.lng, company.lat, company.lng)} km",
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  kSecondaryColor),
+                                                        ),
+                                                      ),
                                                     ],
                                                   ),
                                                 ],
@@ -912,7 +969,7 @@ class _CreateBookingScreenState extends State<CreateBookingScreen> {
             height: 500,
             child: Column(children: [
               Container(
-                height: 280,
+                height: 210,
                 child: Card(
                   shape: OutlineInputBorder(
                       borderSide: BorderSide.none,

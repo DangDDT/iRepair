@@ -34,11 +34,12 @@ class ProcessingBooking extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          child: Text("NGÀY TẠO: ",
+                          child: Text("THỜI GIAN TẠO: ",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         Container(
-                          child: Text("${orderDetail.order.createTime}"),
+                          child: Text(
+                              "${DateTime.parse(orderDetail.order.createTime!).toString().split(".")[0]}"),
                         )
                       ],
                     ),

@@ -5,13 +5,13 @@ import 'package:i_repair/Controllers/orderController/orderController.dart';
 import 'package:i_repair/Controllers/placeController/placeController.dart';
 import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Views/Screens/Client/MyBooking/widgets/rating.dart';
 import 'package:i_repair/Views/common/success-screen/success-screen.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/cancel-page.dart';
 import 'package:i_repair/Views/Screens/Client/Profile/widgets/choose-address.dart';
 import 'package:provider/provider.dart';
 import 'Services/auth/auth.dart';
 import 'Views/Screens/Client/CreateBooking/create-booking-screen.dart';
-import 'Views/Screens/Client/MyBooking/booking.dart';
 import 'Views/Screens/app.dart';
 import 'views/Screens/Welcome/Login/login-screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -54,11 +54,11 @@ class MyApp extends StatelessWidget {
                 routes: {
                   '/': (context) => LoginPage(),
                   '/client_app': (context) => App(),
-                  '/my_booking': (context) => BookingScreen(),
                   '/create_booking': (context) => CreateBookingScreen(),
                   '/success_screen': (context) => SuccessScreen(),
                   '/choose_address': (context) => ChooseAddressWidget(),
                   '/cancel_page': (context) => CancelRequestPage(),
+                  '/rating': (context) => RatingPage()
                 },
               ),
             );

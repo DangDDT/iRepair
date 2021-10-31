@@ -31,7 +31,7 @@ class PendingBooking extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          child: Text("NGÀY TẠO: ",
+                          child: Text("THỜI GIAN TẠO: ",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         Container(
@@ -70,7 +70,6 @@ class PendingBooking extends StatelessWidget {
                         )
                       ],
                     ),
-                    
                     Divider(
                       height: 20,
                       thickness: 1,
@@ -157,6 +156,7 @@ class PendingBooking extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(left: 30),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       width: 110,

@@ -1,10 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:i_repair/Views/common/appbar/common-appbar.dart';
+import 'package:i_repair/Controllers/orderController/orderController.dart';
+import 'package:i_repair/Models/Constants/constants.dart';
+import 'package:i_repair/Models/Profile/userProfile.dart';
+import 'package:i_repair/Views/Screens/Client/MyBooking/widgets/history-booking.dart';
+import 'package:provider/provider.dart';
 
 class BookingScreen extends StatefulWidget {
+  final UserProfile? user;
   const BookingScreen({
     Key? key,
+    required this.user,
   }) : super(key: key);
 
   @override
@@ -12,30 +18,121 @@ class BookingScreen extends StatefulWidget {
 }
 
 class _BookingScreenState extends State<BookingScreen> {
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   void initState() {
-    _scaffoldKey = GlobalKey();
+    Provider.of<OrderDetailBloc>(context, listen: false)
+        .getHistoryBookingList(widget.user!.id);
     super.initState();
   }
 
   @override
   void dispose() {
     // disposing states
-    _scaffoldKey.currentState?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: BaseAppBar(
-          key: null,
-          appBar: AppBar(),
-          title: 'Lịch sử đơn hàng',
-          haveBackSpace: true),
-      body: Container(),
-    );
+    final orderBloc = Provider.of<OrderDetailBloc>(context);
+    Size size = MediaQuery.of(context).size;
+    return ListView(children: [
+      Stack(children: [
+        Container(
+          height: 100,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(bottomRight: Radius.circular(100)),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end:
+                  Alignment(1, 1), // 10% of the width, so there are ten blinds.
+              colors: <Color>[
+                kPrimaryColor,
+                kPrimaryLightColor,
+                kBackgroundColor
+              ], // red to yellow
+              tileMode:
+                  TileMode.repeated, // repeats the gradient over the canvas
+            ),
+          ),
+          child: Container(
+              padding: EdgeInsets.only(left: 25),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    child: Icon(CupertinoIcons.book, size: 50),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Lịch sử đơn hàng",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 24)),
+                      ],
+                    ),
+                  ),
+                ],
+              )),
+        ),
+        Positioned(
+          bottom: -10,
+          left: 0,
+          child: Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(200),
+                  topRight: Radius.circular(250)),
+              color: kBackgroundColor,
+            ),
+            width: size.width,
+            height: 10,
+            child: SizedBox(
+              height: 10,
+            ),
+          ),
+        )
+      ]),
+      Container(
+        height: 500,
+        child: (orderBloc.isLoading)
+            ? Container(
+                height: 500,
+                child: Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(child: CircularProgressIndicator()),
+                  ],
+                )),
+              )
+            : (orderBloc.historyList!.length == 0)
+                ? Container(
+                    height: 500,
+                    child: Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                            child:
+                                Text("HIỆN TẠI BẠN CHƯA YÊU CẦU ĐANG XỬ LÝ")),
+                      ],
+                    )),
+                  )
+                : ListView.separated(
+                    itemBuilder: (BuildContext context, int index) {
+                      return HistoryBooking(
+                          orderDetail: orderBloc.historyList![index]);
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return Divider();
+                    },
+                    itemCount: orderBloc.historyList!.length,
+                  ),
+      )
+    ]);
   }
 }

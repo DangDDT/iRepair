@@ -66,7 +66,7 @@ class _AppState extends State<App> {
               controller: _pageController,
               children: [
                 HomeScreen(user: userBloc.currentUser),
-                BookingScreen(),
+                BookingScreen(user: userBloc.currentUser),
                 ProfileScreen(user: userBloc.currentUser),
               ],
               onPageChanged: (page) {

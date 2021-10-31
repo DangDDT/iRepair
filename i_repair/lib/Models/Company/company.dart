@@ -7,20 +7,20 @@ String companyToJson(List<Company> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Company {
-  Company({
-    required this.id,
-    required this.companyName,
-    required this.address,
-    required this.lng,
-    required this.lat,
-    required this.description,
-    required this.email,
-    required this.hotline,
-    required this.imageUrl,
-    required this.status,
-    this.price,
-    this.rating,
-  });
+  Company(
+      {required this.id,
+      required this.companyName,
+      required this.address,
+      required this.lng,
+      required this.lat,
+      required this.description,
+      required this.email,
+      required this.hotline,
+      required this.imageUrl,
+      required this.status,
+      this.price,
+      this.rating,
+      this.times});
 
   String id;
   String companyName;
@@ -34,6 +34,7 @@ class Company {
   int status;
   int? price;
   int? rating;
+  int? times;
   factory Company.fromJson(Map<String, dynamic> json) => Company(
         id: json["Id"] ?? json["id"],
         companyName: json["CompanyName"] ?? json["companyName"],
@@ -47,6 +48,7 @@ class Company {
         status: json["Status"] ?? json["status"],
         price: json["Price"] ?? json["price"],
         rating: json["Rating"] ?? json["rating"],
+        times: json["Times"] ?? json["times"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -61,6 +63,7 @@ class Company {
         "ImageUrl": imageUrl,
         "Status": status,
         "Price": price,
-        "Rating": rating
+        "Rating": rating,
+        "Times": times,
       };
 }

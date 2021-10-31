@@ -71,7 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           Text("Thông tin cá nhân",
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18)),
+                                  fontWeight: FontWeight.bold, fontSize: 24)),
                         ],
                       ),
                     ),

@@ -220,6 +220,32 @@ class APIServices {
     }
   }
 
+  static Future<void> feedbackOrder(
+      String id, int? feedbackPoint, String feedbackMessage) async {
+    String? token = await getToken();
+    if (token == null) return null;
+    final body = jsonEncode({
+      "id": id,
+      "feedbackPoint": feedbackPoint ?? 0,
+      "feedbackMessage": feedbackMessage,
+      "status": 3
+    });
+    final response = await http.put(
+      Uri.parse("$endpoint/api/v1.0/orders"),
+      headers: {
+        "Authorization": 'Bearer $token',
+        "content-type": "application/json"
+      },
+      body: body,
+    );
+    if (response.statusCode == 200) {
+      print("API feedbackOrder() success");
+    } else {
+      throw Exception(
+          'Failed to feedback order and ${response.statusCode} and ${response.reasonPhrase}');
+    }
+  }
+
   static Future<void> cancelOrder(String id, String cancelReason) async {
     String? token = await getToken();
     if (token == null) return null;
