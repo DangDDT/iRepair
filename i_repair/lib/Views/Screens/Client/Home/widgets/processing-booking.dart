@@ -19,9 +19,20 @@ class ProcessingBooking extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Card(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0), side: BorderSide.none),
+            borderRadius: BorderRadius.circular(25.0), side: BorderSide.none),
         child: Container(
           height: 380.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25.0),
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end:
+                  Alignment(9, 1), // 10% of the width, so there are ten blinds.
+              colors: <Color>[kBackgroundColor, kPrimaryColor], // red to yellow
+              tileMode:
+                  TileMode.repeated, // repeats the gradient over the canvas
+            ),
+          ),
           child: Column(
             children: [
               Container(

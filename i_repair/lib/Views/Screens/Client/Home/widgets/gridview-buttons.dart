@@ -14,7 +14,7 @@ class GridViewButtons extends StatelessWidget {
       itemCount: majors.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, crossAxisSpacing: 15, mainAxisSpacing: 16),
-      padding: EdgeInsets.only(top: 20, left: 15, right: 15),
+      padding: EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 15),
       itemBuilder: (BuildContext context, int index) {
         Major major = majors[index];
         return GestureDetector(
@@ -33,14 +33,14 @@ class GridViewButtons extends StatelessWidget {
                   child: ClipRRect(
                     child: Image.network(
                       major.imageUrl,
-                      height: 40,
-                      width: 40,
+                      height: 35,
+                      width: 35,
                     ),
                   ),
                 ),
                 Text('${major.name}',
                     style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: FontWeight.bold,
                         color: kTextColor))
               ],

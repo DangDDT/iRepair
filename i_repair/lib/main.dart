@@ -10,6 +10,7 @@ import 'package:i_repair/Views/common/success-screen/success-screen.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/cancel-page.dart';
 import 'package:i_repair/Views/Screens/Client/Profile/widgets/choose-address.dart';
 import 'package:provider/provider.dart';
+import 'Controllers/tipController/tipController.dart';
 import 'Services/auth/auth.dart';
 import 'Views/Screens/Client/CreateBooking/create-booking-screen.dart';
 import 'Views/Screens/app.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
                 ChangeNotifierProvider(create: (context) => PlaceBloc()),
                 ChangeNotifierProvider(create: (context) => OrderDetailBloc()),
                 ChangeNotifierProvider(create: (context) => UserBloc()),
+                ChangeNotifierProvider(create: (context) => TipBloc()),
                 StreamProvider.value(
                     value: AuthService().user, initialData: null),
               ],
