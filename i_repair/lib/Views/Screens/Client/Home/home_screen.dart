@@ -259,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
         SizedBox(
           height: 10,
         ),
-        if (tipBloc.tipList.length != 0)
+        if (tipBloc.tipList.length != 0 && !tipBloc.isLoading)
           Container(
             width: 300,
             height: 450,
@@ -372,6 +372,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           )
+        else
+          Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(child: CircularProgressIndicator()),
+            ],
+          ))
       ],
     );
   }

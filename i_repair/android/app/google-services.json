@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "677491976614",
+    "firebase_url": "https://irepair-9a97f-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "irepair-9a97f",
     "storage_bucket": "irepair-9a97f.appspot.com"
   },
@@ -13,6 +14,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "677491976614-3bba0e8vm6cjch6tpg1rqnecbv9hbmhe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.i_repair",
+            "certificate_hash": "bcdd75b6a02647e71fa482c6f2a779d33c676fb3"
+          }
+        },
+        {
+          "client_id": "677491976614-q1nvlfquoachaolqfpf2ejgl0t2oar1f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.i_repair",
+            "certificate_hash": "4d3bd7bec81c5f0820d645f26a992cf4b4c88d5c"
+          }
+        },
         {
           "client_id": "677491976614-kvuq67mose8timrvu59ltl85qh33ral1.apps.googleusercontent.com",
           "client_type": 3
