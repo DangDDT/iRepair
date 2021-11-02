@@ -283,7 +283,8 @@ class _RatingPageState extends State<RatingPage> {
                   (_feedbackController.text != '')
                       ? _feedbackController.text
                       : "Khách hàng không phản hồi");
-              await orderBloc.getHistoryBookingList(userBloc.currentUser!.id);
+              await orderBloc.getHistoryBookingList(
+                  userBloc.currentUser!.id, false);
               Get.back();
             },
             child: Text('XÁC NHẬN'),

@@ -18,10 +18,11 @@ class BookingScreen extends StatefulWidget {
 }
 
 class _BookingScreenState extends State<BookingScreen> {
+  bool _switchValue = false;
   @override
   void initState() {
     Provider.of<OrderDetailBloc>(context, listen: false)
-        .getHistoryBookingList(widget.user!.id);
+        .getHistoryBookingList(widget.user!.id, false);
     super.initState();
   }
 
@@ -96,6 +97,30 @@ class _BookingScreenState extends State<BookingScreen> {
           ),
         )
       ]),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Container(
+              child: Text(
+            "XEM TẤT CẢ ĐƠN HÀNG",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          )),
+          Container(
+            width: 60,
+            child: Switch(
+              activeColor: kSecondaryColor,
+              value: _switchValue,
+              onChanged: (value) {
+                setState(() {
+                  _switchValue = value;
+                  orderBloc.getHistoryBookingList(
+                      widget.user!.id, _switchValue);
+                });
+              },
+            ),
+          ),
+        ],
+      ),
       Container(
         height: 500,
         child: (orderBloc.isLoading)

@@ -6,8 +6,8 @@ import 'package:i_repair/Services/firebaseService/firebase.service.dart';
 
 class TipBloc with ChangeNotifier {
   bool isLoading = true;
-  List<Tip>? _tipList;
-  UnmodifiableListView<Tip> get tipList => UnmodifiableListView(_tipList!);
+  List<Tip>? _tipList = List<Tip>.empty();
+  UnmodifiableListView<Tip>? get tipList => UnmodifiableListView(_tipList!);
   TipBloc() {}
   getTipList() async {
     setLoading(true);

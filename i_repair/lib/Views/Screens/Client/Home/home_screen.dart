@@ -10,7 +10,6 @@ import 'package:i_repair/Controllers/tipController/tipController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/gridview-buttons.dart';
-import 'package:i_repair/Views/Screens/Client/Home/widgets/pending-booking.dart';
 import 'package:i_repair/Views/Screens/Client/Home/widgets/processing-booking.dart';
 import 'package:i_repair/Views/common/card/icon-card.dart';
 import 'package:provider/provider.dart';
@@ -32,8 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
     majorController.fetchMajors();
     Provider.of<OrderDetailBloc>(context, listen: false)
         .getProcessingBookingList(widget.user!.id);
-    Provider.of<OrderDetailBloc>(context, listen: false)
-        .getPendingBookingList(widget.user!.id);
     Provider.of<TipBloc>(context, listen: false).getTipList();
   }
 
@@ -156,39 +153,22 @@ class _HomeScreenState extends State<HomeScreen> {
         Container(
             height: 480,
             child: DefaultTabController(
-              length: 2,
+              length: 1,
               initialIndex: 0,
               child: Column(
                 children: [
                   Container(
-                    height: 75,
+                    height: 50,
                     child: AppBar(
                       centerTitle: true,
                       elevation: 0,
                       backgroundColor: kBackgroundColor,
                       title: Text(
-                        "YÊU CẦU CỦA BẠN",
+                        "YÊU CẦU HIỆN TẠI CỦA BẠN (${orderBloc.processingList!.length})",
                         style: TextStyle(
                             color: kTextColor,
                             fontWeight: FontWeight.bold,
                             fontSize: 18),
-                      ),
-                      bottom: TabBar(
-                        labelColor: kTextColor,
-                        labelStyle: TextStyle(
-                            fontSize: 13,
-                            fontFamily: 'Oswald',
-                            fontWeight: FontWeight.bold),
-                        tabs: [
-                          Tab(
-                            text:
-                                'Đang xử lý (${orderBloc.processingList!.length})',
-                          ),
-                          Tab(
-                            text:
-                                'Đang trì hoãn (${orderBloc.pendingList!.length})',
-                          ),
-                        ],
                       ),
                     ),
                   ),
@@ -196,7 +176,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: TabBarView(
                       physics: NeverScrollableScrollPhysics(),
                       children: [
-                        if (orderBloc.processingList == null)
+                        if (orderBloc.processingList == null ||
+                            orderBloc.isLoading)
                           Center(
                               child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -223,33 +204,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                       orderBloc.processingList![index]);
                             },
                           ),
-                        if (orderBloc.pendingList == null)
-                          Center(
-                              child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(child: CircularProgressIndicator()),
-                            ],
-                          ))
-                        else if (orderBloc.pendingList!.length == 0)
-                          Center(
-                              child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                  child: Text(
-                                      "KHÔNG CÓ YÊU CẦU TRÌ HOÃN NÀO CẢ.")),
-                            ],
-                          ))
-                        else
-                          ListView.builder(
-                            itemCount: orderBloc.pendingList!.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              print(orderBloc.pendingList![index].toJson());
-                              return PendingBooking(
-                                  orderDetail: orderBloc.pendingList![index]);
-                            },
-                          ),
                       ],
                     ),
                   )
@@ -259,7 +213,9 @@ class _HomeScreenState extends State<HomeScreen> {
         SizedBox(
           height: 10,
         ),
-        if (tipBloc.tipList.length != 0 && !tipBloc.isLoading)
+        if (tipBloc.tipList!.length != 0 &&
+            !tipBloc.isLoading &&
+            tipBloc.tipList != null)
           Container(
             width: 300,
             height: 450,
@@ -292,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   /// The widgets to display in the [ImageSlideshow].
                   /// Add the sample image file into the images folder
                   children: List<Widget>.generate(
-                      tipBloc.tipList.length,
+                      tipBloc.tipList!.length,
                       (index) => Card(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25.0),
@@ -324,7 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           borderRadius:
                                               BorderRadius.circular(50),
                                           child: Image.network(
-                                              tipBloc.tipList[index].imageUrl!,
+                                              tipBloc.tipList![index].imageUrl!,
                                               fit: BoxFit.fitHeight),
                                         ),
                                       ),
@@ -335,7 +291,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Container(
                                                 width: 220,
                                                 child: Text(
-                                                  "${tipBloc.tipList[index].title!.toUpperCase()}",
+                                                  "${tipBloc.tipList![index].title!.toUpperCase()}",
                                                   style: TextStyle(
                                                       fontSize: 16,
                                                       fontWeight:
@@ -349,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Container(
                                       margin: EdgeInsets.only(top: 10),
                                       child: Text(
-                                        "${tipBloc.tipList[index].content!}",
+                                        "${tipBloc.tipList![index].content!}",
                                         style: TextStyle(
                                           fontSize: 14,
                                         ),

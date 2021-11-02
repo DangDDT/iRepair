@@ -30,6 +30,8 @@ class UserBloc with ChangeNotifier {
       editedUser.address = value;
       editedUser.lat = lat;
       editedUser.lng = lng;
+    } else if (field == "AVATAR") {
+      editedUser.avatar = value;
     }
     currentUser = await APIServices.updateProfileUser(editedUser);
     notifyListeners();

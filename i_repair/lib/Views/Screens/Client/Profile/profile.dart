@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,6 +7,8 @@ import 'package:i_repair/Controllers/userController/userController.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Profile/userProfile.dart';
 import 'package:i_repair/Services/auth/auth.dart';
+import 'package:i_repair/Services/firebaseService/firebase.service.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -16,9 +20,24 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  PickedFile? imageFile = null;
   //TextController
   final TextEditingController _nameController = new TextEditingController();
   final TextEditingController _phoneController = new TextEditingController();
+  void _openGallery(BuildContext context) async {
+    final pickedFile = await ImagePicker().getImage(
+          source: ImageSource.gallery,
+        ) ??
+        null;
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = pickedFile;
+      });
+      FirebaseServices.uploadPic(new File(imageFile!.path), widget.user!.id)
+          .then((value) => Provider.of<UserBloc>(context, listen: false)
+              .setCurrentUserProfile("AVATAR", value, null, null));
+    }
+  }
 
   @override
   void initState() {
@@ -141,29 +160,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   backgroundColor:
                       MaterialStateProperty.all(kPrimaryLightColor),
                 ),
-                onPressed: () => {},
+                onPressed: () => _openGallery(context),
                 icon: Icon(
                   CupertinoIcons.upload_circle,
                   color: CupertinoColors.black,
                   size: 28,
                 ),
                 label: Text('Cập nhật ảnh',
-                    style: TextStyle(
-                        color: CupertinoColors.black,
-                        fontWeight: FontWeight.bold))),
-            SizedBox(width: 25),
-            ElevatedButton.icon(
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(kPrimaryLightColor),
-                ),
-                onPressed: () => {},
-                icon: Icon(
-                  CupertinoIcons.delete,
-                  color: CupertinoColors.black,
-                  size: 28,
-                ),
-                label: Text('Xóa ảnh',
                     style: TextStyle(
                         color: CupertinoColors.black,
                         fontWeight: FontWeight.bold))),

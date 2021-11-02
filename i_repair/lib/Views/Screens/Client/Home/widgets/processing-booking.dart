@@ -28,7 +28,12 @@ class ProcessingBooking extends StatelessWidget {
               begin: Alignment.topLeft,
               end:
                   Alignment(9, 1), // 10% of the width, so there are ten blinds.
-              colors: <Color>[kBackgroundColor, kPrimaryColor], // red to yellow
+              colors: (orderDetail.order.status == 0)
+                  ? <Color>[kBackgroundColor, kPrimaryColor]
+                  : <Color>[
+                      kBackgroundColor,
+                      kSecondaryLightColor
+                    ], // red to yellow
               tileMode:
                   TileMode.repeated, // repeats the gradient over the canvas
             ),
@@ -39,27 +44,6 @@ class ProcessingBooking extends StatelessWidget {
                 padding: EdgeInsets.only(left: 30, top: 10),
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          child: Text("THỜI GIAN TẠO: ",
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ),
-                        Container(
-                          child: Text(
-                              "${DateTime.parse(orderDetail.order.createTime!).toString().split(".")[0]}"),
-                        )
-                      ],
-                    ),
-                    Divider(
-                      height: 10,
-                      thickness: 1,
-                      indent: 0,
-                      endIndent: 20,
-                    ),
                     Row(
                       children: [
                         Container(
@@ -206,6 +190,61 @@ class ProcessingBooking extends StatelessWidget {
                 thickness: 1,
                 indent: 30,
                 endIndent: 20,
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 30),
+                child: Row(
+                  children: [
+                    Container(
+                      child: Text("THỜI GIAN TẠO: ",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    Container(
+                      child: Text(
+                          "${DateTime.parse(orderDetail.order.createTime!).toString().split(".")[0]}"),
+                    )
+                  ],
+                ),
+              ),
+              if (orderDetail.order.status == 0)
+                Container(
+                  padding: EdgeInsets.only(left: 30),
+                  child: Row(
+                    children: [
+                      Container(
+                        child: Text("TRẠNG THÁI: ",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                      Container(
+                          child: Text(
+                        "Thợ đang đến",
+                        style: TextStyle(
+                            color: Colors.green, fontWeight: FontWeight.bold),
+                      ))
+                    ],
+                  ),
+                )
+              else
+                Container(
+                  padding: EdgeInsets.only(left: 30),
+                  child: Row(
+                    children: [
+                      Container(
+                        child: Text("TRẠNG THÁI: ",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                      Container(
+                        child: Text(
+                            "Đang trì hoãn do ${orderDetail.order.pendingReason.toString().toLowerCase()}",
+                            style: TextStyle(
+                                color: Colors.orange,
+                                fontWeight: FontWeight.bold)),
+                      )
+                    ],
+                  ),
+                ),
+              SizedBox(
+                height: 10,
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
