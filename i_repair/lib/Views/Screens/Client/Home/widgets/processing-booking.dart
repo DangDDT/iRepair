@@ -263,7 +263,7 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                                 width: 10,
                               ),
                               Text(
-                                "GỌI ĐIỆN CHO THỢ",
+                                "GỌI ĐIỆN CHO KHÁCH",
                                 style: TextStyle(color: kTextColor),
                               ),
                             ],
