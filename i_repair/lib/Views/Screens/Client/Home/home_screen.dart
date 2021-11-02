@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         Tab(
                           text:
-                              'Đang trì hoãn (${orderBloc.pendingList.length})',
+                              'Đang tạm hoãn (${orderBloc.pendingList.length})',
                         ),
                       ],
                     ),
