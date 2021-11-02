@@ -48,7 +48,9 @@ class AuthService with ChangeNotifier {
           initialtoken = initialtoken.substring(initLength, endLength);
         }
         if (!token.isEmpty) {
-          CurrentUser? currentUser = await APIServices.createUser(token);
+          CurrentUser? currentUser = await APIServices.createUser(token)
+              .whenComplete(() => APIServices.cleanCache());
+          ;
           if (currentUser != null) {
             final prefs = await SharedPreferences.getInstance();
             String currentUserString = jsonEncode(currentUser);

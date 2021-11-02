@@ -41,9 +41,23 @@ class _CompletedBookingState extends State<CompletedBooking> {
             padding: const EdgeInsets.all(8.0),
             child: Card(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(25.0),
                   side: BorderSide.none),
               child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment(
+                        9, 1), // 10% of the width, so there are ten blinds.
+                    colors: <Color>[
+                      kBackgroundColor,
+                      Colors.green,
+                    ], // red to yellow
+                    tileMode:
+                        TileMode.clamp, // repeats the gradient over the canvas
+                  ),
+                ),
                 height: 210.0,
                 child: Column(
                   children: [
@@ -60,7 +74,7 @@ class _CompletedBookingState extends State<CompletedBooking> {
                               ),
                               Container(
                                 child: Text(
-                                    "${widget.orderDetail.order.createTime}"),
+                                    "${DateTime.parse(widget.orderDetail.order.createTime).toString().split(".")[0]}"),
                               )
                             ],
                           ),
@@ -144,20 +158,20 @@ class _CompletedBookingState extends State<CompletedBooking> {
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
-                                child:
-                                    (widget.orderDetail.order.feedbackPoint ==
-                                            null)
-                                        ? Text("Khách hàng chưa đánh giá")
-                                        : Row(
-                                            children: [
-                                              Text(
-                                                  "${widget.orderDetail.order.feedbackPoint}"),
-                                              Icon(
-                                                Icons.star_rate_rounded,
-                                                color: kPrimaryColor,
-                                              )
-                                            ],
-                                          ),
+                                child: (widget
+                                            .orderDetail.order.feedbackPoint ==
+                                        null)
+                                    ? Text("Đang đợi khách hàng đánh giá...")
+                                    : Row(
+                                        children: [
+                                          Text(
+                                              "${widget.orderDetail.order.feedbackPoint}"),
+                                          Icon(
+                                            Icons.star_rate_rounded,
+                                            color: kPrimaryColor,
+                                          )
+                                        ],
+                                      ),
                               )
                             ],
                           ),
@@ -172,20 +186,16 @@ class _CompletedBookingState extends State<CompletedBooking> {
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
-                                child:
-                                    (widget.orderDetail.order.feedbackMessage ==
-                                            null)
-                                        ? Text("Khách hàng chưa phản hồi")
-                                        : Row(
-                                            children: [
-                                              Text(
-                                                  "${widget.orderDetail.order.feedbackPoint}"),
-                                              Icon(
-                                                Icons.star_rate_rounded,
-                                                color: kPrimaryColor,
-                                              )
-                                            ],
-                                          ),
+                                child: (widget.orderDetail.order
+                                            .feedbackMessage ==
+                                        null)
+                                    ? Text("Đang đợi khách hàng phản hồi...")
+                                    : Row(
+                                        children: [
+                                          Text(
+                                              "${widget.orderDetail.order.feedbackMessage}"),
+                                        ],
+                                      ),
                               )
                             ],
                           ),

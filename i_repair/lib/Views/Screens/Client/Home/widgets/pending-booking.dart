@@ -112,9 +112,23 @@ class _PendingBookingState extends State<PendingBooking> {
             padding: const EdgeInsets.all(8.0),
             child: Card(
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(25.0),
                   side: BorderSide.none),
               child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment(
+                        9, 1), // 10% of the width, so there are ten blinds.
+                    colors: <Color>[
+                      kBackgroundColor,
+                      kPrimaryLightColor,
+                    ], // red to yellow
+                    tileMode:
+                        TileMode.clamp, // repeats the gradient over the canvas
+                  ),
+                ),
                 height: 350.0,
                 child: Column(
                   children: [
@@ -131,7 +145,7 @@ class _PendingBookingState extends State<PendingBooking> {
                               ),
                               Container(
                                 child: Text(
-                                    "${widget.orderDetail.order.createTime}"),
+                                    "${DateTime.parse(widget.orderDetail.order.createTime).toString().split(".")[0]}"),
                               )
                             ],
                           ),
