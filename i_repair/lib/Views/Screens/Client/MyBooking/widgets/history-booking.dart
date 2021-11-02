@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:i_repair/Models/Constants/constants.dart';
 import 'package:i_repair/Models/Order/orderDetail.dart';
+import 'package:intl/intl.dart';
 
 class HistoryBooking extends StatelessWidget {
   final OrderDetail orderDetail;
@@ -19,7 +20,7 @@ class HistoryBooking extends StatelessWidget {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.0), side: BorderSide.none),
         child: Container(
-          height: 280.0,
+          height: 260.0,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25.0),
             gradient: LinearGradient(
@@ -40,27 +41,6 @@ class HistoryBooking extends StatelessWidget {
                 padding: EdgeInsets.only(left: 30, top: 10),
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          child: Text("THỜI GIAN TẠO: ",
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ),
-                        Container(
-                          child: Text(
-                              "${DateTime.parse(orderDetail.order.createTime!).toString().split(".")[0]}"),
-                        )
-                      ],
-                    ),
-                    Divider(
-                      height: 10,
-                      thickness: 1,
-                      indent: 0,
-                      endIndent: 20,
-                    ),
                     Row(
                       children: [
                         Container(
@@ -83,6 +63,21 @@ class HistoryBooking extends StatelessWidget {
                         ),
                         Container(
                           child: Text("${orderDetail.service.serviceName}"),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          child: Text("CHI PHÍ: ",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                        Container(
+                          child: Text(
+                              "${NumberFormat.currency(locale: 'vi').format(orderDetail.order.total)}"),
                         )
                       ],
                     ),
@@ -125,6 +120,22 @@ class HistoryBooking extends StatelessWidget {
                                   Container(
                                     child: Text(
                                         "${orderDetail.company.companyName}"),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    child: Text("THỜI GIAN TẠO: ",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                        "${DateTime.parse(orderDetail.order.createTime!).toString().split(".")[0]}"),
                                   )
                                 ],
                               ),

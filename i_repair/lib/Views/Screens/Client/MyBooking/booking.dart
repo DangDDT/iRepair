@@ -100,9 +100,20 @@ class _BookingScreenState extends State<BookingScreen> {
       Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          Expanded(
+            child: Container(
+                padding: EdgeInsets.only(left: 20),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  (_switchValue) ? "TẤT CẢ ĐƠN HÀNG" : "ĐƠN HÀNG HOÀN THÀNH",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: (_switchValue) ? kTextColor : Colors.green),
+                )),
+          ),
           Container(
               child: Text(
-            "XEM TẤT CẢ ĐƠN HÀNG",
+            "HIỆN TẤT CẢ ĐƠN HÀNG",
             style: TextStyle(fontWeight: FontWeight.bold),
           )),
           Container(
