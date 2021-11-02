@@ -59,6 +59,7 @@ class APIServices {
         });
     if (response.statusCode == 200) {
       print("API fetchOrdersAPI() success");
+      await cleanCache();
       return orderDetailFromJson(response.body);
     } else {
       throw Exception(
