@@ -153,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ? SingleChildScrollView(
                                 physics: const AlwaysScrollableScrollPhysics(),
                                 child: Container(
-                                  padding: EdgeInsets.only(top: 100),
+                                  padding: EdgeInsets.only(top: 170),
                                   child: Center(
                                       child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
