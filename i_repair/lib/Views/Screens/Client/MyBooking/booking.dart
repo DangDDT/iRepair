@@ -133,7 +133,7 @@ class _BookingScreenState extends State<BookingScreen> {
         ],
       ),
       Container(
-        height: 500,
+        height: 450,
         child: (orderBloc.isLoading)
             ? Container(
                 height: 500,

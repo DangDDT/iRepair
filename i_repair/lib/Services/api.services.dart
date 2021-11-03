@@ -53,7 +53,7 @@ class APIServices {
     String? token = await getToken();
     if (token == null) return null;
     final response = await http
-        .get(Uri.parse("$endpoint/api/v1.0/majors?status=1"), headers: {
+        .get(Uri.parse("$endpoint/api/v1.0/majors?status=0"), headers: {
       "Authorization": 'Bearer $token',
       "content-type": "application/json"
     });

@@ -228,14 +228,16 @@ class ProcessingBooking extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.only(left: 30),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         child: Text("TRẠNG THÁI: ",
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
                       Container(
+                        width: 200,
                         child: Text(
-                            "Đang trì hoãn do ${orderDetail.order.pendingReason.toString().toLowerCase()}",
+                            "Đang trì hoãn do ${orderDetail.order.pendingReason.toString().toLowerCase().replaceAll("tôi", "thợ")}",
                             style: TextStyle(
                                 color: Colors.orange,
                                 fontWeight: FontWeight.bold)),
