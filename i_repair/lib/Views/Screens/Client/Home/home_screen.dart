@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ]),
         Container(
-          height: 500,
+          height: 640,
           child: DefaultTabController(
             length: 2,
             initialIndex: 0,

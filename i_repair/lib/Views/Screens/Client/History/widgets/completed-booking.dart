@@ -58,7 +58,7 @@ class _CompletedBookingState extends State<CompletedBooking> {
                         TileMode.clamp, // repeats the gradient over the canvas
                   ),
                 ),
-                height: 210.0,
+                height: 230.0,
                 child: Column(
                   children: [
                     Container(

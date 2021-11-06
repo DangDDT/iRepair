@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "677491976614-krb1iov1lkqo6a7ufubnpg4en1k1hi1q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.i_repair",
+            "certificate_hash": "020503c24387c19c76687f94898024d928135e5b"
+          }
+        },
+        {
           "client_id": "677491976614-q1nvlfquoachaolqfpf2ejgl0t2oar1f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

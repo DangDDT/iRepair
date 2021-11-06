@@ -89,7 +89,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 ),
               ]),
               Container(
-                height: 400,
+                height: 600,
                 child: DefaultTabController(
                   length: 2,
                   initialIndex: 0,

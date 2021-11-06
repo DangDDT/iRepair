@@ -214,7 +214,7 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
-                                width: 300,
+                                width: 290,
                                 child: Text(
                                     "${widget.orderDetail.order.customerAddress}"),
                               )

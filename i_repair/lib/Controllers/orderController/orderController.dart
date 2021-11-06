@@ -124,6 +124,6 @@ class OrderDetailBloc with ChangeNotifier {
 
   void setLoading(val) {
     this.isLoading = val;
-    notifyListeners();
+    //notifyListeners();
   }
 }
