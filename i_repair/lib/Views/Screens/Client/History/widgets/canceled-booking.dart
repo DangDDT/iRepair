@@ -68,13 +68,13 @@ class _CanceledBookingState extends State<CanceledBooking> {
                           Row(
                             children: [
                               Container(
-                                child: Text("NGÀY TẠO: ",
+                                child: Text("TÊN KHÁCH HÀNG: ",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
                                 child: Text(
-                                    "${DateTime.parse(widget.orderDetail.order.createTime).toString().split(".")[0]}"),
+                                    "${widget.orderDetail.customer.fullName}"),
                               )
                             ],
                           ),
@@ -137,13 +137,13 @@ class _CanceledBookingState extends State<CanceledBooking> {
                           Row(
                             children: [
                               Container(
-                                child: Text("TÊN KHÁCH HÀNG: ",
+                                child: Text("NGÀY TẠO: ",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
                                 child: Text(
-                                    "${widget.orderDetail.customer.fullName}"),
+                                    "${DateTime.parse(widget.orderDetail.order.createTime).toString().split(".")[0]}"),
                               )
                             ],
                           ),
@@ -151,25 +151,23 @@ class _CanceledBookingState extends State<CanceledBooking> {
                             height: 5,
                           ),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
                                 child: Text(
                                     (widget.orderDetail.order.cancelPerson == 1)
                                         ? "KHÁCH HÀNG HỦY DO: "
-                                        : "THỢ HỦY DO: ",
+                                        : "BẠN HỦY DO: ",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
-                                child: Row(
-                                  children: [
-                                    Text(
-                                        "${widget.orderDetail.order.cancelReason}",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.red)),
-                                  ],
-                                ),
+                                width: 170,
+                                child: Text(
+                                    "${widget.orderDetail.order.cancelReason.toString().replaceAll("thợ", "bạn")}",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.red)),
                               )
                             ],
                           ),

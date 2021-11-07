@@ -68,13 +68,13 @@ class _CompletedBookingState extends State<CompletedBooking> {
                           Row(
                             children: [
                               Container(
-                                child: Text("NGÀY TẠO: ",
+                                child: Text("TÊN KHÁCH HÀNG: ",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
                                 child: Text(
-                                    "${DateTime.parse(widget.orderDetail.order.createTime).toString().split(".")[0]}"),
+                                    "${widget.orderDetail.customer.fullName}"),
                               )
                             ],
                           ),
@@ -137,13 +137,13 @@ class _CompletedBookingState extends State<CompletedBooking> {
                           Row(
                             children: [
                               Container(
-                                child: Text("TÊN KHÁCH HÀNG: ",
+                                child: Text("NGÀY TẠO: ",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
                                 child: Text(
-                                    "${widget.orderDetail.customer.fullName}"),
+                                    "${DateTime.parse(widget.orderDetail.order.createTime).toString().split(".")[0]}"),
                               )
                             ],
                           ),
@@ -164,12 +164,51 @@ class _CompletedBookingState extends State<CompletedBooking> {
                                     ? Text("Đang đợi khách hàng đánh giá...")
                                     : Row(
                                         children: [
-                                          Text(
-                                              "${widget.orderDetail.order.feedbackPoint}"),
                                           Icon(
-                                            Icons.star_rate_rounded,
-                                            color: kPrimaryColor,
-                                          )
+                                            Icons.star,
+                                            color: (widget.orderDetail.order
+                                                        .feedbackPoint! >=
+                                                    1)
+                                                ? kPrimaryColor
+                                                : Colors.grey,
+                                            size: 14,
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: (widget.orderDetail.order
+                                                        .feedbackPoint! >=
+                                                    2)
+                                                ? kPrimaryColor
+                                                : Colors.grey,
+                                            size: 14,
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: (widget.orderDetail.order
+                                                        .feedbackPoint! >=
+                                                    3)
+                                                ? kPrimaryColor
+                                                : Colors.grey,
+                                            size: 14,
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: (widget.orderDetail.order
+                                                        .feedbackPoint! >=
+                                                    4)
+                                                ? kPrimaryColor
+                                                : Colors.grey,
+                                            size: 14,
+                                          ),
+                                          Icon(
+                                            Icons.star,
+                                            color: (widget.orderDetail.order
+                                                        .feedbackPoint! >=
+                                                    5)
+                                                ? kPrimaryColor
+                                                : Colors.grey,
+                                            size: 14,
+                                          ),
                                         ],
                                       ),
                               )

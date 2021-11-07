@@ -246,7 +246,7 @@ class _PendingBookingState extends State<PendingBooking> {
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
-                                width: 290,
+                                width: 250,
                                 child: Text(
                                     "${widget.orderDetail.order.customerAddress}"),
                               )

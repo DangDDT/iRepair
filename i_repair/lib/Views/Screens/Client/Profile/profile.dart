@@ -152,7 +152,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.only(left: 20),
                 width: 100,
                 child: Text(
-                  "THÔNG TIN CỦA THỢ: ",
+                  "THÔNG TIN CÁ NHÂN: ",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),

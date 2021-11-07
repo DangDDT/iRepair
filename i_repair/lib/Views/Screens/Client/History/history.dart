@@ -89,7 +89,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 ),
               ]),
               Container(
-                height: 600,
+                height: 460,
                 child: DefaultTabController(
                   length: 2,
                   initialIndex: 0,
@@ -157,6 +157,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                     ],
                                   ))
                                 : ListView.separated(
+                                    scrollDirection: Axis.vertical,
                                     itemCount: orderBloc.completedList.length,
                                     itemBuilder:
                                         (BuildContext context, int index) {

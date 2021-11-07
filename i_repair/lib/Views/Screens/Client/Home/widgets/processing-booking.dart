@@ -214,7 +214,7 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                                         TextStyle(fontWeight: FontWeight.bold)),
                               ),
                               Container(
-                                width: 290,
+                                width: 250,
                                 child: Text(
                                     "${widget.orderDetail.order.customerAddress}"),
                               )
@@ -247,48 +247,41 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        MaterialButton(
-                          color: CupertinoColors.white,
-                          onPressed: () => {
-                            launch(
-                                "tel://${widget.orderDetail.customer.phoneNumber}"),
-                          },
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.phone,
-                                color: kTextColor,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "GỌI ĐIỆN CHO KHÁCH",
-                                style: TextStyle(color: kTextColor),
-                              ),
-                            ],
-                          ),
-                        ),
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            MaterialButton(
-                              color: CupertinoColors.activeGreen,
-                              onPressed: () {
-                                orderBloc
-                                    .completeOrder(widget.orderDetail.order.id);
-                                Get.offAndToNamed('/success_screen');
-                              },
-                              child: Text(
-                                "HOÀN THÀNH",
-                                style: TextStyle(color: kBackgroundColor),
+                            Container(
+                              width: 180,
+                              padding: EdgeInsets.all(5),
+                              child: MaterialButton(
+                                color: CupertinoColors.white,
+                                onPressed: () => {
+                                  launch(
+                                      "tel://${widget.orderDetail.customer.phoneNumber}"),
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.phone,
+                                      color: kTextColor,
+                                      size: 14,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "GỌI ĐIỆN CHO KHÁCH",
+                                      style: TextStyle(
+                                          color: kTextColor, fontSize: 14),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(2.0),
+                                  padding: EdgeInsets.all(2.0),
                                   child: MaterialButton(
                                     color: CupertinoColors.activeOrange,
                                     onPressed: () {
@@ -303,7 +296,7 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(2.0),
+                                  padding: EdgeInsets.all(2.0),
                                   child: MaterialButton(
                                     color: CupertinoColors.systemRed,
                                     onPressed: () {
@@ -320,6 +313,18 @@ class _ProcessingBookingState extends State<ProcessingBooking> {
                               ],
                             ),
                           ],
+                        ),
+                        MaterialButton(
+                          color: CupertinoColors.activeGreen,
+                          onPressed: () {
+                            orderBloc
+                                .completeOrder(widget.orderDetail.order.id);
+                            Get.offAndToNamed('/success_screen');
+                          },
+                          child: Text(
+                            "HOÀN THÀNH",
+                            style: TextStyle(color: kBackgroundColor),
+                          ),
                         ),
                       ],
                     ),

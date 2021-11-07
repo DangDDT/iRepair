@@ -78,37 +78,49 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text(widget.user!.name,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 24)),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          // Row(
-                          //   children: [
-                          //     Container(
-                          //       width: 50,
-                          //       child: Text("Cấp 10:",
-                          //           style: TextStyle(
-                          //               fontWeight: FontWeight.bold,
-                          //               fontSize: 12)),
-                          //     ),
-                          //     Container(
-                          //         width: 120,
-                          //         height: 10,
-                          //         alignment: Alignment.topCenter,
-                          //         child: LinearProgressIndicator(
-                          //           backgroundColor: kBackgroundColor,
-                          //           color: kSecondaryColor,
-                          //           minHeight: 10,
-                          //           value: 0.7,
-                          //         )),
-                          //     Container(
-                          //       margin: EdgeInsets.only(left: 10),
-                          //       child: Text("70/100 (ĐKN)",
-                          //           style: TextStyle(
-                          //               fontWeight: FontWeight.bold,
-                          //               fontSize: 12)),
-                          //     ),
-                          //   ],
-                          // )
+                          Row(
+                            children: [
+                              Text('Số sao hiện tại: ',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold)),
+                              Icon(
+                                Icons.star,
+                                color: (widget.user!.rating >= 1)
+                                    ? kSecondaryColor
+                                    : Colors.grey,
+                                size: 20,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: (widget.user!.rating >= 2)
+                                    ? kSecondaryColor
+                                    : Colors.grey,
+                                size: 20,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: (widget.user!.rating >= 3)
+                                    ? kSecondaryColor
+                                    : Colors.grey,
+                                size: 20,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: (widget.user!.rating >= 4)
+                                    ? kSecondaryColor
+                                    : Colors.grey,
+                                size: 20,
+                              ),
+                              Icon(
+                                Icons.star,
+                                color: (widget.user!.rating >= 5)
+                                    ? kSecondaryColor
+                                    : Colors.grey,
+                                size: 20,
+                              ),
+                            ],
+                          )
                         ],
                       ),
                     )
@@ -194,32 +206,34 @@ class _HomeScreenState extends State<HomeScreen> {
                         onRefresh: () => _fetchData(),
                       ),
                       (orderBloc.pendingList.length == 0)
-                          ? Center(
+                          ? Container(
+                              padding: EdgeInsets.only(top: 150),
                               child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 60,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                      color: kPrimaryLightColor,
-                                      borderRadius: BorderRadius.circular(30)),
-                                  child: ClipRRect(
-                                    child: Image.asset(
-                                      "assets/images/repairman.png",
-                                      width: 50,
-                                      height: 50,
+                                children: [
+                                  Container(
+                                    width: 60,
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                        color: kPrimaryLightColor,
+                                        borderRadius:
+                                            BorderRadius.circular(30)),
+                                    child: ClipRRect(
+                                      child: Image.asset(
+                                        "assets/images/repairman.png",
+                                        width: 50,
+                                        height: 50,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Container(
-                                    child: Text(
-                                        "THẬT TỐT LÀNH, KHÔNG CÓ YÊU CẦU TRÌ HOÃN NÀO CẢ.")),
-                              ],
-                            ))
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Container(
+                                      child: Text(
+                                          "KHÔNG CÓ YÊU CẦU TRÌ HOÃN NÀO CẢ.")),
+                                ],
+                              ),
+                            )
                           : ListView.builder(
                               itemCount: orderBloc.pendingList.length,
                               itemBuilder: (BuildContext context, int index) {
